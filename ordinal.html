@@ -1,0 +1,268 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>JavaStat -- Ordinal Contingency Table Analysis</TITLE>
+<META content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<SCRIPT language=LiveScript>
+<!-- hide this script tag's contents from old browsers
+
+var b11; var b12; var b13; var b14; var b15; var b1x
+var b21; var b22; var b23; var b24; var b25; var b2x
+var b31; var b32; var b33; var b34; var b35; var b3x
+var b41; var b42; var b43; var b44; var b45; var b4x
+var b51; var b52; var b53; var b54; var b55; var b5x
+var bx1; var bx2; var bx3; var bx4; var bx5; var bxx
+
+var c11; var c12; var c13; var c14; var c15; var c1x
+var c21; var c22; var c23; var c24; var c25; var c2x
+var c31; var c32; var c33; var c34; var c35; var c3x
+var c41; var c42; var c43; var c44; var c45; var c4x
+var c51; var c52; var c53; var c54; var c55; var c5x
+var cx1; var cx2; var cx3; var cx4; var cx5; var cxx
+
+var con; var dis; var se; var z; var p; var Gam
+var TiedX; var TiedY; var Somers_dxy; var Somers_dyx; var Tau_b; var Tau_c
+var nRows; var nCols; var MinSize
+
+function CalcStats(form) {
+
+b11=eval(form.a11.value); c11=b11*b11*b11
+b12=eval(form.a12.value); c12=b12*b12*b12
+b13=eval(form.a13.value); c13=b13*b13*b13
+b14=eval(form.a14.value); c14=b14*b14*b14
+b15=eval(form.a15.value); c15=b15*b15*b15
+b1x=b11+b12+b13+b14+b15; c1x=b1x*b1x*b1x
+
+b21=eval(form.a21.value); c21=b21*b21*b11
+b22=eval(form.a22.value); c22=b22*b22*b12
+b23=eval(form.a23.value); c23=b23*b23*b13
+b24=eval(form.a24.value); c24=b24*b24*b14
+b25=eval(form.a25.value); c25=b25*b25*b15
+b2x=b21+b22+b23+b24+b25; c2x=b2x*b2x*b2x
+
+b31=eval(form.a31.value); c31=b31*b31*b31
+b32=eval(form.a32.value); c32=b32*b32*b32
+b33=eval(form.a33.value); c33=b33*b33*b33
+b34=eval(form.a34.value); c34=b34*b34*b34
+b35=eval(form.a35.value); c35=b35*b35*b35
+b3x=b31+b32+b33+b34+b35; c3x=b3x*b3x*b3x
+
+b41=eval(form.a41.value); c41=b41*b41*b41
+b42=eval(form.a42.value); c42=b42*b42*b42
+b43=eval(form.a43.value); c43=b43*b43*b43
+b44=eval(form.a44.value); c44=b44*b44*b44
+b45=eval(form.a45.value); c45=b45*b45*b45
+b4x=b41+b42+b43+b44+b45; c4x=b4x*b4x*b4x
+
+b51=eval(form.a51.value); c51=b51*b51*b51
+b52=eval(form.a52.value); c52=b52*b52*b52
+b53=eval(form.a53.value); c53=b53*b53*b53
+b54=eval(form.a54.value); c54=b54*b54*b54
+b55=eval(form.a55.value); c55=b55*b55*b55
+b5x=b51+b52+b53+b54+b55; c5x=b5x*b5x*b5x
+
+bx1=b11+b21+b31+b41+b51; cx1=bx1*bx1*bx1
+bx2=b12+b22+b32+b42+b52; cx2=bx2*bx2*bx2
+bx3=b13+b23+b33+b43+b53; cx3=bx3*bx3*bx3
+bx4=b14+b24+b34+b44+b54; cx4=bx4*bx4*bx4
+bx5=b15+b25+b35+b45+b55; cx5=bx5*bx5*bx5
+bxx=b1x+b2x+b3x+b4x+b5x; cxx=bxx*bxx*bxx
+
+con=0
+con=con+b11*(b22+b23+b24+b25+b32+b33+b34+b35+b42+b43+b44+b45+b52+b53+b54+b55)
+con=con+b12*(b23+b24+b25+b33+b34+b35+b43+b44+b45+b53+b54+b55)
+con=con+b13*(b24+b25+b34+b35+b44+b45+b54+b55)
+con=con+b14*(b25+b35+b45+b55)
+con=con+b21*(b32+b33+b34+b35+b42+b43+b44+b45+b52+b53+b54+b55)
+con=con+b22*(b33+b34+b35+b43+b44+b45+b53+b54+b55)
+con=con+b23*(b34+b35+b44+b45+b54+b55)
+con=con+b24*(b35+b45+b55)
+con=con+b31*(b42+b43+b44+b45+b52+b53+b54+b55)
+con=con+b32*(b43+b44+b45+b53+b54+b55)
+con=con+b33*(b44+b45+b54+b55)
+con=con+b34*(b45+b55)
+con=con+b41*(b52+b53+b54+b55)
+con=con+b42*(b53+b54+b55)
+con=con+b43*(b54+b55)
+con=con+b44*(b55)
+form.con.value=''+con
+
+dis=0
+dis=dis+b15*(b21+b22+b23+b24+b31+b32+b33+b34+b41+b42+b43+b44+b51+b52+b53+b54)
+dis=dis+b14*(b21+b22+b23+b31+b32+b33+b41+b42+b43+b51+b52+b53)
+dis=dis+b13*(b21+b22+b31+b32+b41+b42+b51+b52)
+dis=dis+b12*(b21+b31+b41+b51)
+dis=dis+b25*(b31+b32+b33+b34+b41+b42+b43+b44+b51+b52+b53+b54)
+dis=dis+b24*(b31+b32+b33+b41+b42+b43+b51+b52+b53)
+dis=dis+b23*(b31+b32+b41+b42+b51+b52)
+dis=dis+b22*(b31+b41+b51)
+dis=dis+b35*(b41+b42+b43+b44+b51+b52+b53+b54)
+dis=dis+b34*(b41+b42+b43+b51+b52+b53)
+dis=dis+b33*(b41+b42+b51+b52)
+dis=dis+b32*(b41+b51)
+dis=dis+b45*(b51+b52+b53+b54)
+dis=dis+b44*(b51+b52+b53)
+dis=dis+b43*(b51+b52)
+dis=dis+b42*(b51)
+form.dis.value=''+dis
+
+nRows = 0
+if(b1x>0) {nRows = nRows + 1}
+if(b2x>0) {nRows = nRows + 1}
+if(b3x>0) {nRows = nRows + 1}
+if(b4x>0) {nRows = nRows + 1}
+if(b5x>0) {nRows = nRows + 1}
+nCols = 0
+if(bx1>0) {nCols = nCols + 1}
+if(bx2>0) {nCols = nCols + 1}
+if(bx3>0) {nCols = nCols + 1}
+if(bx4>0) {nCols = nCols + 1}
+if(bx5>0) {nCols = nCols + 1}
+if(nRows<nCols) { MinSize = nRows } else { MinSize = nCols }
+form.nRows.value = nRows; form.nCols.value = nCols
+
+Gam = (con-dis)/(con+dis); form.Gam.value = Fmt(Gam)
+
+se = Math.sqrt((1-(cx1+cx2+cx3+cx4+cx5)/cxx)*(1-(c1x+c2x+c3x+c4x+c5x)/cxx)*bxx*bxx*bxx/9)
+
+z = (con-dis)/se; form.z.value = Fmt(z)
+
+p = Norm(z); form.p.value = Fmt(p)
+
+TiedX = (b1x*(b1x-1)+b2x*(b2x-1)+b3x*(b3x-1)+b4x*(b4x-1)+b5x*(b5x-1))/2
+form.TiedX.value = ''+TiedX
+
+TiedY = (bx1*(bx1-1)+bx2*(bx2-1)+bx3*(bx3-1)+bx4*(bx4-1)+bx5*(bx5-1))/2
+form.TiedY.value = ''+TiedY
+
+Somers_dxy = (con-dis)/(bxx*(bxx-1)/2-TiedX)
+form.Somers_dxy.value = Fmt(Somers_dxy)
+
+Somers_dyx = (con-dis)/(bxx*(bxx-1)/2-TiedY)
+form.Somers_dyx.value = Fmt(Somers_dyx)
+
+Tau_b = (con-dis)/Math.sqrt((bxx*(bxx-1)/2-TiedX)*(bxx*(bxx-1)/2-TiedY))
+form.Tau_b.value = Fmt(Tau_b)
+
+Tau_c = (con-dis)* 2*MinSize / ( bxx*bxx*(MinSize-1) )
+form.Tau_c.value = Fmt(Tau_c)
+
+}
+
+function Norm(z) {
+    z=Math.abs(z)
+    var p=1+ z*(0.04986735+ z*(0.02114101+ z*(0.00327763+ z*(0.0000380036+ z*(0.0000488906+ z*0.000005383)))))
+    p=p*p; p=p*p; p=p*p
+    return 1/(p*p)
+    }
+
+function Fmt(x) { 
+var v
+if(x>=0) { v=''+(x+0.00005) } else { v=''+(x-0.00005) }
+return v.substring(0,v.indexOf('.')+5)
+}
+
+<!-- done hiding from old browsers -->
+  </SCRIPT>
+
+</HEAD>
+<BODY style="BACKGROUND-COLOR: rgb(255,255,238)">
+<CENTER>
+<H2><FONT color=red>Contingency Table Analysis<BR>for Ordinal (sequenced) 
+Categories </FONT></H2></CENTER>
+<P align=center>Revised 07/30/2015 -- More accurate calculation of the test for 
+significant association.</P>
+<P align=center>&nbsp;</P>
+<P>This screen computes several statistics from a table whose row and column 
+categories form logically ordered sequences. It can accommodate a table with up 
+to five rows and/or five columns. </P>
+<P>Enter your cell counts into the table below. If your table has fewer than 
+five rows or fewer than five columns, enter the numbers into the upper-left 
+block of cells, leaving zeros in the the remaining cells to the right of, and 
+below, your table. <FONT color=red>Do not blank out any cells; leave zeros in 
+all the unused cells.</FONT> </P>
+<HR align=center SIZE=1 width="100%" noShade>
+Note: Before using this page for the first time, make sure you read the <A 
+href="userintf.html">JavaStat user interface guidelines</A> for important 
+information about interacting with JavaScrpt pages. <BR>
+<HR align=center SIZE=1 width="100%" noShade>
+<BR>
+<FORM method=post>
+<CENTER>
+<TABLE border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <DIV align=center>* </DIV></TD>
+    <TD>
+      <DIV align=center>Col 1 </DIV></TD>
+    <TD>
+      <DIV align=center>Col 2 </DIV></TD>
+    <TD>
+      <DIV align=center>Col 3 </DIV></TD>
+    <TD>
+      <DIV align=center>Col 4 </DIV></TD>
+    <TD>
+      <DIV align=center>Col 5 </DIV></TD></TR>
+  <TR>
+    <TD>Row 1</TD>
+    <TD><INPUT onfocus=a11.select() size=5 value=0 name=a11></TD>
+    <TD><INPUT onfocus=a12.select() size=5 value=0 name=a12></TD>
+    <TD><INPUT onfocus=a13.select() size=5 value=0 name=a13></TD>
+    <TD><INPUT onfocus=a14.select() size=5 value=0 name=a14></TD>
+    <TD><INPUT onfocus=a15.select() size=5 value=0 name=a15></TD></TR>
+  <TR>
+    <TD>Row 2</TD>
+    <TD><INPUT onfocus=a21.select() size=5 value=0 name=a21></TD>
+    <TD><INPUT onfocus=a22.select() size=5 value=0 name=a22></TD>
+    <TD><INPUT onfocus=a23.select() size=5 value=0 name=a23></TD>
+    <TD><INPUT onfocus=a24.select() size=5 value=0 name=a24></TD>
+    <TD><INPUT onfocus=a25.select() size=5 value=0 name=a25></TD></TR>
+  <TR>
+    <TD>Row 3</TD>
+    <TD><INPUT onfocus=a31.select() size=5 value=0 name=a31></TD>
+    <TD><INPUT onfocus=a32.select() size=5 value=0 name=a32></TD>
+    <TD><INPUT onfocus=a33.select() size=5 value=0 name=a33></TD>
+    <TD><INPUT onfocus=a34.select() size=5 value=0 name=a34></TD>
+    <TD><INPUT onfocus=a35.select() size=5 value=0 name=a35></TD></TR>
+  <TR>
+    <TD>Row 4</TD>
+    <TD><INPUT onfocus=a41.select() size=5 value=0 name=a41></TD>
+    <TD><INPUT onfocus=a42.select() size=5 value=0 name=a42></TD>
+    <TD><INPUT onfocus=a43.select() size=5 value=0 name=a43></TD>
+    <TD><INPUT onfocus=a44.select() size=5 value=0 name=a44></TD>
+    <TD><INPUT onfocus=a45.select() size=5 value=0 name=a45></TD></TR>
+  <TR>
+    <TD>Row 5</TD>
+    <TD><INPUT onfocus=a51.select() size=5 value=0 name=a51></TD>
+    <TD><INPUT onfocus=a52.select() size=5 value=0 name=a52></TD>
+    <TD><INPUT onfocus=a53.select() size=5 value=0 name=a53></TD>
+    <TD><INPUT onfocus=a54.select() size=5 value=0 name=a54></TD>
+    <TD><INPUT onfocus=a55.select() size=5 value=0 
+name=a55></TD></TR></TBODY></TABLE>
+<P><INPUT type=reset value=Reset> <INPUT onclick=CalcStats(this.form) type=button value=Compute> <BR></P></CENTER>
+<HR>
+<BR><INPUT onfocus=a11.focus() size=2 value=0 name=nRows> Rows, and <INPUT 
+onfocus=a11.focus() size=2 value=0 name=nCols> Columns 
+<P>Concordant Pairs = <INPUT onfocus=a11.focus() size=8 value=0 name=con> , 
+Discordant Pairs = <INPUT onfocus=a11.focus() size=8 value=0 name=dis> , Tied on 
+X = <INPUT onfocus=a11.focus() size=8 value=0 name=TiedX> , Tied on Y = <INPUT 
+onfocus=a11.focus() size=8 value=0 name=TiedY> </P>
+<P>Gamma = <INPUT onfocus=a11.focus() size=8 value=0 name=Gam> , z = <INPUT 
+onfocus=a11.focus() size=10 value=0 name=z> , Kendall's test for significant 
+association: <FONT color=red>p-value&nbsp;= </FONT><INPUT onfocus=a11.focus() 
+size=10 value=0 name=p></P>
+<P><FONT color=red><B>Other Statistics...</B></FONT> </P>
+<P>Somers d.xy = <INPUT onfocus=a11.focus() size=8 value=0 name=Somers_dxy> , 
+Somers d.yx = <INPUT onfocus=a11.focus() size=8 value=0 name=Somers_dyx> 
+(Analogous to slopes of fitted lines.)</P>
+<P>Kendall Tau-b = <INPUT onfocus=a11.focus() size=8 value=0 name=Tau_b> , 
+Kendall Tau-c = <INPUT onfocus=a11.focus() size=8 value=0 name=Tau_c> </P>
+<P></P>
+<HR>
+Reference: Alan Agresti, Analysis of Ordinal Categorical Data, Wiley, 1984, 
+Chapters 9 and 10. </FORM>
+<P align=center></P>
+<HR>
+<BR>Return to the <A href="index.html">Interactive Statistics page</A> or to the 
+<A href="JCPhome.html">JCP Home Page</A><BR><BR>Send e-mail to John C. Pezzullo 
+at <IMG border=0 src="emladr.gif" width=217 align=middle height=24> 
+</BODY></HTML>

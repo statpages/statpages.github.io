@@ -1,0 +1,412 @@
+<HTML>
+<HEAD>
+  <META http-equiv="PICS-Label" content='(PICS-1.0 "http://www.classify.org/safesurf/" l on "1996.08.22T13:44+0000 r (SS~~000 1)'>
+  <SCRIPT language="JavaScript">
+<!-- hide this script tag's contents from old browsers
+
+function Exp(x) { return Math.exp(x) }
+function Max(x1,x2) { return (x1>x2)?x1:x2 }
+function Min(x1,x2) { return (x1<x2)?x1:x2 }
+function Abs(x) { return (x<0)?-x:x }
+
+function Fmt(x) { var v;
+	if(Abs(x)<0.00005) { x=0 }
+	if(x>=0) { v='          '+(x+0.00005) } else { v='          '+(x-0.00005) }
+	v = v.substring(0,v.indexOf('.')+5)
+	return v.substring(v.length-10,v.length)
+	}
+
+function vFmt(x) { var v;
+	if(Abs(x)<0.0000005) { x=0 }
+	if(x>=0) { v='              '+(x+0.0000005) } else { v='          '+(x-0.0000005) }
+	v = v.substring(0,v.indexOf('.')+7)
+	return v.substring(v.length-14,v.length)
+	}
+
+function createArray() {
+	this.length = createArray.arguments.length
+	for (var i = 1; i <= this.length; i++) { this[i] = createArray.arguments[i-1] }
+	}
+
+var pH1 = new createArray(12,12,12,12,12, 4);
+var pH2 = new createArray( 9, 9, 6, 3, 3, 2);
+var pH3 = new createArray( 9, 9, 0, 0, 1, 1);
+var pH4 = new createArray( 5, 5, 0, 0, 1, 1);
+var pH5 = new createArray( 5, 5, 0, 2,12,12);
+var pH6 = new createArray( 3, 3, 3,12,12,12);
+var pH7 = new createArray( 0, 3, 3,12,12,12);
+
+var M1 = new createArray( 0, 3,10,15, 99,99,99,16);
+var M2 = new createArray( 3, 8,13,15, 99,99,99,16);
+var M3 = new createArray( 3,13,24,24, 99,99,24,33);
+var M4 = new createArray( 3,13,29,29, 99,99,29,48);
+
+function Calc(form) {
+
+var AP3 = 0;
+
+AP3 = AP3 + eval(form.Pulse.value) + eval(form.MAP.value) + eval(form.Temp.value) + eval(form.Resp.value);
+AP3 = AP3 + eval(form.PaO2.value) + eval(form.AaDO2.value) + eval(form.Hct.value) + eval(form.WBC.value);
+AP3 = AP3 + eval(form.Creat.value) + eval(form.Urine.value) + eval(form.BUN.value) + eval(form.Na.value);
+AP3 = AP3 + eval(form.Alb.value) + eval(form.Bil.value) + eval(form.Gluc.value) + eval(form.Age.value);
+AP3 = AP3 + ( (form.AIDStag.checked) ? 23 : 0 );
+AP3 = AP3 + ( (form.HepFail.checked) ? 16 : 0 );
+AP3 = AP3 + ( (form.Lymph.checked)   ? 13 : 0 );
+AP3 = AP3 + ( (form.MetCA.checked)   ? 11 : 0 );
+AP3 = AP3 + ( (form.LeukMM.checked)  ? 10 : 0 );
+AP3 = AP3 + ( (form.Imm.checked)     ? 10 : 0 );
+AP3 = AP3 + ( (form.Cirrh.checked)   ?  4 : 0 );
+var vpH   = eval(form.pH.value);
+var vpCO2 = eval(form.pCO2.value);
+AP3 = AP3 + ( (vpH==1) ? pH1[vpCO2] : 0 );
+AP3 = AP3 + ( (vpH==2) ? pH2[vpCO2] : 0 );
+AP3 = AP3 + ( (vpH==3) ? pH3[vpCO2] : 0 );
+AP3 = AP3 + ( (vpH==4) ? pH4[vpCO2] : 0 );
+AP3 = AP3 + ( (vpH==5) ? pH5[vpCO2] : 0 );
+AP3 = AP3 + ( (vpH==6) ? pH6[vpCO2] : 0 );
+AP3 = AP3 + ( (vpH==7) ? pH7[vpCO2] : 0 );
+var vMotor  = eval(form.Motor.value);
+var vVerbal = eval(form.Verbal.value);
+if (form.Eyes.value=="No") { vVerbal = vVerbal + 4 }
+var v = 0;
+v = v + ( (vMotor==1) ? M1[vVerbal] : 0 );
+v = v + ( (vMotor==2) ? M2[vVerbal] : 0 );
+v = v + ( (vMotor==3) ? M3[vVerbal] : 0 );
+v = v + ( (vMotor==4) ? M4[vVerbal] : 0 );
+if (v==99) {
+	form.Score.value = "Eyes/Verbal/Motor"
+	} else {
+	AP3 = AP3 + v;
+	form.Score.value = " " + AP3;
+	}
+}		
+
+<!-- done hiding from old browsers -->
+</SCRIPT>
+  <TITLE>APACHE III Scoring Sheet</TITLE>
+</HEAD>
+<BODY>
+<H2 ALIGN=Center>
+  <FONT COLOR="Blue">APACHE III Scoring Sheet</FONT>
+</H2>
+<P>
+This page provides a quick and easy way to calculate the APACHE-III score.
+<P>
+Enter the patient's physiology, age, and chronic health information by making
+selections from the popup menus and checkboxes, and the page will immediately
+display the APACHE-III score and the predicted probability of death.
+<P>
+<FORM>
+  <CENTER>
+    <TABLE CELLPADDING="2" ALIGN="Center">
+      <CAPTION>
+	<FONT COLOR="Blue"> <B>Set the Scoring Variables Here...</B></FONT>
+      </CAPTION>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <SELECT NAME="Age" onchange="Calc(this.form)"> 
+	  <OPTION VALUE=0 SELECTED>16 - 44 
+	  <OPTION VALUE=5>45 - 59 
+	  <OPTION VALUE=11>60 - 64 
+	  <OPTION VALUE=13>65 - 69 
+	  <OPTION VALUE=16>70 - 74 
+	  <OPTION VALUE=17>75 - 84 
+	  <OPTION VALUE=24>&gt;= 85</SELECT></TD>
+	<TD><B>Age</B> (years)</TD>
+      </TR>
+      <TR>
+	<TD COLSPAN=2><P ALIGN=Center>
+	  <FONT COLOR="Blue"><B>Physiology...</B></FONT></TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <SELECT NAME="Pulse" onchange="Calc(this.form)"> 
+	  <OPTION VALUE=8>&lt;= 39 
+	  <OPTION VALUE=5>40 - 49 
+	  <OPTION VALUE=0 SELECTED>50 - 99 
+	  <OPTION VALUE=1>100 - 109 
+	  <OPTION VALUE=5>110 - 119 
+	  <OPTION VALUE=7>120 - 139 
+	  <OPTION VALUE=13>130 - 154 
+	  <OPTION VALUE=17>&gt;= 155</SELECT></TD>
+	<TD><B>Pulse</B> (beats/min)<BR>
+	  (day 1 value most different from 75)</TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <SELECT NAME="MAP" onchange="Calc(this.form)"> 
+	  <OPTION VALUE=23>&lt;= 39 
+	  <OPTION VALUE=15>40 - 59 
+	  <OPTION VALUE=7>60 - 69 
+	  <OPTION VALUE=6>70 - 79 
+	  <OPTION VALUE=0 SELECTED>80 - 99 
+	  <OPTION VALUE=4>100 - 119 
+	  <OPTION VALUE=7>120 - 129 
+	  <OPTION VALUE=9>130 - 139 
+	  <OPTION VALUE=10>&gt;= 140</SELECT></TD>
+	<TD><B>Mean Blood Pressure</B>, MAP (mm Hg)<BR>
+	  (day 1 value most different from 90)</TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <SELECT NAME="Temp" onchange="Calc(this.form)"> 
+	  <OPTION VALUE=20>&lt;= 32.9 
+	  <OPTION VALUE=16>33 - 33.4 
+	  <OPTION VALUE=13>33.5 - 33.9 
+	  <OPTION VALUE=8>34 - 34.9 
+	  <OPTION VALUE=2>35 - 35.9 
+	  <OPTION VALUE=0 SELECTED>36 - 39.9 
+	  <OPTION VALUE=4>&gt;= 40</SELECT></TD>
+	<TD><B>Temperature</B> (C)<BR>
+	  (day 1 value most different from 38)</TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <SELECT NAME="Resp" onchange="Calc(this.form)"> 
+	  <OPTION VALUE=17>&lt;= 5 
+	  <OPTION VALUE=8>6 - 11 
+	  <OPTION VALUE=7>12 - 13 
+	  <OPTION VALUE=0 SELECTED>14 - 24 
+	  <OPTION VALUE=6>25 - 34 
+	  <OPTION VALUE=9>35 - 39 
+	  <OPTION VALUE=11>40 - 49 
+	  <OPTION VALUE=14>&gt;= 50</SELECT></TD>
+	<TD><B>Respiratory Rate</B> (breaths/minute)<BR>
+	  (day 1 value most different from 19)</TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <SELECT NAME="PaO2" onchange="Calc(this.form)"> 
+	  <OPTION VALUE=15>&lt;= 49 
+	  <OPTION VALUE=5>50 - 69 
+	  <OPTION VALUE=2>70 - 79 
+	  <OPTION VALUE=0 SELECTED>&gt;= 80</SELECT></TD>
+	<TD><B>PaO<SUB>2</SUB> </B>(mm Hg)<BR>
+	  Only for non-intubated patients, <BR>
+	  or intubated patients with FIO<SUB>2</SUB> &lt; 0.5 (50%)</TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <SELECT NAME="AaDO2" onchange="Calc(this.form)">
+	  <OPTION VALUE=0 SELECTED>&lt; 100 
+	  <OPTION VALUE=7>100 - 249 
+	  <OPTION VALUE=9>250 - 349 
+	  <OPTION VALUE=11>350 - 499 
+	  <OPTION VALUE=14>&gt;= 500</SELECT></TD>
+	<TD><B>A-aDO<SUB>2</SUB></B> (mm Hg)<BR>
+	  Only for intubated patients with FIO<SUB>2</SUB> &gt;=0.5 (50%)</TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <SELECT NAME="Hct" onchange="Calc(this.form)"> 
+	  <OPTION VALUE=3>&lt;= 40.9 
+	  <OPTION VALUE=0 SELECTED>41 - 49 
+	  <OPTION VALUE=3>&gt;= 50</SELECT></TD>
+	<TD><B>Hematocrit</B> (%)<BR>
+	  (day 1 value most different from 45.5)</TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <SELECT NAME="WBC" onchange="Calc(this.form)"> 
+	  <OPTION VALUE=19>&lt; 1.0 
+	  <OPTION VALUE=5>1.0 - 2.9 
+	  <OPTION VALUE=0 SELECTED>3.0 - 19.9 
+	  <OPTION VALUE=1>20 - 24.9 
+	  <OPTION VALUE=5>&gt;= 25</SELECT></TD>
+	<TD><B>WBC</B> (thousands/mm<SUP>3</SUP>)<BR>
+	  (day 1 value most different from 11.5)</TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <SELECT NAME="Creat" onchange="Calc(this.form)"> 
+	  <OPTION VALUE=3>&lt;= 0.4, No ARF 
+	  <OPTION VALUE=0 SELECTED>0.5 - 1.4 , No ARF 
+	  <OPTION VALUE=4>1.5 - 1.94 , No ARF 
+	  <OPTION VALUE=7>&gt;= 1.95, No ARF 
+	  <OPTION VALUE=0 SELECTED>0 - 1.4, With ARF 
+	  <OPTION VALUE=10>&gt;= 1.5, With ARF </SELECT></TD>
+	<TD><B>Creatinine</B> (mg/dL) (and whether Acute Renal Failure present)<BR>
+	  (day 1 value most different from 1.0)</TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <SELECT NAME="Urine" onchange="Calc(this.form)"> 
+	  <OPTION VALUE=15>&lt;= 399 
+	  <OPTION VALUE=8>400 - 599 
+	  <OPTION VALUE=7>600 - 899 
+	  <OPTION VALUE=5>900 - 1499 
+	  <OPTION VALUE=4>1,500 - 1,999 
+	  <OPTION VALUE=0 SELECTED>2,000 - 3,999 
+	  <OPTION VALUE=1>&gt;= 4,000</SELECT></TD>
+	<TD><B>Urine Output</B> (cc/day)</TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <SELECT NAME="BUN" onchange="Calc(this.form)">
+	  <OPTION VALUE=0 SELECTED>&lt;= 16.9 
+	  <OPTION VALUE=2>17 - 19 
+	  <OPTION VALUE=7>20 - 39 
+	  <OPTION VALUE=11>40 - 79 
+	  <OPTION VALUE=12>&gt;= 80</SELECT></TD>
+	<TD><B>BUN</B> (mg/dL)<BR>
+	  (highest value on day 1)</TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <SELECT NAME="Na" onchange="Calc(this.form)"> 
+	  <OPTION VALUE=3>&lt;= 119 
+	  <OPTION VALUE=2>120 - 134 
+	  <OPTION VALUE=0 SELECTED>135 - 154 
+	  <OPTION VALUE=4>&gt;= 155</SELECT></TD>
+	<TD><B>Sodium</B> (mEq/L)<BR>
+	  (day 1 value most different from 145.5)</TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <SELECT NAME="Alb" onchange="Calc(this.form)"> 
+	  <OPTION VALUE=11>&lt;= 1.9 
+	  <OPTION VALUE=6>2.0 - 2.4 
+	  <OPTION VALUE=0 SELECTED>2.5 - 4.4 
+	  <OPTION VALUE=4>&gt;= 4.5</SELECT></TD>
+	<TD><B>Albumin</B> (g/dL)<BR>
+	  (day 1 value most different from 3.5)</TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <SELECT NAME="Bil" onchange="Calc(this.form)">
+	  <OPTION VALUE=0 SELECTED>&lt;= 1.9 
+	  <OPTION VALUE=5>2.0 - 2.9 
+	  <OPTION VALUE=6>3.0 - 4.9 
+	  <OPTION VALUE=8>5.0 - 7.9 
+	  <OPTION VALUE=16>&gt;= 8.0</SELECT></TD>
+	<TD><B>Bilirubin</B> (mg/dL)<BR>
+	  (highest value on day 1)</TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <SELECT NAME="Gluc" onchange="Calc(this.form)"> 
+	  <OPTION VALUE=8>&lt;= 39 
+	  <OPTION VALUE=9>40 - 59 
+	  <OPTION VALUE=0 SELECTED>60 - 199 
+	  <OPTION VALUE=3>200 - 349 
+	  <OPTION VALUE=5>&gt;= 350</SELECT></TD>
+	<TD><B>Glucose</B> (mg/dL)<BR>
+	  (day 1 value most different from 130)</TD>
+      </TR>
+      <TR>
+	<TD COLSPAN=2><P ALIGN=Center>
+	  <FONT COLOR="Blue"><B>Acid-Base Disturbances...</B></FONT></TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <SELECT NAME="pH" onchange="Calc(this.form)"> 
+	  <OPTION VALUE=1>&lt; 7.20 
+	  <OPTION VALUE=2>7.20 - &lt;7.30 
+	  <OPTION VALUE=3>7.30 - &lt;7.35 
+	  <OPTION VALUE=4 SELECTED>7.35 - &lt;7.45 
+	  <OPTION VALUE=5>7.45 - &lt;7.50 
+	  <OPTION VALUE=6>7.50 - &lt;7.60 
+	  <OPTION VALUE=7>&gt;= 7.60</SELECT></TD>
+	<TD><B>pH</B><BR>
+	  (day 1 value most different from 7.40)</TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <SELECT NAME="pCO2" onchange="Calc(this.form)"> 
+	  <OPTION VALUE=1>&lt; 25 
+	  <OPTION VALUE=2>25 - &lt;30 
+	  <OPTION VALUE=3 SELECTED>30 - &lt;35 
+	  <OPTION VALUE=4>35 - &lt;45 
+	  <OPTION VALUE=5>45 - &lt;50 
+	  <OPTION VALUE=6>&gt;= 50</SELECT></TD>
+	<TD><B>pCO<SUB>2</SUB></B></TD>
+      </TR>
+      <TR>
+	<TD COLSPAN=2><P ALIGN=Center>
+	  <FONT COLOR="Blue"><B>Neurologic Abnormalities...</B></FONT></TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <SELECT NAME="Eyes" onchange="Calc(this.form)">
+	  <OPTION VALUE="Yes" SELECTED>Yes, Eyes Open 
+	  <OPTION VALUE="No">No, Eyes Do Not Open</SELECT></TD>
+	<TD>Do <B>Eyes</B> Open Spontaneously, or to Painful/Verbal Stimulation?</TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <SELECT NAME="Verbal" onchange="Calc(this.form)">
+	  <OPTION VALUE=1 SELECTED>Oriented, converses 
+	  <OPTION VALUE=2>Confused conversation 
+	  <OPTION VALUE=3>Inapprop. words, Incomp. sounds 
+	  <OPTION VALUE=4>No response</SELECT></TD>
+	<TD><P ALIGN=Left>
+	  <B>Verbal</B> Response</TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <SELECT NAME="Motor" onchange="Calc(this.form)"> 
+	  <OPTION VALUE=1 SELECTED>Obeys verbal commands 
+	  <OPTION VALUE=2>Localizes pain 
+	  <OPTION VALUE=3>Flexion withdrawal / decorticate rigidity
+	  <OPTION VALUE=4>Decerebrate rigidity / no response</SELECT></TD>
+	<TD><B>Motor</B> Response</TD>
+      </TR>
+      <TR>
+	<TD COLSPAN=2><P ALIGN=Center>
+	  <FONT COLOR="Blue"><B>Comorbid Conditions...</B></FONT></TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  AIDS 
+	  <INPUT TYPE="checkbox" NAME="AIDStag" onClick="Calc(this.form)"><BR>
+	  Hepatic Failure
+	  <INPUT TYPE="checkbox" NAME="HepFail" onClick="Calc(this.form)"><BR>
+	  Lymphoma 
+	  <INPUT TYPE="checkbox" NAME="Lymph" onClick="Calc(this.form)"><BR>
+	  Metastatic Cancer
+	  <INPUT TYPE="checkbox" NAME="MetCA" onClick="Calc(this.form)"><BR>
+	  Leukemia / Multiple Myeloma
+	  <INPUT TYPE="checkbox" NAME="LeukMM" onClick="Calc(this.form)"><BR>
+	  Immune Compromised
+	  <INPUT TYPE="checkbox" NAME="Imm" onClick="Calc(this.form)"><BR>
+	  Cirrhosis 
+	  <INPUT TYPE="checkbox" NAME="Cirrh" onClick="Calc(this.form)"></TD>
+	<TD><B>Chronic Health Conditions</B> Present At Admission<BR>
+	  (check <B>all</B> that apply)</TD>
+      </TR>
+    </TABLE>
+  </CENTER>
+  <P>
+  <CENTER>
+    <TABLE BORDER CELLPADDING="2" ALIGN="Center">
+      <CAPTION>
+	<FONT COLOR="Blue"><B> Here are the Results...</B></FONT>
+      </CAPTION>
+      <TR>
+	<TD>APACHE-III Score:</TD>
+	<TD>
+	  <INPUT TYPE="text" NAME="Score" VALUE="0"></TD>
+      </TR>
+      <TR>
+	<TD>Probability of Death:</TD>
+	<TD>
+	  <INPUT TYPE="text" NAME="Mort" VALUE="( Coming Soon! )"></TD>
+      </TR>
+    </TABLE>
+  </CENTER>
+</FORM>
+<P>
+Reference: <BR>
+<I>The APACHE III prognostic system. Risk prediction of hospital mortality
+for critically ill hospitalized adults.</I><BR>
+Knaus WA, Wagner DP, Draper EA, et al.<BR>
+<A HREF="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&amp;db=pubmed&amp;dopt=Abstract&amp;list_uids=1959406">Chest.
+1991 Dec;100(6):1619-36</A>
+<P>
+If you have any questions, comments or suggestions about this web page, contact:
+John C. Pezzullo:
+<IMG SRC="emladr.gif" WIDTH="217" HEIGHT="24" BORDER="0" ALIGN="Middle">
+<P>
+Return to the <A HREF="index.html">Interactive Statistics page</A> or to
+the <A HREF="JCPhome.html">JCP Home Page</A><BR>
+</BODY></HTML>

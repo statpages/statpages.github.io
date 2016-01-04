@@ -1,0 +1,513 @@
+<HTML>
+<HEAD>
+  <META http-equiv="PICS-Label" content="(PICS-1.0 "http://www.classify.org/safesurf/" l on "1996.08.22T13:44+0000
+  r (SS~~000 1)"">
+  <STYLE>
+<!--
+div.Section1
+	{page:Section1;}
+span.SpellE
+	{}
+-->
+  </STYLE>
+  <TITLE>Logistic Regression Examples</TITLE>
+</HEAD>
+<BODY bgcolor="#c0c0c0">
+<CENTER>
+  <H2>
+    <FONT color="#0000ff" face="Arial">Data Examples for Logistic Regression</FONT>
+  </H2>
+  <P>
+  <FONT face="Arial"> <SMALL><I>by Kevin M. Sullivan<p>Version 2015-03-15</I></FONT><P>
+Return to the <a href="logistic.html">Logistic Regression</a> page
+</CENTER>
+<P>
+  <FONT face="Arial">A number of examples are provided on the format to enter
+  data.&nbsp; All examples are based on the Evans County data set described
+  in Kleinbaum, Kupper, and Morgenstern, <I>Epidemiologic Research: Principles
+  and Quantitative Methods</I>, New York: Van Nostrand Reinhold, 1982.&nbsp;
+  The Evans County study was a cohort study of men followed for 7 years.&nbsp;
+  The files are also available as text files to allow the user to cut and paste
+  the example data into the Data Window.</FONT>
+  <P>
+  <FONT face="Arial">Data can be in two formats - records at the <B>
+  individual</B> level (one record for each individual or whatever the unit
+  of analysis) or the data could be <B> summary</B> information, such as the
+  number of individuals at an exposure level with<I>out</I> disease and the
+  number with disease.&nbsp; The data on one line must be separated by a tab
+  or a comma; the examples below use the comma to separate data points.&nbsp;
+  These examples first describe data at the individual level, and then describe
+  summary data.</FONT>
+  <P>
+  <FONT face="Arial"><B>Data at the individuals level, one exposure
+  variable</B></FONT>
+  <P style="margin-top: 0pt; margin-bottom: 0pt;">
+  <FONT face="Arial">Enter or paste the data into the Data Window a dichotomous
+  exposure variable (coded as 1 for exposed and 0 for unexposed) and the outcome
+  variable (coded as 1 for with the outcome and 0 for without the outcome)
+  with the two variables separated by a "," or a tab.&nbsp; For example, in
+  assessing the relationship between an elevated catecholamine level (the exposure
+  of interest, 1= elevated and 0= normal) and coronary heart disease (CHD,
+  the outcome of interest), the records would be formatted as numeric values
+  for:</FONT>
+  <P style="margin-top: 0pt; margin-bottom: 0pt;">
+  <FONT face="Arial" size="2">exposure variable value, outcome variable
+  value</FONT>
+  <P>
+  <FONT face="Arial">For this example data the number of data points is 609
+  and the number of predictor variables is 1.&nbsp; The first 10 records from
+  the example data are shown below:</FONT>
+  <P style="word-spacing: 0pt; line-height: 100%; margin-top: 0pt; margin-bottom: 0pt;">
+  <FONT face="Arial" size="2">0, 0<BR>
+  0, 0<BR>
+  1, 1<BR>
+  1, 0<BR>
+  0, 0<BR>
+  0, 0<BR>
+  0, 1<BR>
+  0, 0<BR>
+  0, 0<BR>
+  0, 0&nbsp;</FONT>
+  <P style="word-spacing: 0pt; line-height: 100%; margin-top: 0pt; margin-bottom: 0pt;">
+  <FONT face="Arial" size="2">... (plus 599 additional lines)</FONT>
+  <P style="word-spacing: 0pt; line-height: 100%; margin-top: 0pt; margin-bottom: 0pt;">
+  &nbsp;
+  <P>
+  <FONT face="Arial">The full data file as a text file can be found
+  <A href="http://www.sph.emory.edu/%7Ecdckms/Logistic/cach.txt">here</A>.&nbsp;
+  The results of the analysis would be:</FONT>
+  <P>
+  <FONT face="Courier New" size="2">Odds Ratios and 95% Confidence
+  Intervals...<BR>
+  Variable&nbsp; O.R.&nbsp;&nbsp;&nbsp; Low -- High<BR>
+  1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.8615 1.6878
+  4.8514</FONT><BR>
+  &nbsp;
+  <P>
+  <FONT face="Arial">The interpretation would be that individuals with elevated
+  catecholamine levels have a 2.8615 greater odds of developing CHD compared
+  to individuals with normal catecholamine levels.</FONT>
+  <P>
+  <FONT face="Arial"><I>[A note on coding the <B> exposure</B> variable:&nbsp;
+  The above example coded the exposed as 1 and unexposed as 0, and the odds
+  ratio was calculated&nbsp; comparing the odds of being coded as 1 to being
+  coded as 0 - note that those coded as 0 are the referent group.&nbsp; If
+  you code the exposure as 1 and 2, the smaller number will be treated as the
+  referent group, which in this example is 1.&nbsp; The odds ratio for a 2/1
+  coding scheme would be the odds of disease for those coded as 2 compared
+  to the odds in those coded as 1.]</I></FONT>
+  <P>
+  <FONT face="Arial"><I>[A note on coding the <B> outcome</B> variable: The
+  outcome variable must be coded as 1 for those with the outcome and 0 for
+  those without the outcome.]</I></FONT>
+  <P>
+  <FONT face="Arial">If the exposure variable is continuous, you can use the
+  numeric value (which assumes the relationship is linear on a logit scale).&nbsp;
+  For example, in assessing the relationship between age and CHD, the number
+  of data points is 609 and the number of predictor variables is 1, and the
+  first ten records would look like as shown below (data as a text file can
+  be found
+  <A href="http://www.sph.emory.edu/%7Ecdckms/Logistic/agch.txt">here</A>):</FONT>
+  <P style="word-spacing: 0pt; line-height: 100%; margin-top: 0pt; margin-bottom: 0pt;">
+  <FONT face="Arial" size="2">56, 0<BR>
+  43, 0<BR>
+  56, 1<BR>
+  64, 0<BR>
+  49, 0<BR>
+  46, 0<BR>
+  52, 1<BR>
+  63, 0<BR>
+  42, 0<BR>
+  55, 0</FONT>
+  <P style="word-spacing: 0pt; line-height: 100%; margin-top: 0pt; margin-bottom: 0pt;">
+  <FONT face="Arial" size="2">... (plus 599 additional lines)</FONT>
+  <P>
+  <FONT face="Arial">The results of the analysis would be:</FONT>
+  <P>
+  <FONT face="Courier New" size="2">Odds Ratios and 95% Confidence
+  Intervals...<BR>
+  Variable&nbsp; O.R.&nbsp;&nbsp;&nbsp; Low -- High<BR>
+  1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0454 1.0189 1.0727</FONT>
+  <P>
+  <FONT face="Arial" size="2">T</FONT><FONT face="Arial">he interpretation
+  would be that for every one year increase in age, the odds of CHD increased
+  by a factor of 1.0454 (or by about 4.5%).</FONT>
+  <P>
+  <FONT face="Arial"><B>Data at the individuals level, two exposure variables
+  - no interaction model</B></FONT>
+  <P>
+  <FONT face="Arial">If there is more than one exposure variable, list the
+  exposure variables first and the outcome variable last.&nbsp; For example,
+  say the investigator wants to determine the simultaneous effect of catecholamine
+  and cigarette smoking (1=smoker, 0=nonsmoker) on CHD, the data would be:</FONT>
+  <P>
+  <FONT face="Arial" size="2">first exposure variable value, second exposure
+  variable value, outcome variable value</FONT>
+  <P>
+  <FONT face="Arial">For this example data the number of data points is 609
+  and the number of predictor variables is 2.&nbsp; The first 10 records from
+  the example data are shown below with the variable being catecholamine, smoking,
+  and CHD and the data in a text file is
+  <A href="http://www.sph.emory.edu/%7Ecdckms/Logistic/casmch.txt">here</A>:</FONT>
+  <P style="word-spacing: 0pt; line-height: 100%; margin-top: 0pt; margin-bottom: 0pt;">
+  <FONT face="Arial" size="2">0, 0, 0<BR>
+  0, 1, 0<BR>
+  1, 1, 1<BR>
+  1, 1, 0<BR>
+  0, 1, 0<BR>
+  0, 1, 0<BR>
+  0, 1, 1<BR>
+  0, 0, 0<BR>
+  0, 1, 0<BR>
+  0, 0, 0</FONT>
+  <P style="word-spacing: 0pt; line-height: 100%; margin-top: 0pt; margin-bottom: 0pt;">
+  <FONT face="Arial" size="2">... (plus 599 additional lines)</FONT>
+  <P>
+  <FONT face="Arial">The results of the analysis would be:</FONT>
+  <P>
+  <FONT face="Courier New" size="2">Odds Ratios and 95% Confidence
+  Intervals...<BR>
+  Variable&nbsp;&nbsp; O.R.&nbsp;&nbsp; Low -- High<BR>
+  1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.9074 1.7079 4.9492<BR>
+  2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0000 1.1206 3.5695</FONT>
+  <P>
+  <FONT face="Arial" size="2">T</FONT><FONT face="Arial">he interpretation
+  would be that individuals with an elevated catecholamine level ("Variable
+  1" in the above output) have an odds of CHD about 2.9 times greater than
+  those with normal catecholamine levels controlling for cigarette smoking.&nbsp;
+  Cigarette smokers ("Variable" 2 in the above output) have twice the odds
+  (2.0) of CHD compared to nonsmokers controlling for catecholamine (elevated
+  vs. normal).</FONT>
+  <P>
+  <FONT face="Arial"><B>Data at the individuals level, two exposure variables
+  - interaction model</B></FONT>
+  <P>
+  <FONT face="Arial">If you would like to assess the interaction between two
+  variables, there will need to be an interaction term.&nbsp; Using the data
+  from the previous example, the question might be whether cigarette smoking
+  modifies the catecholamine-&gt;CHD relationship.&nbsp; The interaction term
+  is simply multiplying the value for catecholamine times the value for smoking,
+  of which there are only four possibilities with these two variables:</FONT>
+  <TABLE style="border-collapse: collapse;" id="AutoNumber1" border="1" bordercolor="#111111"
+  cellpadding="0" cellspacing="0" width="47%">
+    <TR>
+      <TD align="center" width="19%"><FONT face="Arial" size="2">Catecholamine</FONT></TD>
+      <TD align="center" width="20%">&nbsp;</TD>
+      <TD align="center" width="20%"><FONT face="Arial" size="2">Smoking</FONT></TD>
+      <TD align="center" width="20%">&nbsp;</TD>
+      <TD align="center" width="20%"><FONT face="Arial" size="2">Interaction</FONT></TD>
+    </TR>
+    <TR>
+      <TD align="center" width="19%"><FONT face="Arial" size="2">1</FONT></TD>
+      <TD align="center" width="20%"><FONT face="Arial" size="2">x</FONT></TD>
+      <TD align="center" width="20%"><FONT face="Arial" size="2">1</FONT></TD>
+      <TD align="center" width="20%"><FONT face="Arial" size="2">=</FONT></TD>
+      <TD align="center" width="20%"><FONT face="Arial" size="2">1</FONT></TD>
+    </TR>
+    <TR>
+      <TD align="center" width="19%"><FONT face="Arial" size="2">1</FONT></TD>
+      <TD align="center" width="20%"><FONT face="Arial" size="2">x</FONT></TD>
+      <TD align="center" width="20%"><FONT face="Arial" size="2">0</FONT></TD>
+      <TD align="center" width="20%"><FONT face="Arial" size="2">=</FONT></TD>
+      <TD align="center" width="20%"><FONT face="Arial" size="2">0</FONT></TD>
+    </TR>
+    <TR>
+      <TD align="center" width="19%"><FONT face="Arial" size="2">0</FONT></TD>
+      <TD align="center" width="20%"><FONT face="Arial" size="2">x</FONT></TD>
+      <TD align="center" width="20%"><FONT face="Arial" size="2">1</FONT></TD>
+      <TD align="center" width="20%"><FONT face="Arial" size="2">=</FONT></TD>
+      <TD align="center" width="20%"><FONT face="Arial" size="2">0</FONT></TD>
+    </TR>
+    <TR>
+      <TD align="center" width="19%"><FONT face="Arial" size="2">0</FONT></TD>
+      <TD align="center" width="20%"><FONT face="Arial" size="2">x</FONT></TD>
+      <TD align="center" width="20%"><FONT face="Arial" size="2">0</FONT></TD>
+      <TD align="center" width="20%"><FONT face="Arial" size="2">=</FONT></TD>
+      <TD align="center" width="20%"><FONT face="Arial" size="2">0</FONT></TD>
+    </TR>
+  </TABLE>
+  <P>
+  <FONT face="Arial">The data would be in the following format:</FONT>
+  <P>
+  <FONT face="Arial" size="2">first exposure variable value, second exposure
+  variable value, interaction value, outcome variable value</FONT>
+  <P>
+  <FONT face="Arial">For this example data the number of data points is 609
+  and the number of predictor variables is 3.&nbsp; The first 10 records from
+  the example data are shown below with the variables being catecholamine,
+  smoking, the catecholamine-smoking interaction, and CHD and the data file
+  as text can be found
+  <A href="http://www.sph.emory.edu/%7Ecdckms/Logistic/casmich.txt">here</A>:</FONT>
+  <P style="word-spacing: 0pt; line-height: 100%; margin-top: 0pt; margin-bottom: 0pt;">
+  <FONT face="Arial" size="2">0, 0, 0, 0<BR>
+  0, 1, 0, 0<BR>
+  1, 1, 1, 1<BR>
+  1, 1, 1, 0<BR>
+  0, 1, 0, 0<BR>
+  0, 1, 0, 0<BR>
+  0, 1, 0, 1<BR>
+  0, 0, 0, 0<BR>
+  0, 1, 0, 0<BR>
+  0, 0, 0, 0</FONT>
+  <P style="word-spacing: 0pt; line-height: 100%; margin-top: 0pt; margin-bottom: 0pt;">
+  <FONT face="Arial" size="2">... (plus 599 additional lines)</FONT>
+  <P>
+  <FONT face="Arial">The results of the analysis would be:</FONT>
+  <P>
+  <FONT face="Courier New" size="2">Coefficients and Standard Errors...<BR>
+  Variable&nbsp;&nbsp; Coeff. StdErr&nbsp;&nbsp;&nbsp; p<BR>
+  1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.3953 0.5187
+  0.0072<BR>
+  2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.8653 0.3864
+  0.0251<BR>
+  3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -0.4498 0.6092 0.4603<BR>
+  Intercept -2.9267<BR>
+  <BR>
+  Odds Ratios and 95% Confidence Intervals...<BR>
+  Variable&nbsp;&nbsp;&nbsp; O.R.&nbsp;&nbsp; Low -- High<BR>
+  1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.0360 1.4601
+  11.1562<BR>
+  2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.3758 1.1141
+  5.0661<BR>
+  3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.6377 0.1932
+  2.1049</FONT>
+  <P>
+  <FONT face="Arial" size="2">T</FONT><FONT face="Arial">he interpretation
+  would be that the interaction is not statistically significant (p-value for
+  variable 3 = 0.4603) and could be removed from the model.&nbsp; Another way
+  to tell that the interaction is not significant is based on the odds ratio
+  confidence interval for the interaction term; the null value (when there
+  is no interaction) for an interaction term is 1; the 95% confidence interval
+  for the odds ratio around the interaction term goes from 0.1932 to 2.1049
+  which includes the "null value" of 1. </FONT>
+  <P>
+  <FONT face="Arial"><B>Summary data, one exposure variable</B></FONT>
+  <P>
+  <FONT face="Arial">This program can also analyze summary data.&nbsp; For
+  example, the table below summarizes information on 609 individuals by exposure
+  (catecholamine) and disease (CHD):</FONT>
+  <TABLE style="border-collapse: collapse;" id="AutoNumber2" border="1" bordercolor="#111111"
+  cellpadding="0" cellspacing="0" height="69" width="46%">
+    <TR>
+      <TD height="10" width="35%"><FONT face="Arial">Elevated Catecholamine?</FONT></TD>
+      <TD colspan="2" align="center" height="10" width="40%"><FONT face="Arial"
+	    size="2">CHD (Disease variable)</FONT></TD>
+    </TR>
+    <TR>
+      <TD height="18" width="35%"><FONT face="Arial" size="2">(Exposure
+	variable)</FONT></TD>
+      <TD align="center" height="18" width="19%"><FONT face="Arial" size="2">Yes
+	(1)</FONT></TD>
+      <TD align="center" height="18" width="21%"><FONT face="Arial" size="2">No
+	(0)</FONT></TD>
+    </TR>
+    <TR>
+      <TD height="19" width="35%"><FONT face="Arial" size="2">&nbsp;&nbsp;&nbsp;&nbsp;
+	Yes (1)</FONT></TD>
+      <TD align="center" height="19" width="19%"><FONT face="Arial" size="2">27</FONT></TD>
+      <TD align="center" height="19" width="21%"><FONT face="Arial" size="2">95</FONT></TD>
+    </TR>
+    <TR>
+      <TD height="19" width="35%"><FONT face="Arial" size="2">&nbsp;&nbsp;&nbsp;&nbsp;
+	No (0)</FONT></TD>
+      <TD align="center" height="19" width="19%"><FONT face="Arial" size="2">44</FONT></TD>
+      <TD align="center" height="19" width="21%"><FONT face="Arial" size="2">443</FONT></TD>
+    </TR>
+  </TABLE>
+  <P>
+  <FONT face="Arial">The data can be entered as summary data in two lines in
+  the format:</FONT>
+  <P>
+  <FONT face="Arial">exposure variable level, number <I>
+  with<B><U>out</U></B></I> disease at this exposure level, number <I>with</I>
+  disease at this exposure level</FONT>
+  <P>
+  <FONT face="Arial">For this example data the number of data points is 2,
+  the number of predictor variables is 1, and check the summary data box.&nbsp;
+  The complete example data are shown below with the variable being exposure
+  category, number without CHD in exposure category, and number with CHD in
+  exposure category.&nbsp; You could copy these data and paste them in the
+  Data Window.</FONT>
+  <P>
+  <FONT size="2"><FONT face="Arial">1, 95, 27</FONT></FONT><BR>
+  <FONT size="2"><FONT face="Arial">0, 443, 44</FONT></FONT>
+  <P>
+  <FONT size="2"> <FONT face="Arial">Th</FONT></FONT><FONT face="Arial">e results
+  of the analysis would be as follows, exactly the same as the <B><I>Data at
+  the individuals level, one exposure variable </I></B>example shown previously
+  based on the same data.</FONT>
+  <P>
+  <FONT face="Courier New" size="2">Odds Ratios and 95% Confidence
+  Intervals...<BR>
+  Variable&nbsp; O.R.&nbsp;&nbsp;&nbsp; Low -- High<BR>
+  1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.8615 1.6878 4.8514</FONT>
+  <P>
+  <B><FONT face="Arial">Summary data, two exposure variables</FONT></B>
+  <P style="margin-top: 0pt; margin-bottom: 0pt;">
+  &nbsp;<FONT face="Arial">In this example is described a situation where there
+  are two exposure levels, one considered as the primary exposure of interest
+  and another as potentially an effect modifier, confounder, significant
+  independent exposure, or none of these.&nbsp; As an example, an investigators
+  are interested in the relationship between an elevated catecholamine and
+  CHD, but want to determine if this relationship is affected by the smoking
+  status of the individual.&nbsp; The data are as follows:</FONT>
+  <P style="margin-top: 0pt; margin-bottom: 0pt;">
+  <B><FONT face="Arial">Smoke = Yes (1)</FONT></B>
+  <TABLE style="border-collapse: collapse;" id="AutoNumber2" border="1" bordercolor="#111111"
+  cellpadding="0" cellspacing="0" height="69" width="46%">
+    <TR>
+      <TD height="10" width="36%"><FONT face="Arial">Elevated Catecholamine?</FONT></TD>
+      <TD colspan="2" align="center" height="10" width="39%"><FONT face="Arial"
+	    size="2">CHD (Disease variable)</FONT></TD>
+    </TR>
+    <TR>
+      <TD height="18" width="36%"><FONT face="Arial" size="2">(Exposure
+	variable)</FONT></TD>
+      <TD align="center" height="18" width="19%"><FONT face="Arial" size="2">Yes
+	(1)</FONT></TD>
+      <TD align="center" height="18" width="20%"><FONT face="Arial" size="2">No
+	(0)</FONT></TD>
+    </TR>
+    <TR>
+      <TD height="19" width="36%"><FONT face="Arial" size="2">&nbsp;&nbsp;&nbsp;&nbsp;
+	Yes (1)</FONT></TD>
+      <TD align="center" height="19" width="19%"><FONT face="Arial" size="2">19</FONT></TD>
+      <TD align="center" height="19" width="20%"><FONT face="Arial" size="2">58</FONT></TD>
+    </TR>
+    <TR>
+      <TD height="19" width="36%"><FONT face="Arial" size="2">&nbsp;&nbsp;&nbsp;&nbsp;
+	No (0)</FONT></TD>
+      <TD align="center" height="19" width="19%"><FONT face="Arial" size="2">35</FONT></TD>
+      <TD align="center" height="19" width="20%"><FONT face="Arial" size="2">275</FONT></TD>
+    </TR>
+  </TABLE>
+  <P style="margin-top: 0pt; margin-bottom: 0pt;">
+  <FONT face="Arial"><B>Smoke = No (0)</B></FONT>
+  <TABLE style="border-collapse: collapse;" id="AutoNumber2" border="1" bordercolor="#111111"
+  cellpadding="0" cellspacing="0" height="69" width="46%">
+    <TR>
+      <TD height="10" width="37%"><FONT face="Arial">Elevated Catecholamine?</FONT></TD>
+      <TD colspan="2" align="center" height="10" width="38%"><FONT face="Arial"
+	    size="2">CHD (Disease variable)</FONT></TD>
+    </TR>
+    <TR>
+      <TD height="18" width="37%"><FONT face="Arial" size="2">(Exposure
+	variable)</FONT></TD>
+      <TD align="center" height="18" width="19%"><FONT face="Arial" size="2">Yes
+	(1)</FONT></TD>
+      <TD align="center" height="18" width="19%"><FONT face="Arial" size="2">No
+	(0)</FONT></TD>
+    </TR>
+    <TR>
+      <TD height="19" width="37%"><FONT face="Arial" size="2">&nbsp;&nbsp;&nbsp;&nbsp;
+	Yes (1)</FONT></TD>
+      <TD align="center" height="19" width="19%"><FONT face="Arial" size="2">8</FONT></TD>
+      <TD align="center" height="19" width="19%"><FONT face="Arial" size="2">37</FONT></TD>
+    </TR>
+    <TR>
+      <TD height="19" width="37%"><FONT face="Arial" size="2">&nbsp;&nbsp;&nbsp;&nbsp;
+	No (0)</FONT></TD>
+      <TD align="center" height="19" width="19%"><FONT face="Arial" size="2">9</FONT></TD>
+      <TD align="center" height="19" width="19%"><FONT face="Arial" size="2">168</FONT></TD>
+    </TR>
+  </TABLE>
+  <P>
+  <FONT face="Arial">First, to see if smoking modifies the catecholamine-&gt;CHD
+  relationship, enter data to determine if the interaction between catecholamine
+  and smoking is statistically significant.&nbsp; The interaction level would
+  be determined similarly to that described previously.</FONT>
+  <P>
+  <FONT face="Arial">exposure variable 1 level, exposure variable 2 level,
+  interaction level, number <I> with<B><U>out</U></B></I> disease at this level,
+  number <I>with</I> disease at this level.</FONT>
+  <P>
+  <FONT face="Arial">For this example data the number of data points is 4,
+  the number of predictor variables is 3, and check the summary data box.&nbsp;
+  The complete example data are shown below with the variables being cateholamine
+  category, smoking category, interaction category, number without CHD at these
+  levels, and number with CHD at these levels.&nbsp; You could copy these data
+  and paste them in the Data Window.</FONT>
+  <P>
+  <FONT face="Arial" size="2">1, 1, 1, 58, 19</FONT><BR>
+  <FONT face="Arial" size="2">0, 1, 0, 275, 35</FONT><BR>
+  <FONT face="Arial" size="2">1, 0, 0, 37, 8</FONT><BR>
+  <FONT face="Arial" size="2">0, 0, 0, 168, 9</FONT>
+  <P>
+  <FONT face="Arial">The results of the analysis would be:</FONT>
+  <P>
+  <FONT face="Courier New" size="2">Coefficients and Standard Errors...<BR>
+  Variable&nbsp;&nbsp; Coeff. StdErr&nbsp;&nbsp;&nbsp; p<BR>
+  1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.3953 0.5187
+  0.0072<BR>
+  2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.8653 0.3864
+  0.0251<BR>
+  3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -0.4498 0.6092 0.4603<BR>
+  Intercept -2.9267<BR>
+  <BR>
+  Odds Ratios and 95% Confidence Intervals...<BR>
+  Variable&nbsp;&nbsp;&nbsp; O.R.&nbsp;&nbsp; Low -- High<BR>
+  1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.0360 1.4601
+  11.1562<BR>
+  2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.3758 1.1141
+  5.0661<BR>
+  3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.6377 0.1932
+  2.1049</FONT>
+  <P>
+  <FONT face="Arial" size="2">T</FONT><FONT face="Arial">he interpretation
+  would be that the interaction is not statistically significant (p-value for
+  variable 3 = 0.4603) and could be removed from the model.&nbsp; </FONT>
+  <P>
+  <FONT face="Arial">To determine whether smoking confounds the
+  catecholamine-&gt;CHD association, two odds ratios are needed, a "crude"
+  odds ratio from a logistic regression model with just catecholamine as a
+  predictor of CHD which was 2.8615, and a logistic regression model with two
+  predictors in the model, catecholamine and smoking.&nbsp; The general format
+  for the summary data is:</FONT>
+  <P>
+  <FONT face="Arial">exposure variable 1 level, exposure variable 2 level,
+  number <I> with<B><U>out</U></B></I> disease at this level, number
+  <I>with</I> disease at this level</FONT>
+  <P>
+  <FONT face="Arial">For this example data the number of data points is 4,
+  the number of predictor variables is 2, and check the summary data box.&nbsp;
+  The complete example data are shown below with the variables being cateholamine
+  category, smoking category, number without CHD at these levels, and number
+  with CHD at these levels.&nbsp; You could copy these data and paste them
+  in the Data Window.</FONT>
+  <P>
+  <FONT face="Arial" size="2">1, 1, 58, 19</FONT><BR>
+  <FONT face="Arial" size="2">0, 1, 275, 35</FONT><BR>
+  <FONT face="Arial" size="2">1, 0, 37, 8</FONT><BR>
+  <FONT face="Arial" size="2">0, 0, 168, 9</FONT>
+  <P>
+  <FONT face="Arial">The results of the analysis would be:</FONT>
+  <P>
+  <FONT face="Courier New" size="2">Odds Ratios and 95% Confidence
+  Intervals...<BR>
+  Variable&nbsp;&nbsp; O.R.&nbsp;&nbsp; Low -- High<BR>
+  1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.9074 1.7079 4.9492<BR>
+  2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0000 1.1206 3.5695</FONT>
+  <P>
+  <FONT face="Arial" size="2">T</FONT><FONT face="Arial">he interpretation
+  would be that individuals with an elevated catecholamine level ("Variable
+  1" in the above output) have an odds of CHD 2.9074 times greater than those
+  with normal catecholamine levels controlling for cigarette smoking.&nbsp;
+  Cigarette smokers ("Variable" 2 in the above output) have twice the odds
+  (2.0000) of CHD compared to nonsmokers controlling for catecholamine (elevated
+  vs. normal).&nbsp; For the question of whether or not smoking confounds the
+  catecholamine-&gt;CHD association, compare the crude odds ratio (2.8615)
+  with the odds ratio adjusted for smoking (2.9074) - as a general rule, if
+  these two differ by 10% or more, then confounding is present; if less than
+  10%, there is not an important amount of confounding.&nbsp; (Note that some
+  investigators may choose to define confounding differently, perhaps at a
+  5% difference.)&nbsp; In this example, there is little evidence of
+  confounding.&nbsp; However, smoking does seem to be an important independent
+  predictor of CHD when controlling for catecholamine.</FONT>
+  <P>
+    <HR>
+  <P align="center">
+  <FONT face="Arial"> <BR>
+  Return to the <a href="logistic.html">Logistic Regression</a> page,
+  or to the <A HREF="index.html">Interactive Statistics</A> main page,
+  or to the <A HREF="JCPhome.html">JCP Home Page</A><BR></FONT>
+</BODY></HTML>

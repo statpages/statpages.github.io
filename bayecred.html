@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+  <meta name="Generator" content="Microsoft Word 97">
+  <script language="LiveScript"><!--  hide this script tag's contents from old browsers
+
+function Gamma(n) { return Fact(n-1) }
+function Abs(x) { return Math.abs(x) }
+function Sqrt(x) { return Math.sqrt(x) }
+function Exp(x) { return Math.exp(x) }
+function Ln(x) { return Math.log(x) }
+function Power(x,y) { return Math.pow(x,y) }
+
+function Calc(form) {
+var LD = eval(form.vLD.value);
+var UD = eval(form.vUD.value);
+var L = Exp( ( -Power( Ln( UD / LD ), 2 ) ) / ( 4 * Sqrt( Ln( UD ) * Ln( LD ) ) ) );
+form.Ll.value = Fmt( L );
+form.Lg.value = Fmt( 1 / L );
+}
+
+function Fmt(x) { 
+var s; var c; var a; var i; var d;
+if(x<0) { s='-' } else { s='' } 
+a = Abs(x);
+i=0.5; d=-1
+if(a<9.95) { i=0.05; d=1 }
+if(a<0.995) { i=0.005; d=2 }
+if(a<0.0995) { i=0.0005; d=3 }
+if(a<0.00995) { i=0.00005; d=4 }
+if(a<0.000995) { i=0.000005; d=5 }
+c=s+(a+i)
+if(c.indexOf('.')==-1) { c = c + '.000000' }
+return c.substring(0,c.indexOf('.')+d+1);
+}
+<!-- done hiding from old browsers --></script>
+  <title>Bayesian Credibility Analysis</title></head>
+<body bgcolor="#ffffee" link="#0000ff" vlink="#800080">
+<center>
+  <font color="Red"><b><big><big>Bayesian Credibility Analysis</big><br>
+  (an online calculator)</big></b></font>
+</center>
+<p>
+  </p><hr>
+<h3>
+  <font color="Blue">Introduction:</font>
+</h3>
+<p>
+This page allows the credibility of a clinical trial finding to be assessed
+in the light of current knowledge.
+</p><p>
+Many clinical trials produce "statistically significant" evidence for the
+efficacy of some new therapy. However, statistical significance is a notoriously
+poor indicator of the <i>credibility</i> of a finding - that is, the extent
+to which it provides convincing evidence for efficacy - as it fails to take
+full account of the size of the trial, or of pre-existing insights.
+</p><p>
+This page takes the outcome of a given clinical trial - as summarised by
+the published Odds Ratio (OR) together with its 95 % confidence interval
+(CI) - and uses a Bayesian method due to Matthews (2001) to determine the
+credibility of the finding in the light of what is already known. Specifically,
+it shows whether the new finding, when combined with existing knowledge,
+can be taken to have credibly demonstrated efficacy at the 95% confidence
+level. Such a finding is said to be <i>credible at the 95% confidence
+level</i>.
+</p><p>
+For a given result to meet this standard, the prior evidence for efficacy
+must exceed a specific level; this level is captured by the <i>Critical Odds
+Ratio (COR)</i>, the quantity calculated by this page. The assessment of
+a given clinical trial result can then proceed as follows:
+</p><ol>
+  <li>
+    <b>If the stated 95% confidence interval excludes an OR of 1.00 (corresponding
+    to no effect), the result can be deemed <i>statistically significant at the
+    95% level</i>;</b>
+  </li><li>
+    <b>If ORs <i>at least as impressive </i>as that indicated by the COR can
+    be justified by existing knowledge, the result can also be deemed <i>credible
+    at the 95% level </i></b>
+</li></ol>
+<p>
+The COR produced by this page reflects both the effect-size and the statistical
+power of the clinical trial under study. Thus trials involving large numbers
+of patients and/or large effect sizes will typically produce undemanding
+CORs, which are easily justified on the basis of current knowledge. On the
+other hand, trials involving relatively few patients, and/or small effect
+sizes will - because they possess relatively little evidential weight - produce
+CORs that demand a substantial amount of prior evidence before the new result
+can be deemed credible.
+</p><p>
+<b><i>Example</i></b>: The Grampian Region Early Anistreplase (GREAT) study
+(1992) found that patients with suspected acute myocardial infarction had
+lower 3-month mortality if given anistreplase early. The finding was summarised
+as an OR of 0.47, with a 95% CI of (0.23, 0.97). As the latter excludes an
+OR of 1.00, the result is statistically significant at the 95% level. However,
+entering this 95% CI into the window below leads to a COR of 0.087. Thus
+the result can be deemed credible at the 95% level <i>only if </i>ORs for
+mortality even more impressive (i.e. lower) than around 0.09 can be justified
+in the light of current knowledge about the effectiveness of anistreplase.
+Pocock and Spiegelhalter (1992) found that extant knowledge indicated that
+ORs below 0.4 were implausible. Thus ORs below the calculated COR level of
+0.087 are not plausible, and the findings of the GREAT study may be deemed
+statistically significant but not credible at the 95% level. Subsequent
+experience has borne out this assessment.
+</p><p>
+<b>NB</b>: The CRO is based on the <i>equipoise assumption</i> of
+ethical
+randomised clinical trials (RCTs), according to which patients
+allocated
+to either arm of the trial are deemed equally likely to benefit. The
+CRO
+can thus be used to assess the credibility of meta-analyses of RCTs, as
+well
+as with individual trials. It can also be used to assess evidence from
+observational studies using the concept of the "fair minded sceptic",
+which implies a prior distribution identical to that based on the
+equipoise assumption.
+</p><h3>
+    <hr>
+  <font color="Blue">Online Calculator for Bayesian Credibility
+  Assessment:</font>
+</h3>
+<form>
+  1. Enter the published 95% confidence interval for the odds ratio (OR) of
+  the clinical trial result:<br>
+  Lower Limit = 
+  <input name="vUD" size="8" value="" type="text">, Upper Limit =
+  <input name="vLD" size="8" value="" type="text">
+  <p>
+  2. Click this button:
+  <input value="Compute" onclick="Calc(this.form)" type="button">
+  </p><p>
+  <b>3. Results ("Critical Odds Ratio"):</b>
+  </p><p>
+  If ORs <b>less than</b> 1.0 are indicative of efficacy, then this trial is
+  credible <b>only</b> if ORs <b>less than</b>
+  <input name="Ll" size="8" value="" type="text"> are already plausible in the
+  light of existing knowledge.
+  </p><p>
+  If ORs <b>greater than</b> 1.0 are indicative of efficacy, then this trial
+  is credible <b>only</b> if ORs <b>greater than</b>
+  <input name="Lg" size="8" value="" type="text"> are already plausible in the
+  light of existing knowledge.
+  </p><p>
+  <font color="Purple"><b>Note 1:</b> Clinical trial findings that fail to
+  produce evidence of efficacy at the 95% confidence level (i.e. whose results
+  are "not statistically significant") cannot be credible at the 95% level.
+  Entering the confidence limits for such findings will produce the result
+  "NaN" ("Not a Number"). If one of the confidence limits is exactly 1.0, then
+  one of the results will be "Inf" ("Infinity").</font>
+  </p><p>
+  <font color="Purple"><b>Note 2: </b>There's nothing special about the 95%
+  confidence level. If you enter the 99% confidence interval, you will get
+  the 99% critical odds ratio. </font>
+  </p><p>
+    </p><hr>
+</form>
+<h3>
+  <font color="Blue">References:</font>
+</h3>
+<p>
+Matthews, R.A.J. 2001 <i>Methods for assessing the credibility of clinical
+trial outcomes </i>Drug Information Journal vol <b>35</b> (4) 1469-1478 Available
+online at:<br> <a href="http://bit.ly/CredibilityAnalysisPaper">http://bit.ly/CredibilityAnalysisPaper</a>
+</p><p>
+Spiegelhalter, D.J. Abrams, K.R., Myles, J.P. <i>Bayesian Approaches to Clinical
+Trials and Health-care Evaluation </i>(Wiley: Chichester, 2004) Chapter 3.
+</p><p align="left">
+<b>GREAT</b> Group 1992 Feasibility, safety and efficacy of domiciliary
+thrombolysis by general practitioners: <b>G</b>rampian <b>R</b>egion
+<b>E</b>arly <b>A</b>nistreplase <b>T</b>rial <i>BMJ</i> <b>305</b> 548
+</p><p>
+Pocock, S. J., Spiegelhalter D. J. 1992 Letter (untitled) <i>BMJ
+</i><b>305</b> 1015
+</p><p>
+  </p><hr size="1">
+<p align="left">
+If you have questions about the <b>Bayesian statistical concepts embodied
+in this method</b>, send e-mail to Robert Matthews at&nbsp;<a href="mailto:rajm@physics.org" target="_blank" style="color: rgb(17, 85, 204); font-family: arial,helvetica,sans-serif; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px;">rajm@physics.org</a>
+</p><p>
+If you have questions about the <b>operation of this web page</b>, send e-mail
+to John C. Pezzullo at
+<img src="emladr.gif" align="middle" border="0" height="24" width="217">
+</p><p align="center">
+  </p><hr>
+Return to the <a href="index.html">Interactive Statistics page</a> or to
+the <a href="JCPhome.html">JCP Home Page</a><br>
+</body></html>

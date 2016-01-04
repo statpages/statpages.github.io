@@ -1,0 +1,345 @@
+<HTML>
+<HEAD>
+  <META http-equiv="PICS-Label" content='(PICS-1.0 "http://www.classify.org/safesurf/" l on "1996.08.22T13:33+0000 r (SS~~000 1)'>
+  <SCRIPT language="LiveScript">
+<!-- hide this script tag's contents from old browsers
+
+var p1; var p2; var p3; var p4; var p5
+var r1; var r2; var r3; var r4; var r5
+var p
+
+function CalcStats(form) {
+
+r1=0; r2=0; r3=0; r4=0; r5=0
+
+p1=eval(form.pp1.value)
+p2=eval(form.pp2.value)
+p3=eval(form.pp3.value)
+p4=eval(form.pp4.value)
+p5=eval(form.pp5.value)
+
+if(form.o1.checked=="1") {
+r1=r1+p1*eval(form.a11.value)
+r2=r2+p2*eval(form.a12.value)
+r3=r3+p3*eval(form.a13.value)
+r4=r4+p4*eval(form.a14.value)
+r5=r5+p5*eval(form.a15.value)
+}
+
+if(form.o2.checked=="1") {
+r1=r1+p1*eval(form.a21.value)
+r2=r2+p2*eval(form.a22.value)
+r3=r3+p3*eval(form.a23.value)
+r4=r4+p4*eval(form.a24.value)
+r5=r5+p5*eval(form.a25.value)
+}
+
+if(form.o3.checked=="1") {
+r1=r1+p1*eval(form.a31.value)
+r2=r2+p2*eval(form.a32.value)
+r3=r3+p3*eval(form.a33.value)
+r4=r4+p4*eval(form.a34.value)
+r5=r5+p5*eval(form.a35.value)
+}
+
+if(form.o4.checked=="1") {
+r1=r1+p1*eval(form.a41.value)
+r2=r2+p2*eval(form.a42.value)
+r3=r3+p3*eval(form.a43.value)
+r4=r4+p4*eval(form.a44.value)
+r5=r5+p5*eval(form.a45.value)
+}
+
+if(form.o5.checked=="1") {
+r1=r1+p1*eval(form.a51.value)
+r2=r2+p2*eval(form.a52.value)
+r3=r3+p3*eval(form.a53.value)
+r4=r4+p4*eval(form.a54.value)
+r5=r5+p5*eval(form.a55.value)
+}
+
+p=r1+r2+r3+r4+r5
+if(p==0) {p=1}
+r1=r1/p;  r2=r2/p; r3=r3/p; r4=r4/p; r5=r5/p
+
+form.rp1.value = Fmt(r1)
+form.rp2.value = Fmt(r2)
+form.rp3.value = Fmt(r3)
+form.rp4.value = Fmt(r4)
+form.rp5.value = Fmt(r5)
+
+}
+
+function Fmt(x) { 
+var v
+if(x>=0) { v=''+(x+0.0005) } else { v=''+(x-0.0005) }
+return v.substring(0,v.indexOf('.')+4)
+}
+
+function RevPrior(form) {
+    form.pp1.value = form.rp1.value
+    form.pp2.value = form.rp2.value
+    form.pp3.value = form.rp3.value
+    form.pp4.value = form.rp4.value
+    form.pp5.value = form.rp5.value
+    }
+
+<!-- done hiding from old browsers -->
+</SCRIPT>
+  <TITLE>Bayes' Theorem Calculator</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffee">
+<CENTER>
+  <H2>
+    <FONT COLOR="Red">Bayes' Theorem Calculator</FONT>
+  </H2>
+  <P>
+  <A HREF="#Introduction">Introduction</A> ||
+  <A HREF="#Instructions">Instructions</A> (with example)
+</CENTER>
+<P>
+This screen takes prior probabilities for a set of alternative hypotheses,
+conditional probabilities for several possible outcomes, and information
+about which outcome(s) occurred. It produces revised probabilities for the
+original hypotheses.
+<P>
+  <HR>
+<CENTER>
+  <H3>
+    <FONT COLOR="Red"><A NAME="Introduction">Introduction </A>(just what is Bayes'
+    Theorem, anyway?)</FONT>
+  </H3>
+</CENTER>
+<P>
+Bayes' Theorem provides a way to apply quantitative reasoning to what we
+normally think of as "the scientific method". When several alternative hypotheses
+are competing for our belief, we test them by deducing consequences of each
+one, then conducting experimental tests to observe whether or not those
+consequences actually occur. If an hypothesis predicts that something should
+occur, and that thing does occur, it strengthens our belief in the truthfulness
+of the hypothesis. Conversely, an observation that contradicts the prediction
+would weaken (or destroy) our confidence in the hypothesis.
+<P>
+In many situations, the predictions involve probabilities-- one hypothesis
+might predict that a certain outcome has a 30% chance of occurring, while
+a competing hypothesis might predict a 50% chance of the same outcome. In
+these situations, the occurrence or non-occurrence of the outcome would shift
+our relative degree of believe from one hypothesis toward another. Bayes
+theorem provides a way to calculate these "degree of belief" adjustments.
+<P>
+In Bayes' Theorem terminology, we first construct a set of mutually-exclusive
+and all-inclusive hypothesis and spread our degree of belief among them by
+assigning a "prior probability" (number between 0 and 1) to each hypothesis.
+If we have no prior basis for assigning probabilities, we could just spread
+our "belief probability" evenly among the hypotheses.
+<P>
+Then we construct a list of possible observable outcomes. This list should
+also be mutually exclusive and all inclusive. For each hypothesis we calculate
+the "conditional probability" of each possible outcome. This is just the
+probability of observing each outcome if that particular hypothesis is true.
+For each hypothesis, the sum of the conditional probabilities for all the
+outcomes must add up to 1.
+<P>
+We then note which outcome actually occurred. Using Bayes' formula, we can
+then compute revised "post hoc" probabilities for the hypotheses. This page
+implements the rather messy-looking formula. You need only identify the
+hypotheses and outcomes, assign prior probabilities to the hypotheses and
+conditional probabilities to the outcomes, and identify the outcome that
+actually occurred; the JavaScript program will do the rest.
+<H3 ALIGN=Center>
+    <HR>
+  <FONT COLOR="Red"><A NAME="Instructions">Instructions</A> and a Simple
+  Example</FONT>
+</H3>
+<P>
+<FONT COLOR="Red">Note</FONT>: Before using this page for the first time,
+make sure you read the <A href ="userintf.html">JavaStat user interface
+guidelines</A> for important information about interacting with JavaStat
+pages.
+<P>
+Suppose a woman is the daughter of a carrier of hemophilia, and therefore
+is known to have a 50/50 chance of being a carrier herself. If she subsequently
+has a normal child, how does this affect the likelihood that she is a carrier.
+<OL>
+  <LI>
+    Replace the generic hypothisis names (Hyp 1, Hyp 2, etc.) with short names
+    for the two alternative hypotheses. <FONT COLOR="Purple"><SMALL>Eg: "Carrier",
+    and "Non-Carr".</SMALL></FONT>
+  <LI>
+    Place the prior probability under each hypothesis description.
+    <FONT COLOR="Purple"><SMALL>Eg: 0.5 and 0.5 for the two alternatives. <B>The
+    prior probabilities you enter into this row must always add up to
+    1.0</B></SMALL></FONT>
+  <LI>
+    Replace the generic outcome names (Outcome 1, Outcome 2, etc.) with short
+    names for the possible outcome scenarios. <FONT COLOR="Purple"><SMALL>Eg:
+    "Hemophil", and "Normal".</SMALL></FONT>
+  <LI>
+    Place the conditional probabilities for each outcome under each hypothesis.
+    <FONT COLOR="Purple"><SMALL>For example it is known that a carrier has a
+    50/50 chance of producing a normal child or a hemophiliac; whereas a non-carrier
+    will always produce a normal child. So under the "Carrier" column enter 0.5
+    in the "Hemophil" row and 0.5 in the "Normal" row; and under the "Non-Carr"
+    column enter 0.0 in the "Hemophil row" and 1.0 in the "Normal" row. Note
+    that for every column (every hypothesis) <B>the conditional probabilities
+    in that column must add up to 1</B>.</SMALL></FONT>
+  <LI>
+    Click the checkbox in front of the outcome that actually occurred.
+    <FONT COLOR="Purple"><SMALL>You must click <B>one and only one</B>
+    checkbox.</SMALL></FONT>
+  <LI>
+    Click the <B>Compute</B> button. The revised probabilities associated with
+    each hypothesis appear at the bottom of the table.
+</OL>
+<P>
+You can also click the <B>Reset</B> button to reset all cells in the table
+to their default values, or click the <B>Rev-to-Prior</B> button to move
+the revised probabilities into the prior probability fields (useful for analyzing
+sequential outcomes).
+<P>
+<CENTER>
+  <FORM method=POST>
+    <TABLE border=2>
+      <TR>
+	<TD><DIV ALIGN=LEFT>
+	    Hypotheses:
+	  </DIV>
+	</TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=h1 SIZE=8 VALUE="Hyp 1" onFocus=h1.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=h2 SIZE=8 VALUE="Hyp 2" onFocus=h2.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=h3 SIZE=8 VALUE="Hyp 3" onFocus=h3.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=h4 SIZE=8 VALUE="Hyp 4" onFocus=h4.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=h5 SIZE=8 VALUE="Hyp 5" onFocus=h5.select()></TD>
+      </TR>
+      <TR>
+	<TD><DIV ALIGN=LEFT>
+	    Prior Probabilities:
+	  </DIV>
+	</TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=pp1 SIZE=5 VALUE="0" onFocus=pp1.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=pp2 SIZE=5 VALUE="0" onFocus=pp2.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=pp3 SIZE=5 VALUE="0" onFocus=pp3.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=pp4 SIZE=5 VALUE="0" onFocus=pp4.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=pp5 SIZE=5 VALUE="0" onFocus=pp5.select()></TD>
+      </TR>
+      <TR>
+	<TD>
+	  <INPUT NAME=o1 TYPE=checkbox>
+	  <INPUT TYPE=TEXT NAME=oc1 SIZE=12 VALUE="Outcome 1:"></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a11 SIZE=5 VALUE="0" onFocus=a11.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a12 SIZE=5 VALUE="0" onFocus=a12.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a13 SIZE=5 VALUE="0" onFocus=a13.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a14 SIZE=5 VALUE="0" onFocus=a14.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a15 SIZE=5 VALUE="0" onFocus=a15.select()></TD>
+      </TR>
+      <TR>
+	<TD>
+	  <INPUT NAME=o2 TYPE=checkbox>
+	  <INPUT TYPE=TEXT NAME=oc2 SIZE=12 VALUE="Outcome 2:"></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a21 SIZE=5 VALUE="0" onFocus=a21.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a22 SIZE=5 VALUE="0" onFocus=a22.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a23 SIZE=5 VALUE="0" onFocus=a23.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a24 SIZE=5 VALUE="0" onFocus=a24.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a25 SIZE=5 VALUE="0" onFocus=a25.select()></TD>
+      </TR>
+      <TR>
+	<TD>
+	  <INPUT NAME=o3 TYPE=checkbox>
+	  <INPUT TYPE=TEXT NAME=oc3 SIZE=12 VALUE="Outcome 3:"></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a31 SIZE=5 VALUE="0" onFocus=a31.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a32 SIZE=5 VALUE="0" onFocus=a32.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a33 SIZE=5 VALUE="0" onFocus=a33.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a34 SIZE=5 VALUE="0" onFocus=a34.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a35 SIZE=5 VALUE="0" onFocus=a35.select()></TD>
+      </TR>
+      <TR>
+	<TD>
+	  <INPUT NAME=o4 TYPE=checkbox>
+	  <INPUT TYPE=TEXT NAME=oc4 SIZE=12 VALUE="Outcome 4:"></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a41 SIZE=5 VALUE="0" onFocus=a41.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a42 SIZE=5 VALUE="0" onFocus=a42.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a43 SIZE=5 VALUE="0" onFocus=a43.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a44 SIZE=5 VALUE="0" onFocus=a44.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a45 SIZE=5 VALUE="0" onFocus=a45.select()></TD>
+      </TR>
+      <TR>
+	<TD>
+	  <INPUT NAME=o5 TYPE=checkbox>
+	  <INPUT TYPE=TEXT NAME=oc5 SIZE=12 VALUE="Outcome 5:"></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a51 SIZE=5 VALUE="0" onFocus=a51.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a52 SIZE=5 VALUE="0" onFocus=a52.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a53 SIZE=5 VALUE="0" onFocus=a53.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a54 SIZE=5 VALUE="0" onFocus=a54.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a55 SIZE=5 VALUE="0" onFocus=a55.select()></TD>
+      </TR>
+      <TR>
+	<TD>Revised Prob:</TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=rp1 SIZE=5 VALUE="0" onFocus=pp1.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=rp2 SIZE=5 VALUE="0" onFocus=pp1.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=rp3 SIZE=5 VALUE="0" onFocus=pp1.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=rp4 SIZE=5 VALUE="0" onFocus=pp1.select()></TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=rp5 SIZE=5 VALUE="0" onFocus=pp1.select()></TD>
+      </TR>
+    </TABLE>
+    <P>
+    <BR>
+    <INPUT TYPE="reset" VALUE="Reset">
+    <INPUT TYPE="button" VALUE="Compute" onClick=CalcStats(this.form)>
+    <INPUT TYPE="button" VALUE="Revised-to-Prior" onClick=RevPrior(this.form)>
+    <BR>
+    <P>
+      <HR>
+  </FORM>
+</CENTER>
+<P>
+<B>Reference</B>: <I>An Introduction to Scientific Research</I> by E. Bright
+Wilson, Jr., McGraw-Hill (and Dover).
+<CENTER>
+  <BR>
+  Return to the <A HREF="index.html">Interactive Statistics page</A> or to
+  the <A HREF="JCPhome.html">JCP Home Page</A><BR>
+  <BR>
+  Send e-mail to John C. Pezzullo at
+  <IMG SRC="emladr.gif" WIDTH="217" HEIGHT="24" BORDER="0" ALIGN="Middle">
+</CENTER>
+</BODY></HTML>

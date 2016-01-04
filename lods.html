@@ -1,0 +1,684 @@
+<HTML>
+<HEAD>
+  <SCRIPT language="LiveScript">
+<!-- hide this script tag's contents from old browsers
+
+var k; var z
+
+function CalcGCS(form) {
+form.zgcs.value = form.gcs[form.gcs.selectedIndex].value
+form.zneur.value = CalcNeur(form)
+form.zlods.value = CalcLODS(form)
+form.zmort.value = CalcMort(form)
+}
+
+function CalcNeur(form) {
+return form.zgcs.value
+}
+
+
+
+function CalcHR(form) {
+form.zhr.value = form.hr[form.hr.selectedIndex].value
+form.zcard.value = CalcCard(form)
+form.zlods.value = CalcLODS(form)
+form.zmort.value = CalcMort(form)
+}
+
+function CalcBPS(form) {
+form.zbps.value = form.bps[form.bps.selectedIndex].value
+form.zcard.value = CalcCard(form)
+form.zlods.value = CalcLODS(form)
+form.zmort.value = CalcMort(form)
+}
+
+function CalcCard(form) {
+z = eval(form.zhr.value)
+y = eval(form.zbps.value)
+if(y>z) { z = y }
+return ''+z
+}
+
+
+
+function CalcSU(form) {
+form.zsu.value = form.su[form.su.selectedIndex].value
+form.zren.value = CalcRen(form)
+form.zlods.value = CalcLODS(form)
+form.zmort.value = CalcMort(form)
+}
+
+function CalcSUN(form) {
+form.zsun.value = form.sun[form.sun.selectedIndex].value
+form.zren.value = CalcRen(form)
+form.zlods.value = CalcLODS(form)
+form.zmort.value = CalcMort(form)
+}
+
+function CalcCr(form) {
+form.zcr.value = form.cr[form.cr.selectedIndex].value
+form.zren.value = CalcRen(form)
+form.zlods.value = CalcLODS(form)
+form.zmort.value = CalcMort(form)
+}
+
+function CalcUr(form) {
+form.zur.value = form.ur[form.ur.selectedIndex].value
+form.zren.value = CalcRen(form)
+form.zlods.value = CalcLODS(form)
+form.zmort.value = CalcMort(form)
+}
+
+function CalcRen(form) {
+z = eval(form.zsu.value)
+y = eval(form.zsun.value)
+if(y>z) { z = y }
+y = eval(form.zcr.value)
+if(y>z) { z = y }
+y = eval(form.zur.value)
+if(y>z) { z = y }
+return ''+z
+}
+
+
+
+function CalcFiO(form) {
+form.zfio.value = form.fio[form.fio.selectedIndex].value
+form.zpulm.value = CalcPulm(form)
+form.zlods.value = CalcLODS(form)
+form.zmort.value = CalcMort(form)
+}
+
+function CalcFiOk(form) {
+form.zfiok.value = form.fiok[form.fiok.selectedIndex].value
+form.zpulm.value = CalcPulm(form)
+form.zlods.value = CalcLODS(form)
+form.zmort.value = CalcMort(form)
+}
+
+function CalcPulm(form) {
+z = eval(form.zfio.value)
+y = eval(form.zfiok.value)
+if(y>z) { z = y }
+return ''+z
+}
+
+
+
+function CalcWBC(form) {
+form.zwbc.value = form.wbc[form.wbc.selectedIndex].value
+form.zhem.value = CalcHem(form)
+form.zlods.value = CalcLODS(form)
+form.zmort.value = CalcMort(form)
+}
+
+function CalcPlt(form) {
+form.zplt.value = form.plt[form.plt.selectedIndex].value
+form.zhem.value = CalcHem(form)
+form.zlods.value = CalcLODS(form)
+form.zmort.value = CalcMort(form)
+}
+
+function CalcHem(form) {
+z = eval(form.zwbc.value)
+y = eval(form.zplt.value)
+if(y>z) { z = y }
+return ''+z
+}
+
+
+
+function CalcBil(form) {
+form.zbil.value = form.bil[form.bil.selectedIndex].value
+form.zhep.value = CalcHep(form)
+form.zlods.value = CalcLODS(form)
+form.zmort.value = CalcMort(form)
+}
+
+function CalcPT(form) {
+form.zpt.value = form.pt[form.pt.selectedIndex].value
+form.zhep.value = CalcHep(form)
+form.zlods.value = CalcLODS(form)
+form.zmort.value = CalcMort(form)
+}
+
+function CalcHep(form) {
+z = eval(form.zbil.value)
+y = eval(form.zpt.value)
+if(y>z) { z = y }
+return ''+z
+}
+
+
+
+function CalcLODS(form) {
+z = eval(form.zneur.value)
+z = z + eval(form.zcard.value)
+z = z + eval(form.zren.value)
+z = z + eval(form.zpulm.value)
+z = z + eval(form.zhem.value)
+z = z + eval(form.zhep.value)
+return ''+z
+}
+
+
+
+function CalcMort(form) {
+z = eval(form.zlods.value)
+z = Math.exp(3.4043 - 0.4173 * z )
+z = 100 * z / ( 1 + z )
+z = Fmt(100 - z) + " %"
+return z
+}
+
+
+function CalcAll(form) {
+form.zgcs.value = form.gcs[form.gcs.selectedIndex].value
+form.zneur.value = CalcNeur(form)
+form.zhr.value = form.hr[form.hr.selectedIndex].value
+form.zbps.value = form.bps[form.bps.selectedIndex].value
+form.zcard.value = CalcCard(form)
+form.zsu.value = form.su[form.su.selectedIndex].value
+form.zsun.value = form.sun[form.sun.selectedIndex].value
+form.zcr.value = form.cr[form.cr.selectedIndex].value
+form.zur.value = form.ur[form.ur.selectedIndex].value
+form.zren.value = CalcRen(form)
+form.zfio.value = form.fio[form.fio.selectedIndex].value
+form.zfiok.value = form.fiok[form.fiok.selectedIndex].value
+form.zpulm.value = CalcPulm(form)
+form.zwbc.value = form.wbc[form.wbc.selectedIndex].value
+form.zplt.value = form.plt[form.plt.selectedIndex].value
+form.zhem.value = CalcHem(form)
+form.zbil.value = form.bil[form.bil.selectedIndex].value
+form.zpt.value = form.pt[form.pt.selectedIndex].value
+form.zhep.value = CalcHep(form)
+form.zlods.value = CalcLODS(form)
+form.zmort.value = CalcMort(form)
+}
+
+
+
+function Fmt(x) { 
+var v
+if(x>=0) { v=''+(x+0.05) } else { v=''+(x-0.05) }
+return v.substring(0,v.indexOf('.')+2)
+}
+
+<!-- done hiding from old browsers -->
+</SCRIPT>
+  <TITLE>LODS -- Logistic Organ Dysfunction System</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffee">
+<CENTER>
+  <H2>
+    <FONT COLOR="Red">LODS -- Logistic Organ Dysfunction System</FONT>
+  </H2>
+</CENTER>
+<P>
+This page computes the LODS score and predicted mortality, based on the
+methodology of Le Gall, et al. in JAMA, Sept 11, 1996 - Vol 276, No. 10,
+pp 802-810.
+<P>
+Using the pop-up menus, enter the patient's physiological parameters. If
+a measurement is missing, set it to a normal value so that the corresponding
+score is zero.
+<P>
+As you set each measurement, the program should update that measurement's
+severity score, the composite score for that organ system (equal to the
+<B>largest</B> score in that system, not the <B>sum</B> of the scores), the
+overall LODS score, and the predicted probability of death. [Depending on
+your computer and/or browser, you might have to click somewhere off of the
+popup menu (on the background of the page) or click on the "Compute" button
+in order to trigger the recalculations.]
+<P>
+To reset all the parameters to their "normal" default values, click the "Reload"
+button on your browser.
+<P>
+<CENTER>
+  <FORM>
+    <TABLE border=2>
+      <TR>
+	<TD><DIV ALIGN=CENTER>
+	    Measure
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    Value
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    Score
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    <B>Neurologic System...</B>
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    Glasgow Coma Score
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <SELECT NAME="gcs" onChange=CalcGCS(this.form)> 
+	    <OPTION VALUE="5">3 - 5 
+	    <OPTION VALUE="3">6 - 8 
+	    <OPTION VALUE="1">9 - 13 
+	    <OPTION VALUE="0" SELECTED="SELECTED">14 - 15 </SELECT>
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <INPUT TYPE=TEXT NAME=zgcs SIZE=2 VALUE="0">
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    Neurologic System Overall Score
+	  </DIV>
+	</TD>
+	<TD><DIV>
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <INPUT TYPE=TEXT NAME=zneur SIZE=2 VALUE="0">
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    <B>Cardiovascular System...</B>
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    Heart Rate (beats/min)
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <SELECT NAME="hr" onChange=CalcHR(this.form)> 
+	    <OPTION VALUE="5">0 - 29 
+	    <OPTION VALUE="0" SELECTED="SELECTED">30 - 139 
+	    <OPTION VALUE="1">140+ </SELECT>
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <INPUT TYPE=TEXT NAME=zhr SIZE=2 VALUE="0">
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    Systolic Blood Pressure (mm Hg)
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <SELECT NAME="bps" onChange=CalcBPS(this.form)> 
+	    <OPTION VALUE="5">0 - 39 
+	    <OPTION VALUE="3">40 - 69 
+	    <OPTION VALUE="1">70 - 89 
+	    <OPTION VALUE="0" SELECTED="SELECTED">90 - 239 
+	    <OPTION VALUE="1">240 - 269 
+	    <OPTION VALUE="3">270+ </SELECT>
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <INPUT TYPE=TEXT NAME=zbps SIZE=2 VALUE="0">
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    Cardiovascular System Overall Score
+	  </DIV>
+	</TD>
+	<TD><DIV>
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <INPUT TYPE=TEXT NAME=zcard SIZE=2 VALUE="0">
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    <B>Renal System...</B>
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    Serum Urea
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <SELECT NAME="su" onChange=CalcSU(this.form)>
+	    <OPTION VALUE="0" SELECTED="SELECTED">0 - 5.9 mmol/L 
+	    <OPTION VALUE="1">6 - 9.9 mmol/L 
+	    <OPTION VALUE="3">10 - 19.9 mmol/L 
+	    <OPTION VALUE="5">20+ mmol/L 
+	    <OPTION VALUE="0">0 - .35 g/L 
+	    <OPTION VALUE="1">.36 - .59 g/L 
+	    <OPTION VALUE="3">.60 - 1.19 g/L 
+	    <OPTION VALUE="5">1.20+ g/L </SELECT>
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <INPUT TYPE=TEXT NAME=zsu SIZE=2 VALUE="0">
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    Serum Urea Nitrogen
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <SELECT NAME="sun" onChange=CalcSUN(this.form)>
+	    <OPTION VALUE="0" SELECTED="SELECTED">0 - 5.9 mmol/L 
+	    <OPTION VALUE="1">6 - 9.9 mmol/L 
+	    <OPTION VALUE="3">10 - 19.9 mmol/L 
+	    <OPTION VALUE="5">20+ mmol/L 
+	    <OPTION VALUE="0">0 - 16 g/L 
+	    <OPTION VALUE="1">17 - 27 g/L 
+	    <OPTION VALUE="3">28 - 55 g/L 
+	    <OPTION VALUE="5">56+ g/L </SELECT>
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <INPUT TYPE=TEXT NAME=zsun SIZE=2 VALUE="0">
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    Creatinine
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <SELECT NAME="cr" onChange=CalcCr(this.form)>
+	    <OPTION VALUE="0" SELECTED="SELECTED">0 - 105 mumol/L 
+	    <OPTION VALUE="1">106 - 140 mumol/L 
+	    <OPTION VALUE="3">141+ mumol/L 
+	    <OPTION VALUE="0">0 - 1.19 mg/dL 
+	    <OPTION VALUE="1">1.20 - 1.59 mg/dL 
+	    <OPTION VALUE="3">1.60+ mg/dL </SELECT>
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <INPUT TYPE=TEXT NAME=zcr SIZE=2 VALUE="0">
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    Urine Output (L/day)
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <SELECT NAME="ur" onChange=CalcUr(this.form)> 
+	    <OPTION VALUE="5">0 - 0.49 
+	    <OPTION VALUE="3">0.50 - 0.74 
+	    <OPTION VALUE="0" SELECTED="SELECTED">0.75 - 9.9 
+	    <OPTION VALUE="3">10+ </SELECT>
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <INPUT TYPE=TEXT NAME=zur SIZE=2 VALUE="0">
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    Renal System Overall Score
+	  </DIV>
+	</TD>
+	<TD><DIV>
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <INPUT TYPE=TEXT NAME=zren SIZE=2 VALUE="0">
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    <B>Pulmonary System...</B>
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    PaO2 (mm Hg)/FiO2
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <SELECT NAME="fio" onChange=CalcFiO(this.form)> 
+	    <OPTION VALUE="3">0 - 149 
+	    <OPTION VALUE="1">150+ 
+	    <OPTION VALUE="0" SELECTED="SELECTED">No Vent/CPAP </SELECT>
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <INPUT TYPE=TEXT NAME=zfio SIZE=2 VALUE="0">
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    PaO2[kPa]/FiO2
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <SELECT NAME="fiok" onChange=CalcFiOk(this.form)> 
+	    <OPTION VALUE="3">0 - 19.8 
+	    <OPTION VALUE="1">19.9+ 
+	    <OPTION VALUE="0" SELECTED="SELECTED">No IPAP </SELECT>
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <INPUT TYPE=TEXT NAME=zfiok SIZE=2 VALUE="0">
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    Pulmonary System Overall Score
+	  </DIV>
+	</TD>
+	<TD><DIV>
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <INPUT TYPE=TEXT NAME=zpulm SIZE=2 VALUE="0">
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    <B>Hematologic System...</B>
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    White Blood Cell Count (10^9/L)
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <SELECT NAME="wbc" onChange=CalcWBC(this.form)> 
+	    <OPTION VALUE="3">0 - 0.9 
+	    <OPTION VALUE="1">1.0 - 2.4 
+	    <OPTION VALUE="0" SELECTED="SELECTED">2.5 - 49.9 
+	    <OPTION VALUE="1">50+ </SELECT>
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <INPUT TYPE=TEXT NAME=zwbc SIZE=2 VALUE="0">
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    Platelets (10^9/L)
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <SELECT NAME="plt" onChange=CalcPlt(this.form)> 
+	    <OPTION VALUE="1">0 - 49 
+	    <OPTION VALUE="0" SELECTED="SELECTED">50+ </SELECT>
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <INPUT TYPE=TEXT NAME=zplt SIZE=2 VALUE="0">
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    Hematologic System Overall Score
+	  </DIV>
+	</TD>
+	<TD><DIV>
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <INPUT TYPE=TEXT NAME=zhem SIZE=2 VALUE="0">
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    <B>Hepatic System...</B>
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    Bilirubin
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <SELECT NAME="bil" onChange=CalcBil(this.form)> 
+	    <OPTION VALUE="0">0 - 34.1 mumol/L 
+	    <OPTION VALUE="1">34.2+ mumol/L 
+	    <OPTION VALUE="0" SELECTED="SELECTED">0 - 1.9 mg/dL 
+	    <OPTION VALUE="1">2+ mg/dL </SELECT>
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <INPUT TYPE=TEXT NAME=zbil SIZE=2 VALUE="0">
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    Prothrombin
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <SELECT NAME="pt" onChange=CalcPT(this.form)> 
+	    <OPTION VALUE="1">0 - 24 % 
+	    <OPTION VALUE="0" SELECTED="SELECTED">25+ % 
+	    <OPTION VALUE="0">0 - 2.9 s 
+	    <OPTION VALUE="1">3+ s </SELECT>
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <INPUT TYPE=TEXT NAME=zpt SIZE=2 VALUE="0">
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    Hepatic System Overall Score
+	  </DIV>
+	</TD>
+	<TD><DIV>
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <INPUT TYPE=TEXT NAME=zhep SIZE=2 VALUE="0">
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    <B>Total LODS Score</B>
+	  </DIV>
+	</TD>
+	<TD><DIV>
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <INPUT TYPE=TEXT NAME=zlods SIZE=2 VALUE="0">
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV>
+	    <B>Probability of Death (%)</B>
+	  </DIV>
+	</TD>
+	<TD><DIV>
+	  </DIV>
+	</TD>
+	<TD><DIV ALIGN=CENTER>
+	    <INPUT TYPE=TEXT NAME=zmort SIZE=7 VALUE="0">
+	  </DIV>
+	</TD>
+      </TR>
+    </TABLE>
+    <P>
+    <BR>
+    <INPUT TYPE="button" VALUE="Compute" onClick=CalcAll(this.form)>
+    <P>
+      <HR>
+    <BR>
+    Return to the <A HREF="index.html">Interactive Statistics page</A> or to
+    the <A HREF="JCPhome.html">JCP Home Page</A><BR>
+    <BR>
+    Send e-mail to John C. Pezzullo at
+    <IMG SRC="emladr.gif" WIDTH="217" HEIGHT="24" BORDER="0" ALIGN="Middle">
+  </FORM>
+</CENTER>
+</BODY></HTML>

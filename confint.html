@@ -1,0 +1,327 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+  <meta http-equiv="PICS-Label" content="(PICS-1.0 &quot;http://www.classify.org/safesurf/&quot; l on &quot;1996.08.22T13:35+0000 r (SS~~000 1)">
+  <script language="LiveScript">
+<!-- hide this script tag's contents from old browsers
+
+var vTL=2.5; var vTU=2.5; var vCL=95
+
+function CalcCL(form) {
+    vTL = eval(form.TL.value)
+    vTU = eval(form.TU.value)
+    vCL = 100-(vTL+vTU)
+    form.CL.value = ''+vCL
+    }
+
+function CalcTails(form) {
+    vCL = eval(form.CL.value)
+    vTU = (100-vCL)/2
+    vTL = vTU
+    form.TL.value = ''+vTL
+    form.TU.value = ''+vTU
+    }
+
+function CalcDummy(form) { }
+
+function CalcBin(form) {
+    var vx = eval(form.x.value)
+    var vN = eval(form.N.value)
+    var vP = vx/vN
+    form.P.value = Fmt(vP)
+    if(vx==0)
+	{ form.DL.value = "0.0000" } else
+        { var v=vP/2; vsL=0; vsH=vP; var p=vTL/100
+        while((vsH-vsL)>1e-5) { if(BinP(vN,v,vx,vN)>p) { vsH=v; v=(vsL+v)/2 } else { vsL=v; v=(v+vsH)/2 } }
+        form.DL.value = Fmt(v) }
+    if(vx==vN)
+        { form.DU.value = "1.0000" } else
+        { var v=(1+vP)/2; vsL=vP; vsH=1; var p=vTU/100
+        while((vsH-vsL)>1e-5) { if(BinP(vN,v,0,vx)<p) { vsH=v; v=(vsL+v)/2 } else { vsL=v; v=(v+vsH)/2 } }
+        form.DU.value = Fmt(v) }
+    }
+
+function BinP(N,p,x1,x2) {
+    var q=p/(1-p); var k=0; var v = 1; var s=0; var tot=0
+    while(k<=N) {
+        tot=tot+v
+        if(k>=x1 & k<=x2) { s=s+v }
+        if(tot>1e30){s=s/1e30; tot=tot/1e30; v=v/1e30}
+        k=k+1; v=v*q*(N+1-k)/k
+        }
+    return s/tot
+    }
+
+function CalcPois(form) {
+    var vZ = eval(form.Z.value)
+    if(vZ==0)
+        { form.QL.value = "0.0000" } else
+        { var v=0.5; var dv=0.5; var p=vTL/100
+        while(dv>1e-7) { dv=dv/2; if(PoisP((1+vZ)*v/(1-v),vZ,1e10)>p) { v=v-dv } else { v=v+dv } }
+        form.QL.value = Fmt((1+vZ)*v/(1-v)) }
+    if(vTU==0)
+        { form.QU.value = "Infinity" } else
+        { var v=0.5; var dv=0.5; var p=vTU/100
+        while(dv>1e-7) { dv=dv/2; if(PoisP((1+vZ)*v/(1-v),0,vZ)<p) { v=v-dv } else { v=v+dv } }
+        form.QU.value = Fmt((1+vZ)*v/(1-v)) }
+    }
+
+function PoisP(Z,x1,x2) {
+    var q=1; var tot=0; var s=0; var k=0
+    while(k<Z || q>(tot*1e-10)) {
+        tot=tot+q
+        if(k>=x1 & k<=x2) { s=s+q }
+        if(tot>1e30){s=s/1e30; tot=tot/1e30; q=q/1e30}
+        k=k+1; q=q*Z/k
+        }
+    return s/tot
+    }
+
+function Fmt(x) { 
+var v
+if(x>=0) { v=''+(x+0.00005) } else { v=''+(x-0.00005) }
+return v.substring(0,v.indexOf('.')+5)
+}
+
+<!-- done hiding from old browsers -->
+</script><title>JavaStat -- Binomial and Poisson Confidence Intervals</title></head><body bgcolor="#ffffee">
+<form>
+  <center>
+    <h2>
+      <font color="Blue">Exact Binomial and Poisson Confidence Intervals</font>
+    </h2>
+    <h3>
+      <font color="Red">Revised 05/25/2009 -- Excel Add-in Now Available! (read
+      below)</font>
+    </h3>
+  </center>
+  <p align="center">
+  <a href="#Binomial">Binomial</a> || <a href="#Poisson">Poisson</a> ||
+  <a href="#Setting">Set Conf Levels</a>
+  </p><p>
+  This page computes exact confidence intervals for samples from the Binomial
+  and Poisson distributions.
+  </p><p>
+  By default, it calculates symmetrical 95% confidence intervals, but you can
+  change the "tail areas" to anything you'd like.
+  </p><p>
+  The formulas used in this web page are also available as Excel macros, which
+  you can download in the file: <a href="confint.xls">confint.xls</a> (85k
+  long). This spreadsheet now includes an extra page that can generate a customized
+  table of confidence limits around the observed numerator (x) and around&nbsp;the
+  observed proportion (x/N), for any value of the denominator (N).&nbsp;My
+  thanks to Prof. Patrick J. Laycock (University of Manchester) for that
+  enhancement.
+  </p><p>
+  If you would like to have the six functions (BinomLow, BinomHigh, BinomP,
+  PoisLow, PoisHigh, and PoisP) which appear in this spreadsheet available
+  all the time (just as if they were built-in Excel functions), you can download
+  and install the <a href="confint.xla">confint.xla</a> Excel "add-in". Save
+  the downloaded file in some reasonably "permanent" location on your computer's
+  hard disk. Then install it, using the appropriate steps&nbsp;for your version
+  of Excel (see Excel's Help section for "add-ins").
+  </p><p>
+  <font color="Red">Note</font>: Before using this page for the first time,
+  make sure you read the <a href="userintf.html">JavaStat user interface
+  guidelines</a> for important information about interacting with JavaStat
+  pages.
+  </p><p>
+    </p><hr>
+  <center>
+    <h3>
+      <font color="Red"><a name="Binomial">Binomial</a>
+      </font><font color="Blue">Confidence Intervals</font>
+    </h3>
+  </center>
+  <p>
+  Enter the observed numerator and denominator counts, then click the
+  <b>Compute</b> button:<br>
+  </p><center>
+    <table>
+      <tbody><tr valign="middle">
+	<th><p align="right">
+	  Numerator (x):</p></th>
+	<td><p align="center">
+	  <input name="x" size="5" value="10" onfocus="x.select()" type="text"></p></td>
+      </tr>
+      <tr valign="middle">
+	<th><div align="center">
+	    <p align="right">
+	    Denominator (N):
+	  </p></div>
+	</th>
+	<td><p align="center">
+	  <input name="N" size="5" value="20" onfocus="N.select()" type="text"></p></td>
+      </tr>
+      <tr>
+	<td colspan="2"><p align="center">
+	  <input value="Compute" onclick="CalcBin(this.form)" type="button"></p></td>
+      </tr>
+      <tr>
+	<td><p align="right">
+	  <b>Proportion (x/N):</b></p></td>
+	<td><p align="center">
+	  <input name="P" size="8" onfocus="x.focus()" type="text"></p></td>
+      </tr>
+      <tr>
+	<td><p align="justify">
+	  <b>Exact Confidence Interval around Proportion:</b></p></td>
+	<td><p align="center">
+	  <input name="DL" size="8" onfocus="x.focus()" type="text"> to
+	  <input name="DU" size="8" onfocus="x.focus()" type="text"></p></td>
+      </tr>
+    </tbody></table>
+    <p>
+      </p><hr>
+  </center>
+  <center>
+    <h3>
+      <font color="Red"><a name="Poisson">Poisson</a>
+      </font><font color="Blue">Confidence Intervals</font>
+    </h3>
+  </center>
+  <p>
+  Enter the number of observed number of events, then click the <b>Compute</b>
+  button:<br>
+  </p><center>
+    <table>
+      <tbody><tr>
+	<td><div align="center">
+	    <p align="right">
+	    <b>Observed Events:</b>
+	  </p></div>
+	</td>
+	<th><div align="center">
+	    <input name="Z" size="8" value="10" onfocus="Z.select()" type="text">
+	  </div>
+	</th>
+      </tr>
+      <tr>
+	<td colspan="2"><p align="center">
+	  <input value="Compute" onclick="CalcPois(this.form)" align="middle" type="button"></p></td>
+      </tr>
+      <tr>
+	<th><p align="right">
+	  <b>Exact Confidence Interval around Mean Event Rate:</b></p></th>
+	<td><p align="center">
+	  <input name="QL" size="8" onfocus="Z.focus()" type="text"> to
+	  <input name="QU" size="8" onfocus="Z.focus()" type="text"></p></td>
+      </tr>
+      <tr>
+	<th><div align="center">
+	    <p align="right">
+	  </p></div>
+	<br>
+</th>
+	<td><p align="center">
+	</p><br>
+</td>
+      </tr>
+    </tbody></table>
+  </center>
+  <p>
+    </p><hr>
+  <center>
+    <h3>
+      <font color="Red"><a name="Setting">Setting</a>
+      </font><font color="Blue">Confidence Levels</font>
+    </h3>
+  </center>
+  <p>
+  Normally you will not need to change anything in this section. People usually
+  use symmetrical 95% confidence intervals, which correspond to a 2.5% probability
+  in each tail. <br>
+  <br>
+  If you want a different confidence level, you can replace the 95 with your
+  preferred level, then click the Compute button. The program will split the
+  tail area evenly between the Lower and Upper tails.
+  </p><p>
+  If you want asymmetrical limits, you can change the % Area numbers in the
+  Lower Tail and Upper Tail cells shown below, then click the Compute button.
+  The program will adjust the Confidence Level level accordingly.<br>
+  </p><center>
+    <table border="1">
+      <tbody><tr>
+	<td><p align="right">
+	  <b>Confidence Level:</b></p></td>
+	<td><p align="center">
+	  <input name="CL" size="8" value="95" onfocus="CL.select()" onblur="CalcTails(this.form)" type="text"></p></td>
+      </tr>
+      <tr>
+	<td><p align="right">
+	  <b>% Area in Upper Tail:</b></p></td>
+	<td><p align="center">
+	  <input name="TU" size="8" value="2.5" onfocus="TU.select()" onblur="CalcCL(this.form)" type="text"></p></td>
+      </tr>
+      <tr>
+	<td><p align="right">
+	  <b>% Area in Lower Tail:</b></p></td>
+	<td><p align="center">
+	  <input name="TL" size="8" value="2.5" onfocus="TL.select()" onblur="CalcCL(this.form)" type="text"></p></td>
+      </tr>
+      <tr>
+	<td colspan="2"><p align="center">
+	  <input value="Compute" onclick="CalcDummy(this.form)" align="middle" type="button"></p></td>
+      </tr>
+    </tbody></table>
+    <p align="left">
+    <font color="Red"><b>Note</b>: &nbsp;Over the years, I have grappled with
+    the issue of whether or not any special action has to be taken , in computing
+    the classic Clopper-Pearson binomial confidence intervals, when the
+    <b>observed</b> count falls at one or the other end of the range of possible
+    values (such as when the observed "Numerator" is equal to zero, or equal
+    to the "Denominator" for the binomial case, or when the "Observed Events"
+    is zero for the Poisson case). Specifically, the question arises as to whether,
+    in such a situation, the confidence interval should be made one-sided; that
+    is, should all of the 5% tail probability (for 95% CI's) be put onto one
+    side, instead of being split half-and-half between the left and right side.
+    The rationale for taking such action is that, in these situations, one side
+    of the CI will be equal to the observed value (that is, there will be no
+    "confidence region" on that side), so it would seem to make sense that all
+    of the tail area should be re-allocated over to the other side, giving a
+    slightly narrower confidence interval.</font>
+    </p><p align="left">
+    <font color="Red">In the original version of this page (and the corresponding
+    Excel spreadsheet), I took no special action. So, for example, an observed
+    event count of zero would result in a 95% Poisson CI of 0 to 3.689 . &nbsp;But
+    over the years, people pointed out that the one-sided 95% Poisson CI for
+    an observed count of 0 was 0 to 2.996, so on <b>June 19, 2004, I revised
+    this web page to apply this one-sided adjustment automatically whenever the
+    observed Poisson count was zero, or whenever the observed binomial numerator
+    was zero or equal to the denominator</b>. I also revised the Excel spreadsheet
+    (and the included macros) to do the same thing.</font>
+    </p><p align="left">
+    <font color="Red"> Then in 2007, in a series of e-mail communications
+    with Karl Schlag (of the Economics Department, European University Institute,
+    in&nbsp;Florence, Italy), I came to realize that this special action was
+    not justified -- It is <span style="font-weight: bold;">not</span> valid &nbsp;for the CI algorithm to turn a 2-sided
+    CI into a 1-sided CI "on the fly" for certain values of the observed value.
+    Taking this special action produces a CI that, for certain ranges of the
+    true parameter, fails to produce at least a 95% coverage probability, thereby
+    violating the strict requirement for an exact CI. The decision to use a 1-sided
+    or a 2-sided CI has to be made <span style="font-weight: bold;">beforehand</span>, and applied consistently no matter
+    what the observed value turns out to be. So, on <b>August 11, 2007, I changed
+    the web page's algorithm back to the way it was prior to June 19, 2004</b>.
+    I also made the same changes to the Excel spreadsheet and its macros.</font>
+    </p><p>
+    <font color="Red"> </font> 
+      </p><hr>
+    <p align="left">
+    <b>Reference</b>: CJ Clopper and ES Pearson, "The use of confidence or fiducial
+    limits illustrated in the case of the binomial." <i>Biometrika</i>
+    <b>26</b>:404-413, 1934.
+    </p><p align="left">
+    <b>Reference</b>: F Garwood, "Fiducial Limits for the Poisson Distribution"
+    <i>Biometrica</i> <b>28</b>:437-442, 1936.
+    </p><p>
+      </p><hr noshade="noshade" size="1" width="100%">
+    <br>
+    Return to the <a href="index.html">Interactive Statistics page</a> or to
+    the <a href="JCPhome.html">JCP Home Page</a><br>
+    <br>
+    Send e-mail to John C. Pezzullo at
+    <img src="emladr.gif" align="middle" border="0" height="24" width="217">
+  </center>
+</form>
+
+</body></html>

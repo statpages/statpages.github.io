@@ -1,0 +1,232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<meta http-equiv="PICS-Label" content="(PICS-1.0 &quot;http://www.classify.org/safesurf/&quot; l on &quot;1996.08.22T13:44+0000 r (SS~~000 1)">
+<script language="LiveScript">
+<!-- hide this script tag's contents from old browsers
+function CALCEXPR(form) {
+var vvvvv = (form.expr.value); vvvvv = vvvvv.toUpperCase()
+if (vvvvv.indexOf("^") > -1)
+{ form.Output.value = "Warning: ^ is not valid. For a^b, you must use Power(a,b). [see Note]" }
+else
+{ form.Output.value = ''+eval(vvvvv) }
+form.expr.focus()
+}
+var PI=Math.PI; var PID2=PI/2; var DEG=180/PI
+function FACT(n) {
+if(n==0 | n==1) { return 1 }
+if(n<0) { return FACT(n+1)/(n+1) }
+if(n>1) { return n*FACT(n-1) }
+if(n<0.5) { r = n } else { r = 1 - n }
+var r = 1 / (1 + r*( 0.577215664819072 + r*(-0.655878067489187 + r*(-0.042002698827786 + r*(0.166538990722800 + r*(-0.042197630554869 + r*(-0.009634403818022 + r*(0.007285315490429 + r*(-0.001331461501875 ) ) ) ) ) ) ) ) )
+if( n > 0.5 ) { r = n*(1-n)*PI / (r*SIN(PI*n)) }
+return r
+}
+function GAMMA(n) { return FACT(n-1) }
+function ABS(x) { return Math.abs(x) }
+function SQRT(x) { return Math.sqrt(x) }
+function EXP(x) { return Math.exp(x) }
+function LN(x) { return Math.log(x) }
+function LOG10(x) { return LN(x)/LN(10) }
+function LOG2(x) { return LN(x)/LN(2) }
+function POWER(x,y) { return Math.pow(x,y) }
+function SIN(x) { return Math.sin(x) }
+function COS(x) { return Math.cos(x) }
+function TAN(x) { return SIN(x)/COS(x) }
+function COT(x) { return COS(x)/SIN(x) }
+function SEC(x) { return 1/COS(x) }
+function CSC(x) { return 1/SIN(x) }
+function ATAN(x) { return Math.atan(x) }
+function ASIN(x) { return Math.asin(x) }
+function ACOS(x) { return Math.acos(x) }
+function ACOT(x) { return ATAN(1/x) }
+function ASEC(x) { return ACOS(1/x) }
+function ACSC(x) { return ASIN(1/x) }
+function SINH(x) { return (EXP(x)-EXP(-x))/2 }
+function COSH(x) { return (EXP(x)+EXP(-x))/2 }
+function TANH(x) { return SINH(x)/COSH(x) }
+function COTH(x) { return 1/TANH(x) }
+function SECH(x) { return 1/COSH(x) }
+function CSCH(x) { return 1/SINH(x) }
+function ASINH(x) { return LN(x+SQRT(x*x+1)) }
+function ACOSH(x) { return LN(x+SQRT(x*x-1)) }
+function ATANH(x) { return 0.5*LN((1+x)/(1-x)) }
+function ACOTH(x) { return 0.5*LN((x+1)/(x-1)) }
+function ASECH(x) { return LN(1/x+SQRT(1/(x*x)+1)) }
+function ACSCH(x) { return LN(1/x+SQRT(1/(x*x)-1)) }
+function CHISQ(x,n) {
+if(x>1000 | n>1000) { var q=NORM((POWER(x/n,1/3)+2/(9*n)-1)/SQRT(2/(9*n)))/2; if (x>n) {return q}{return 1-q} }
+var p=EXP(-0.5*x); if((n%2)==1) { p=p*SQRT(2*x/PI) }
+var k=n; while(k>=2) { p=p*x/k; k=k-2 }
+var t=p; var a=n; while(t>1e-15*p) { a=a+2; t=t*x/a; p=p+t }
+return 1-p
+}
+function NORM(z) { var q=z*z
+if(ABS(z)>7) {return (1-1/q+3/(q*q))*EXP(-q/2)/(ABS(z)*SQRT(PID2))} else {return CHISQ(q,1) }
+}
+function GAUSS(z) { return ( (z<0) ? ( (z<-10) ? 0 : CHISQ(z*z,1)/2 ) : ( (z>10) ? 1 : 1-CHISQ(z*z,1)/2 ) ) }
+function ERF(z) { return ( (z<0) ? (2*GAUSS(SQRT(2)*z)-1) : (1-2*GAUSS(-SQRT(2)*z)) ) }
+function STUDT(t,n) {
+t=ABS(t); var w=t/SQRT(n); var th=ATAN(w)
+if(n==1) { return 1-th/PID2 }
+var sth=SIN(th); var cth=COS(th)
+if((n%2)==1)
+{ return 1-(th+sth*cth*STATCOM(cth*cth,2,n-3,-1))/PID2 }
+else
+{ return 1-sth*STATCOM(cth*cth,1,n-3,-1) }
+}
+function FISHF(f,n1,n2) {
+var x=n2/(n1*f+n2)
+if((n1%2)==0) { return STATCOM(1-x,n2,n1+n2-4,n2-2)*POWER(x,n2/2) }
+if((n2%2)==0){ return 1-STATCOM(x,n1,n1+n2-4,n1-2)*POWER(1-x,n1/2) }
+var th=ATAN(SQRT(n1*f/n2)); var a=th/PID2; var sth=SIN(th); var cth=COS(th)
+if(n2>1) { a=a+sth*cth*STATCOM(cth*cth,2,n2-3,-1)/PID2 }
+if(n1==1) { return 1-a }
+var c=4*STATCOM(sth*sth,n2+1,n1+n2-4,n2-2)*sth*POWER(cth,n2)/PI
+if(n2==1) { return 1-a+c/2 }
+var k=2; while(k<=(n2-1)/2) {c=c*k/(k-.5); k=k+1 }
+return 1-a+c
+ }
+function STATCOM(q,i,j,b) {
+var zz=1; var z=zz; var k=i; while(k<=j) { zz=zz*q*k/(k-b); z=z+zz; k=k+2 }
+return z
+}
+function ANORM(p) { var v=0.5; var dv=0.5; var z=0
+while(dv>1e-15) { z=1/v-1; dv=dv/2; if(NORM(z)>p) { v=v-dv } else { v=v+dv } }
+return z
+}
+function AGAUSS(p) { if(p>0.5) { return SQRT(ACHISQ(2*(1-p),1)) } else { return -SQRT(ACHISQ((2*p,1))) } }
+function AERF(p) { return AGAUSS(p/2+0.5)/SQRT(2) }
+function ACHISQ(p,n) { var v=0.5; var dv=0.5; var x=0
+while(dv>1e-15) { x=1/v-1; dv=dv/2; if(CHISQ(x,n)>p) { v=v-dv } else { v=v+dv } }
+return x
+}
+function ASTUDT(p,n) { var v=0.5; var dv=0.5; var t=0
+while(dv>1e-15) { t=1/v-1; dv=dv/2; if(STUDT(t,n)>p) { v=v-dv } else { v=v+dv } }
+return t
+}
+function AFISHF(p,n1,n2) { var v=0.5; var dv=0.5; var f=0
+while(dv>1e-15) { f=1/v-1; dv=dv/2; if(FISHF(f,n1,n2)>p) { v=v-dv } else { v=v+dv } }
+return f
+}
+<!-- done hiding from old browsers -->
+</script><title>Scientific Calculator</title></head>
+<body style="background-color: rgb(255, 255, 238);">
+<center>
+<h1> <font color="Red">Scientific Calculator</font>
+</h1>
+<p> <small>(modified 2011-11-17 -- Fixed bug in FishF for certain combinations of df1 and df2)</small>
+</p>
+</center>
+<p>
+This is a simple but fairly general numeric expression evaluator, with
+a
+large number of built-in functions, including statistical distribution
+functions. It requires a Web
+browser
+that supports <i>JavaScript</i>. </p>
+<hr>
+<form onsubmit="CalcExpr(this.form)"> Type an expression
+here, then
+press the Tab key <font color="Red">[NOT the Return or
+Enter key!]</font> <br>
+If that doesn't do anything, click the "Compute" button.<br>
+<center> Expression: <input name="expr" size="70" onfocus="expr.select();" onblur="CALCEXPR(this.form)" type="text">
+<p> Result: <input name="Output" size="30" type="text"><br>
+<br>
+<input value="Compute" onfocus="expr.select()" onclick="CALCEXPR(this.form)" type="button"> <input value="Move to Enter" onclick="expr.value=Output.value" onblur="expr.select()" type="button"> </p>
+</center>
+<p> </p>
+<hr> <br>
+<strong>Operators:</strong> + - * / and parentheses <br>
+<strong>Constants:</strong> Pi (=3.14...), e (=2.718...),
+Deg(=180/Pi
+= 57.2...) <br>
+<strong>Built-in Functions...</strong> <br>
+[Unless otherwise indicated, all functions take a single numeric
+argument, enclosed in parentheses after the name of the function.] <br>
+<strong>Algebraic:</strong> Abs, Sqrt, <font color="Red">Power(x,y)
+for x raised to power of y</font>, Fact for factorial, Gamma for
+Fact(n-1)<br>
+<strong>Transcendental:</strong> Exp, Ln for natural
+logarithm,
+Log10, Log2 <br>
+<strong>Trigonometric:</strong> Sin, Cos, Tan, Cot, Sec,
+Csc <br>
+<strong>Inverse Trig:</strong> ASin, ACos, ATan, ACot,
+ASec, ACsc <br>
+<strong>Hyperbolic:</strong> SinH, CosH, TanH, CotH,
+SecH, CscH <br>
+<strong>Inverse Hyp:</strong> ASinH, ACosH, ATanH, ACotH,
+ASecH,
+ACscH <br>
+<strong>Statistical:</strong> Norm, Gauss, Erf,
+ChiSq(x,df),
+StudT(t,df), FishF(F,df1,df2)<br>
+<strong>Inverse Stat:</strong> ANorm, AGauss, AErf,
+AChiSq(p,df),
+AStudT(p,df), AFishF(p,df1,df2) <br>
+<hr>
+<p> <font color="Red"><b>Note: JavaScript
+cannot recognize the ^
+operator commonly used to indicate "raising to a power". <br>
+Instead, you must use the Power function to do this. So, instead of
+a^b, you must use Power(a,b).<br>
+For example, if you want the square of five, do not use 5^2; use
+Power(5,2), which&nbsp;returns 25.</b></font> </p>
+<p> <font color="Red">Note:</font> This
+calculator is <span style="font-weight: bold;">not</span>
+case-sensitive.&nbsp; For example, for square roots you can use
+Sqrt,
+sqrt, SQRT, SqRt, sQRt, etc. </p>
+<p> <font color="Red">Note:</font> The trig
+functions work in
+radians. For degrees, multiply or divide by the <span style="font-weight: bold;">Deg</span> variable (which
+is equal to
+57.2957..., the number of degrees in one radian). For
+example: Sin(30/Deg) will return 0.5, and ATan(1)*Deg will return 45. </p>
+<p> <font color="Red">Note:</font> The
+factorial and gamma functions
+are implemented for all real numbers. For non-integers its accuracy is
+about 10 significant figures. For negative integers it returns either a
+very large number or a division-by-zero error. See the Handbook of
+Mathematical Functions for a description of the very unusual behavior
+of the factorials of negative numbers. </p>
+<p> <font color="Red">Note:</font> The
+statistical functions <span style="font-weight: bold;">Norm</span>
+and <span style="font-weight: bold;">StudT</span>
+return 2-tail
+p-values (e.g.: Norm(1.96) returns 0.05), while <span style="font-weight: bold;">ChiSq</span> and <span style="font-weight: bold;">FishF</span> return 1-tail
+values. This is
+consistent with the way
+these functions are most frequently used in statistical testing.
+Mathematical purists would probably prefer a "left integral"
+(representing the area under the curve between minus infinity and z).
+If you want the left integral of the normal (Gaussian) probability
+function, use Gauss(z) (e.g.: Gauss(1.96) returns 0.975). I've also
+provided <span style="font-weight: bold;">Erf</span>
+(the classic
+"error function"; if you don't know what Erf
+is, then you don't need it). I've also provided the inverses: AGauss
+and AErf. </p>
+<p> <font color="Red">Note:</font> Some of
+the functions listed
+above are not currently implemented in JavaScript, so I have programmed
+them as user-defined functions. You can see the algorithms by 'viewing
+the document source' for this page. They are not copyrighted, so feel
+free to copy them if you find them useful. Several of the routines use
+recursive subroutine calls, where a subroutine calls itself (like
+Fact), or two subroutines call each other (like Norm and ChiSq). So be
+careful when translating them into other languages. </p>
+<p> <font color="Red">Disclaimer:</font> I
+believe this calculator
+to be reasonably accurate and reliable, but I make no guarantees and
+assume no responsibility for any computational inaccuracies or their
+consequences. </p>
+<hr>
+<p align="center"> Return to the <a href="index.html">Interactive
+Statistics page</a> or to the <a href="JCPhome.html">JCP
+Home Page</a><br>
+<input name="Dummy" size="1" onfocus="expr.select();" onblur="CalcExpr(this.form)" type="text"></p>
+<p>Send e-mail to John C. Pezzullo (this page's author) at <img src="emladr.gif" align="middle" border="0" height="24" width="217"></p>
+</form>
+</body></html>

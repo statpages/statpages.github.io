@@ -1,0 +1,87 @@
+ACCFLF: Accelerated Failure Time Model with Log-F (Fortran)
+
+BERDS: Backward Elimination via Repeated Data Splitting (C)
+
+B1CISI: Binomial One-Sample Confidence Intervals for a SIngle Stage Trial (Fortran, MSDOS, PowerMac)
+
+BUSSPA: Binomial Unequal Sample Size Power and Analysis (Fortran, MSDOS, Mac68)
+
+CID2BP: Confidence Intervals on the Difference Between Two Probabilities (Fortran, MSDOS)
+
+DCDFLIB: Library of Routines for Cumulative Distribution Functions, Inverses, and Other Parameters (C, Fortran)
+
+DSTATTAB: Double Precision Statistical Tables (Fortran, PC, Mac68, TK windowing environment)
+
+EFFTOX: Efficacy and Toxicity, a strategy for dose-finding and safety monitoring based on efficacy and adverse outcomes in phase I/II clinical trials. (C)
+
+EXPSURV: Exploratory Survival, a set of XLISP-STAT routines for performing interactive dynamic exploratory graphical analysis of survival data. (XLISP-STAT)
+
+EXTSIG: Exact Significance Level for 2 X 2 Tables (Fortran, MSDOS, Mac68)
+
+KSB1CI: K-Stage Binomial One-Group Confidence Intervals; finds confidence intervals for single- or multiple-stage trials involving a single group which have a binomial outcome. (Fortran, MSDOS, Mac68)
+
+KSBIN1: K-Stage BINomial 1 Sample (Fortran, MSDOS, Mac68)
+
+KSBIN2: K-Stage Two Sample Binomial (Fortran, MSDOS, PowerMac)
+
+MULTC: Multiple Outcomes in Clinical Trials; a menu-driven program which provides computations for implementing the design strategy for monitoring multiple outcomes in
+clinical trials. (C, MSDOS)
+
+MULTI: Corrections for MULTIple Hypothesis Tests by any of eighteen different methods. (Fortran, MSDOS, PowerMac, Mac68)
+
+PHASE1: Planning and conduct of Phase I trials designed to find the maximum tolerated dose. A rational successor to the three plus three rule. (Fortran, MSDOS, PowerMac, Mac68)
+
+RANDLIB: Library of Routines for Random Number Generation (C and Fortran)
+
+RANLIST: Randomization Lists; features both restricted and unrestricted randomization. (Fortran, MSDOS, Mac68)
+
+SINGLE: Good Single-Stage Designs for Logistic Regression When Parameter Values are Uncertain. (Fortran, MSDOS, PowerMac)
+
+SOGS: Simulation of Genotype Selection
+This program implements the simulations to find the properties of several schemes for rapidly breeding congenic mice. (Fortran, MSDOS, PowerMac)
+
+STPLAN:  Performs power, sample size, and related calculations needed to plan studies. Handles a large number of different testing situations (see separate entry). (Fortran, MSDOS, PowerMac, Mac68)
+
+SURVAN: Survival Analysis, including Kaplan-Meier estimation, log-rank and Gehan-Breslow tests, proportional hazards and logistic regression models. (FORTRAN, MSDOS, Mac68)
+
+WINDOWS: Provides a variety of window/kernel/moving-average estimators. (Fortran, MSDOS)
+
+
+
+
+
+STPLAN: Study Planning
+STPLAN performs power, sample size, and related calculations needed to plan studies. Parameters of a test include those necessary to describe the distributions under the null and alternative hypotheses, sample sizes, significance levels, and power. Given values for all but one parameter, STPLAN will calculate the value of that one parameter.
+
+The following testing situations are covered by STPLAN:
+
+Studies with Outcomes Distributed According to the Binomial Distribution
+One-sample test
+Two-sample test
+Two-sample above and below the median
+Fisher's exact Matched pairs test for equality of proportions
+Conservative versus expensive treatment
+Two-sample test in which one group is a historic control K-sample Case-control
+Sample size correction for loss of subjects over time
+
+Studies with Outcomes Distributed According to the Poisson Distribution
+One-sample test
+Two-sample test
+
+Studies with Outcomes Distributed According to the Normal Distribution
+One-sample test Two-sample test, equal variances
+Two-sample test, unequal variances Two-sample log-normal
+
+Studies with Outcomes Distributed According to the Exponential Distribution
+One-sample test
+Two-sample test
+
+Studies whose Outcome is a Set of Survival Times.
+Randomized clinical trial for exponential survival times
+Comparison with a historic control - exponential survival
+Randomized clinical trial - two different hazard rates depending on time
+
+Studies whose Outcome is the Correlation Coefficient 
+One-sample test
+
+(Available as Fortran source, and executable programs for MSDOS, PowerMac, and Mac68)

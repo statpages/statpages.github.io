@@ -1,0 +1,847 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+  
+  <meta http-equiv="PICS-Label" content="(PICS-1.0 &quot;http://www.classify.org/safesurf/&quot; l on &quot;1996.08.22T13:44+0000 r (SS~~000 1)">
+
+  
+  <script language="JavaScript">
+<!-- hide this script tag's contents from old browsers
+
+
+var PI=Math.PI; var PID2=PI/2; var Deg=180/PI
+
+function FACT(n) {
+if(n==0 | n==1) { return 1 }
+if(n<0) { return FACT(n+1)/(n+1) }
+if(n>1) { return n*FACT(n-1) }
+if(n<0.5) { r = n } else { r = 1 - n }
+var r = 1 / (1 + r*( 0.577215664819072 + r*(-0.655878067489187 + r*(-0.042002698827786 + r*(0.166538990722800 + r*(-0.042197630554869 + r*(-0.009634403818022 + r*(0.007285315490429 + r*(-0.001331461501875 ) ) ) ) ) ) ) ) )
+if( n > 0.5 ) { r = n*(1-n)*PI / (r*SIN(PI*n)) }
+return r
+}
+
+function GAMMA(n) { return FACT(n-1) }
+function ABS(x) { return Math.abs(x) }
+function SQRT(x) { return Math.sqrt(x) }
+function EXP(x) { return Math.exp(x) }
+function LN(x) { return Math.log(x) }
+function LOG10(x) { return LN(x)/LN(10) }
+function LOG2(x) { return LN(x)/LN(2) }
+function POWER(x,y) { return Math.pow(x,y) }
+function SIN(x) { return Math.sin(x) }
+function COS(x) { return Math.cos(x) }
+function TAN(x) { return SIN(x)/COS(x) }
+function COT(x) { return COS(x)/SIN(x) }
+function SEC(x) { return 1/COS(x) }
+function CSC(x) { return 1/SIN(x) }
+function ATAN(x) { return Math.atan(x) }
+function ASIN(x) { return Math.asin(x) }
+function ACOS(x) { return Math.acos(x) }
+function ACOT(x) { return ATAN(1/x) }
+function ASEC(x) { return ACOS(1/x) }
+function ACSC(x) { return ASIN(1/x) }
+
+function SINH(x) { return (EXP(x)-EXP(-x))/2 }
+function COSH(x) { return (EXP(x)+EXP(-x))/2 }
+function TANH(x) { return SINH(x)/COSH(x) }
+function COTH(x) { return 1/TANH(x) }
+function SECH(x) { return 1/COSH(x) }
+function CSCH(x) { return 1/SINH(x) }
+function ASINH(x) { return LN(x+SQRT(x*x+1)) }
+function ACOSH(x) { return LN(x+SQRT(x*x-1)) }
+function ATANH(x) { return 0.5*LN((1+x)/(1-x)) }
+function ACOTH(x) { return 0.5*LN((x+1)/(x-1)) }
+function ASECH(x) { return LN(1/x+SQRT(1/(x*x)+1)) }
+function ACSCH(x) { return LN(1/x+SQRT(1/(x*x)-1)) }
+
+function CHISQ(x,n) {
+if(x>1000 | n>1000) { var q=NORM((POWER(x/n,1/3)+2/(9*n)-1)/SQRT(2/(9*n)))/2; if (x>n) {return q}{return 1-q} }
+var p=EXP(-0.5*x); if((n%2)==1) { p=p*SQRT(2*x/PI) }
+var k=n; while(k>=2) { p=p*x/k; k=k-2 }
+var t=p; var a=n; while(t>1e-15*p) { a=a+2; t=t*x/a; p=p+t }
+return 1-p
+}
+function NORM(z) { var q=z*z
+if(ABS(z)>7) {return (1-1/q+3/(q*q))*EXP(-q/2)/(ABS(z)*SQRT(PID2))} else {return CHISQ(q,1) }
+}
+function GAUSS(z) { return ( (z<0) ? ( (z<-10) ? 0 : CHISQ(z*z,1)/2 ) : ( (z>10) ? 1 : 1-CHISQ(z*z,1)/2 ) ) }
+
+function ERF(z) { return ( (z<0) ? (2*GAUSS(SQRT(2)*z)-1) : (1-2*GAUSS(-SQRT(2)*z)) ) }
+
+function STUDT(t,n) {
+t=ABS(t); var w=t/SQRT(n); var th=ATAN(w)
+if(n==1) { return 1-th/PID2 }
+var sth=SIN(th); var cth=COS(th)
+if((n%2)==1)
+{ return 1-(th+sth*cth*STATCOM(cth*cth,2,n-3,-1))/PID2 }
+else
+{ return 1-sth*STATCOM(cth*cth,1,n-3,-1) }
+}
+function FISHF(f,n1,n2) {
+var x=n2/(n1*f+n2)
+if((n1%2)==0) { return STATCOM(1-x,n2,n1+n2-4,n2-2)*POWER(x,n2/2) }
+if((n2%2)==0){ return 1-STATCOM(x,n1,n1+n2-4,n1-2)*POWER(1-x,n1/2) }
+var th=ATAN(SQRT(n1*f/n2)); var a=th/PID2; var sth=SIN(th); var cth=COS(th)
+if(n2>1) { a=a+sth*cth*STATCOM(cth*cth,2,n2-3,-1)/PID2 }
+if(n1==1) { return 1-a }
+var c=4*STATCOM(sth*sth,n2+1,n1+n2-4,n2-2)*sth*POWER(cth,n2)/PI
+if(n2==1) { return 1-a+c/2 }
+var k=2; while(k<=(n2-1)/2) {c=c*k/(k-.5); k=k+1 }
+return 1-a+c
+}
+function STATCOM(q,i,j,b) {
+var zz=1; var z=zz; var k=i; while(k<=j) { zz=zz*q*k/(k-b); z=z+zz; k=k+2 }
+return z
+}
+function ANORM(p) { var v=0.5; var dv=0.5; var z=0
+while(dv>1e-15) { z=1/v-1; dv=dv/2; if(NORM(z)>p) { v=v-dv } else { v=v+dv } }
+return z
+}
+
+function AGAUSS(p) { if(p>0.5) { return SQRT(ACHISQ(2*(1-p),1)) } else { return -SQRT(ACHISQ((2*p,1))) } }
+
+function AERF(p) { return AGAUSS(p/2+0.5)/SQRT(2) }
+
+function ACHISQ(p,n) { var v=0.5; var dv=0.5; var x=0
+while(dv>1e-15) { x=1/v-1; dv=dv/2; if(CHISQ(x,n)>p) { v=v-dv } else { v=v+dv } }
+return x
+}
+function ASTUDT(p,n) { var v=0.5; var dv=0.5; var t=0
+while(dv>1e-15) { t=1/v-1; dv=dv/2; if(STUDT(t,n)>p) { v=v-dv } else { v=v+dv } }
+return t
+}
+function AFISHF(p,n1,n2) { var v=0.5; var dv=0.5; var f=0
+while(dv>1e-15) { f=1/v-1; dv=dv/2; if(FISHF(f,n1,n2)>p) { v=v-dv } else { v=v+dv } }
+return f
+}
+
+function MAX(x1,x2) { return (x1>x2)?x1:x2 }
+function MIN(x1,x2) { return (x1<x2)?x1:x2 }
+
+function Fmt(x) { var v;
+if(ABS(x)<0.00005) { x=0 }
+if(x>=0) { v=' '+(x+0.00005) } else { v=' '+(x-0.00005) }
+v = v.substring(0,v.indexOf('.')+5)
+return v.substring(v.length-10,v.length)
+}
+
+function vFmt(x) { var v;
+if(ABS(x)<0.0000005) { x=0 }
+if(x>=0) { v=' '+(x+0.0000005) } else { v=' '+(x-0.0000005) }
+v = v.substring(0,v.indexOf('.')+7)
+return v.substring(v.length-18,v.length)
+}
+
+function Xlate(s,from,to) { var v = s;
+var l=v.indexOf(from);
+while(l>-1) {
+v = v.substring(0,l) + to + v.substring(l+1,v.length);
+l=v.indexOf(from)
+}
+return v
+}
+function createArray() {
+this.length = createArray.arguments.length
+for (var i = 0; i < this.length; i++) { this[i] = createArray.arguments[i] }
+}
+
+function ix(j,k) { return j*(nPar+1)+k }
+
+var Par = new createArray(0,0,0,0,0,0,0,0);
+var SEP = new createArray(1,1,1,1,1,1,1,1);
+var Der = new createArray(0,0,0,0,0,0,0,0,0);
+var Arr = new createArray(0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0);
+var Cov = new createArray(0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0 );
+var xArr = new createArray(0,0,0,0,0,0,0,0,0);
+
+var CR = unescape("%0D");
+var LF = unescape("%0A");
+var Tb = unescape("%09");
+var NL = CR + LF;
+
+var i = 0; var j = 0; var k = 0; var l = 0; var m = 0;
+
+var nPar = 0;
+var nVar = 0;
+var nPts = 0;
+
+var ccSW = 1;
+var ccAv = 0;
+var ccSD = 1;
+
+function Iterate(form) {
+
+var cccSW = 0;
+var cccAv = 0;
+var cccSD = 0;
+
+nPts = eval(form.cPts.value);
+nPar = eval(form.cPar.value);
+nVar = eval(form.cVar.value);
+dgfr = nPts - nPar;
+var St95 = ASTUDT( 0.05 , dgfr );
+var Pctile = eval(form.cPctile.value)/100;
+
+var A = eval(form.ca.value); var P1 = A; Par[0] = A;
+var B = eval(form.cb.value); var P2 = B; Par[1] = B;
+var C = eval(form.cc.value); var P3 = C; Par[2] = C;
+var D = eval(form.cd.value); var P4 = D; Par[3] = D;
+var E = eval(form.ce.value); var P5 = E; Par[4] = E;
+var F = eval(form.cf.value); var P6 = F; Par[5] = F;
+var G = eval(form.cg.value); var P7 = G; Par[6] = G;
+var H = eval(form.ch.value); var P8 = H; Par[7] = H;
+
+var da = Xlate(form.data.value,Tb,",");
+form.data.value = da;
+if( da.indexOf(NL)==-1 ) { if( da.indexOf(CR)>-1 ) { NL = CR } else { NL = LF } }
+
+var Tdel = form.TabDel.checked;
+var vCentered = form.Centered.checked;
+
+var o = "Y = " + form.funct.value + NL
+for (i=1; i<=nVar; i++) {
+if (Tdel=="1")
+{o = o + ("x"+i+Tb)}
+else {o = o + " x" + i + " "}
+}
+if (Tdel=="1")
+{o = o + "Y"+Tb+"yc"+Tb+"Y-yc"+Tb+"SEest"+Tb+"YcLo"+Tb+"YcHi"+NL}
+else {o = o + " Y yc Y-yc SEest YcLo YcHi " + NL}
+
+var SSq = 0;
+
+for (j = 0; j<nPar*(nPar+1); j++) { Arr[j] = 0; }
+for (i = 1; i<=nPts; i++) {
+l = da.indexOf(NL); if( l==-1 ) { l = da.length };
+var v = da.substring(0,l);
+da = da.substring(l+NL.length,da.length);
+for (j = 0; j<nVar; j++) {
+l = v.indexOf(","); if( l==-1 ) { l = v.length };
+xArr[j] = eval(v.substring(0,l));
+if(Tdel=="1")
+{o = o + (xArr[j]+Tb)}
+else {o = o + Fmt(xArr[j])};
+v = v.substring(l+1,v.length);
+}
+var X = xArr[0]; X1 = eval( form.x1Trans[form.x1Trans.selectedIndex].text.toUpperCase() );
+X = X1; var T = X;
+var X2 = xArr[1]; X2 = eval( form.x2Trans[form.x2Trans.selectedIndex].text.toUpperCase() );
+var X3 = xArr[2]; X3 = eval( form.x3Trans[form.x3Trans.selectedIndex].text.toUpperCase() );
+var X4 = xArr[3]; X4 = eval( form.x4Trans[form.x4Trans.selectedIndex].text.toUpperCase() );
+var X5 = xArr[4]; X5 = eval( form.x5Trans[form.x5Trans.selectedIndex].text.toUpperCase() );
+var X6 = xArr[5]; X6 = eval( form.x6Trans[form.x6Trans.selectedIndex].text.toUpperCase() );
+var X7 = xArr[6]; X7 = eval( form.x7Trans[form.x7Trans.selectedIndex].text.toUpperCase() );
+var X8 = xArr[7]; X8 = eval( form.x8Trans[form.x8Trans.selectedIndex].text.toUpperCase() );
+var yc = eval( form.funct.value.toUpperCase() );
+
+l = v.indexOf(","); if( l==-1 ) { l = v.length };
+Y = eval(v.substring(0,l));
+v = v.substring(l+1,v.length);
+
+var vSEy = form.SEy[form.SEy.selectedIndex].value
+
+if(vSEy=="w") {var w = eval(v)}
+
+if(vSEy=="Rep") {
+var nY = 1; var sY = Y; var sYY = Y*Y;
+while (v.length>0) {
+l = v.indexOf(","); if( l==-1 ) { l = v.length };
+Y = eval(v.substring(0,l));
+v = v.substring(l+1,v.length);
+nY = nY + 1; sY = sY + Y; sYY = sYY + Y*Y; 
+}
+Y = sY/nY; 
+var Rep = SQRT(ABS(sYY/nY - Y*Y)/nY);
+}
+
+yo = Y;
+
+w = eval(vSEy)
+if(w==0) { w = 0.001 }
+
+var yTr = form.yTrans[form.yTrans.selectedIndex].text; yTr = yTr.toUpperCase()
+var yT = eval( yTr );
+if(yTr=="LN(Y)") { w = w / Y }
+if(yTr=="SQRT(Y)") { w = w / yT }
+if(yTr=="1/Y") { w = w / Y*Y }
+Y = yT;
+if(form.LeastAbs.checked=="1") {
+if(Y<yc) { w = w * MAX( SQRT(Pctile*ABS(Y-yc)) , 0.001*Y ) }
+else { w = w * MAX( SQRT((1-Pctile)*ABS(Y-yc)) , 0.001*Y ) }
+}
+cccSW = cccSW + 1 / ( w * w );
+cccAv = cccAv + yc / ( w * w );
+cccSD = cccSD + ( Y - ccAv ) * ( Y - ccAv ) / ( w * w );
+
+for (var j=0; j<nPar; j++) {
+var Save = Par[j]; if(Save==0) {var Del = 0.0001} else {var Del = Save/1000}
+Par[j] = Save + Del;
+A=Par[0]; B=Par[1]; C=Par[2]; D=Par[3]; E=Par[4]; F=Par[5]; G=Par[6]; H=Par[7];
+P1=A; P2=B; P3=C; P4=D; P5=E; P6=F; P7=G; P8=H;
+ycIncr = eval( form.funct.value.toUpperCase() )
+Der[j] = ( ycIncr - yc ) / ( Del * w );
+if(vCentered=="1") {
+Par[j] = Save - Del;
+A=Par[0]; B=Par[1]; C=Par[2]; D=Par[3]; E=Par[4]; F=Par[5]; G=Par[6]; H=Par[7];
+P1=A; P2=B; P3=C; P4=D; P5=E; P6=F; P7=G; P8=H;
+ycDecr = eval( form.funct.value.toUpperCase() )
+Der[j] = ( ycIncr - ycDecr ) / ( 2 * Del * w );
+}
+Par[j] = Save;
+A=Par[0]; B=Par[1]; C=Par[2]; D=Par[3]; E=Par[4]; F=Par[5]; G=Par[6]; H=Par[7];
+P1=A; P2=B; P3=C; P4=D; P5=E; P6=F; P7=G; P8=H;
+}
+Der[nPar] = (Y - yc) / w;
+SSq = SSq + Der[nPar]*Der[nPar];
+for (j=0; j<nPar; j++) {
+for (k=0; k<=nPar; k++) {
+Arr[ix(j,k)] = Arr[ix(j,k)] + Der[j] * Der[k]
+} }
+var SEest = 0;
+for (j=0; j<nPar; j++) {
+SEest = SEest + Cov[ix(j,j)] * Der[j] * Der[j];
+for (k=j+1; k<nPar; k++) {
+SEest = SEest + 2 * Cov[ix(j,k)] * Der[j] * Der[k];
+} }
+SEest=w*SQRT(SEest);
+var yco=yc; var ycl=yc-St95*SEest; var ych=yc+St95*SEest;
+if(yTr=="LN(Y)") { yco=EXP(yc); ycl=EXP(ycl); ych=EXP(ych) }
+if(yTr=="SQRT(Y)") { yco=yc*yc; ycl=ycl*ycl; ych=ych*ych }
+if(yTr=="1/Y") { yco=1/yc; ycl=1/ycl; ych=1/ych }
+
+if(Tdel=="1")
+{o = o + (yo+Tb+yco+Tb+(yo-yco)+Tb+SEest+Tb+ycl+Tb+ych+NL)}
+else {o = o + (Fmt(yo)+Fmt(yco)+Fmt(yo-yco)+Fmt(SEest)+Fmt(ycl)+Fmt(ych)+NL)}
+}
+
+ccSW = cccSW;
+ccAv = cccAv / ccSW;
+ccSD = cccSD / ccSW;
+var GenR2 = (ccSD-(SSq/ccSW))/ccSD;
+var GenR = SQRT(GenR2);
+if(Tdel=="1")
+{o = o + (NL+"Corr. Coeff. ="+Tb+GenR+Tb+"r*r ="+Tb+GenR2)}
+else {o = o + ( NL + "Corr. Coeff. = " + vFmt(GenR) + "; r*r = " + vFmt(GenR2) )}
+
+RMS = SQRT(SSq/MAX(1,dgfr));
+if(Tdel=="1")
+{o = o + ( NL + "RMS Error =" + Tb + RMS + Tb + "d.f =" + Tb + dgfr + Tb + "SSq =" + Tb + SSq + NL )}
+else {o = o + ( NL + "RMS Error = " + vFmt(RMS) + "; d.f = " + dgfr + "; SSq = " + vFmt(SSq) + NL )}
+
+AIC = nPts * LN( SSq / nPts ) + 2 * (nPar+1);
+if(nPts>=(nPar+2))
+{AICc = AIC + ( 2 * (nPar+1) * ((nPar+1) + 1) ) / ( nPts - (nPar+1) - 1 )}
+else {AICc = AIC}
+if(Tdel=="1")
+{o = o + ( "AIC =" + Tb + AIC + Tb + "AIC(corrected) =" + Tb + AICc + NL )}
+else {o = o + ( "AIC = " + vFmt(AIC) + "; AIC(corrected) = " + vFmt(AICc) + NL )}
+
+for (i=0; i<nPar; i++) { var s = Arr[ix(i,i)]; Arr[ix(i,i)] = 1;
+for (k=0; k<=nPar; k++) { Arr[ix(i,k)] = Arr[ix(i,k)] / s; }
+for (j=0; j<nPar; j++) {
+if (i!=j) { s = Arr[ix(j,i)]; Arr[ix(j,i)] = 0;
+for (k=0; k<=nPar; k++) {
+Arr[ix(j,k)] = Arr[ix(j,k)] - s * Arr[ix(i,k)];
+} } } }
+
+var FRelax = eval(form.RelaxF[form.RelaxF.selectedIndex].text)
+o = o + ( NL + "Parameter Estimates..." + NL );
+for( i=0; i<nPar; i++) {
+Par[i] = Par[i] + FRelax * Arr[ix(i,nPar)];
+SEP[i] = RMS * SQRT(Arr[ix(i,i)]);
+if (Tdel=="1")
+{o = o + ("p"+(i+1)+"="+Tb+Par[i]+Tb+"+/-"+Tb+SEP[i]+Tb+"p="+Tb+STUDT(Par[i]/SEP[i],dgfr)+NL)}
+else {o = o + ("p"+(i+1)+"="+vFmt(Par[i])+" +/- "+vFmt(SEP[i])+"; p="+Fmt(STUDT(Par[i]/SEP[i],dgfr))+NL)}
+}
+
+o = o + ( NL + "Covariance Matrix Terms and Error-Correlations..." + NL );
+for (j=0; j<nPar; j++) {
+for (k=j; k<nPar; k++) {
+Cov[ix(j,k)] = Arr[ix(j,k)] * RMS * RMS;
+v = Arr[ix(j,k)]/SQRT(Arr[ix(j,j)]*Arr[ix(k,k)])
+o = o + ( "B(" + (j+1) + "," + (k+1) + ")=" );
+if(j!=k) { o = o + ( "B(" + (k+1) + "," + (j+1) + ")=" ) }
+if (Tdel=="1") { o = o + Tb} else { o = o + " " }
+o = o + Cov[ix(j,k)];
+if (Tdel=="1")
+{ o = o + (Tb+"r="+Tb+v+NL) }
+else { v = Fmt(v); o = o + ("; r=" + v.substring(v.length-7,v.length)+NL) }
+}
+}
+
+form.output.value = o;
+
+form.ca.value = "" + Par[0]; form.sa.value = "" + SEP[0]; form.pva.value = vFmt(STUDT(Par[0]/SEP[0],dgfr));
+form.cb.value = "" + Par[1]; form.sb.value = "" + SEP[1]; form.pvb.value = vFmt(STUDT(Par[1]/SEP[1],dgfr));
+form.cc.value = "" + Par[2]; form.sc.value = "" + SEP[2]; form.pvc.value = vFmt(STUDT(Par[2]/SEP[2],dgfr));
+form.cd.value = "" + Par[3]; form.sd.value = "" + SEP[3]; form.pvd.value = vFmt(STUDT(Par[3]/SEP[3],dgfr));
+form.ce.value = "" + Par[4]; form.se.value = "" + SEP[4]; form.pve.value = vFmt(STUDT(Par[4]/SEP[4],dgfr));
+form.cf.value = "" + Par[5]; form.sf.value = "" + SEP[5]; form.pvf.value = vFmt(STUDT(Par[5]/SEP[5],dgfr));
+form.cg.value = "" + Par[6]; form.sg.value = "" + SEP[6]; form.pvg.value = vFmt(STUDT(Par[6]/SEP[6],dgfr));
+form.ch.value = "" + Par[7]; form.sh.value = "" + SEP[7]; form.pvh.value = vFmt(STUDT(Par[7]/SEP[7],dgfr));
+
+form.cRMS.value = "" + RMS;
+} 
+
+<!-- done hiding from old browsers -->
+  </script><title>Nonlinear Least Squares Regression (Curve Fitter)</title></head>
+<body style="background-color: rgb(255, 255, 238);">
+<center>
+<h2> <font color="Red">Nonlinear Least Squares Regression (Curve
+Fitter)</font> </h2>
+
+<p> <a href="#Background">Background</a> ||| <a href="#Techie">Techie-Stuff</a>
+||| <a href="#Instructions">Instructions</a> ||| <a href="#Syntax">Syntax
+Rules</a> ||| <a href="nonlinml.html">Model Library</a>
+</p>
+</center>
+
+<p>
+This page lets you fit any function of up to eight parameters to a set
+of
+data<font size="4">. </font>Just specify the function, the data
+points, and
+initial guesses to the parameters. When you click the <b>Iterate</b>
+button,
+the JavaScript program refines these estimates to produce what should
+be
+a better set of parameters. This process is iterative, and with good
+guesses
+(and good luck) usually converges to the least squares solution in five
+to
+ten iterations. This program can also fit nonlinear
+Least-Absolute-Value
+curves and Percentile Curves (having a specified fraction of the points
+below
+the curve).</p><hr>
+<h3> <font color="Red"><a name="Background">Background Info</a> (just
+what is nonlinear curve-fitting, anyway?):</font>
+</h3>
+
+<p>
+Simple <b>linear</b> curve fitting deals with functions that are <b>linear
+in the parameters</b>, even though they may be <b>nonlinear in the
+variables</b>. For example, a parabola <i>y=a+b*x+c*x*x</i> is a <b>nonlinear
+function of x</b> (because of the <i>x</i>-squared term), but fitting
+a parabola
+to a set of data is a relatively simple <b>linear curve-fitting
+problem
+</b>because the parameters enter into the formula as simple multipliers
+of
+terms that are added together. Another example of a linear
+curve-fitting
+problem is <i>y= a+b*Log(x)+c/x</i>; the terms involve nonlinear
+functions
+of the independent variable <i>x</i>, but the parameters enter into
+the formula
+in a simple, linear way.
+</p>
+
+<p>Unfortunately, many functions that arise in real world situations
+are
+<b>nonlinear in the parameters</b>, like the curve for exponential
+decay
+<i>y=a*Exp(-b*x)</i>, where <i>b</i> is "wrapped up" inside the
+exponential
+function. Some nonlinear functions can be linearized by transforming
+the
+independent and/or dependent variables. The exponential decay curve,
+for
+example, can be linearized by taking logarithms: <i>Log(y)=a'-b*x</i>
+. The
+<i>a'</i> parameter in this new equation is the logarithm of <i>a</i>
+in
+the original equation,so once <i>a' </i>has been determined by a
+simple linear
+curve-fit, we can just take its antilog to get <i>a</i>.
+</p>
+
+<p>But we often encounter functions that cannot be linearized by any
+such tricks,
+a simple example being exponential decay that levels off to some
+unknown
+value: <i>y=a*Exp(-b*x)+c</i>. Applying a logarithmic transformation
+in this
+case produces <i>Log(y-c)=a'-b*x</i>. This linearizes <i>b</i>, but
+now
+<i>c</i> appears inside the logarithm; either way, we're stuck with an
+intrinsically nonlinear parameter estimation problem, which is
+considerably
+more difficult than linear curve-fitting. That's the situation this web
+page
+was designed to handle.
+</p>
+
+<p>For a more in-depth treatment of this topic, check out Dr. Harvey
+Motulsky's
+new web site: <a href="http://curvefit.com">Curvefit.com</a> -- a
+complete
+guide to nonlinear regression. Most of the information here is
+excerpted
+from <i>Analyzing Data with GraphPad Prism</i>, a book that
+accompanies the
+program <i>GraphPad Prism</i>. You can
+<a href="http://curvefit.com/analyzing_data_book.htm">download this book</a>
+as a pdf file.
+</p>
+
+<p align="left"> </p>
+
+<hr>
+<h3>
+<p align="left"> <font color="Red"><a name="Techie">Techie-stuff</a>
+(for those who might be interested):</font>
+</p>
+</h3>
+
+<p>
+This page contains a straightforward, no-frills <i>JavaScript</i>
+implementation
+of the method of differential corrections, which involves expanding the
+function
+to be fitted in a Taylor series around current estimates of the
+parameters,
+retaining first-order (linear) terms, and solving the resulting linear
+system
+for incremental changes to the parameters. The program computes
+finite-difference
+approximations to the required partial derivatives, then uses a simple
+elimination algorithm to invert and solve the simultaneous equations.
+Central-limit estimates of parameter standard errors are obtained from
+the
+diagonal terms of the inverse of the normal equations matrix. The
+covariance
+matrix is computed by multiplying each term of the inverse normal
+matrix
+by the weighted error-variance. It is used to estimate parameter error
+correlations and to compute confidence bands around the fitted curve.
+These
+show the uncertainty in the fitted curve arising from sampling errors
+in
+the estimated parameters, and do not include the effects of errors in
+the
+independent and dependent variables. The page also computes a
+generalized
+correlation coefficient, defined as the square root of the fraction of
+total
+<i>y</i> variance explainable by the fitted function.
+</p>
+
+<p>Unequal weighting is accomplished by specifying the standard error
+associated
+with the <i>y</i> variable. Constant errors, proportional errors, or
+Poisson
+(square root) errors can be specified by a menu, and don't have to be
+entered
+with the data. Standard errors can also be entered along with the <i>x</i>
+and <i>y</i> variables. Finally, replicate <i>y</i> measurements can
+be entered;
+the program will compute the average and standard error of the mean.
+</p>
+
+<p>Also available are a number of simple variable transformations (log,
+reciprocal,
+square root), which might simplify the function to be fitted and
+improve
+the convergence, stability and precision of the iterative algorithm. If
+a
+transformation is applied to the <i>y</i> variable, the program will
+adjust
+the weights appropriately.
+</p>
+
+<p>The page also fits least-absolute-value curves by applying an
+iterative
+reweighting scheme by which each point is given a standard error equal
+to
+the distance of that point from the fitted curve. An option allows
+differential
+weighting of above-curve points vs. below-curve points to achieve a
+specified
+split of points above and below the curve (a percentile curve fit).
+</p>
+
+<p>No special goal-seeking methods, precision-preserving techniques
+(such as
+pivoting), convergence-acceleration, or iteration-stabilizing
+techniques
+(other than a simple, user-specified fractional adjustment), are used.
+This
+method may not succeed with extremely ill-conditioned systems, but it
+should
+work with most practical problems that arise in real-world situations.
+</p>
+
+<p>The current implementation is limited to eight parameters and eight
+independent
+variables. These arbitrary limits could be increased without much
+trouble
+if necessary. I don't know what the maximum number of data points is;
+it's
+probably dependent on your browser's maximum string size, since the
+contents
+of the Data and Results windows are treated as large text strings. I've
+used
+this page to fit 500-point datasets with no problems.
+</p>
+
+<p>The fields below are pre-loaded with a simple example: the
+temperature of
+a cup of water as it cools from boiling hot to room temperature over
+the
+course of an hour, being fit to Newton's Law of Cooling:<br>
+<i>Temp = ( T<sub>0</sub> - T<sub>room</sub> ) * Exp( - k * Time ) +
+T<sub>room</sub></i>
+</p>
+
+<p> </p>
+
+<hr>
+<form method="post">
+  <h3> <font color="Red"><a name="Instructions">Instructions</a>:</font>
+  </h3>
+  <ol>
+    <li> Enter the <font color="Red">number of data points</font>: <input name="cPts" value="9" size="4" type="text"> </li>
+    <li> Enter the <font color="Red">number of independent variables</font>:
+      <input name="cVar" size="2" value="1" type="text"> <font color="Purple"><small>(0 - 8; usually 1)</small></font> </li>
+    <li> Enter the <font color="Red">number of parameters</font>: <input name="cPar" value="3" size="2" type="text"> <font color="Purple"><small>(1
+- 8)</small></font> </li>
+    <li> Enter the <font color="Red">formula for the function to be
+fitted</font>:<br>
+      <i>Y</i> = <input name="funct" value="( a - c ) * Exp( - b * t ) + c" size="60" type="text"><br>
+      <font color="Purple"><small>Be sure to adhere to the expression
+syntax rules described below. (In particular, note that you <b>cannot</b>
+use ^ for exponentiation; you must use the Power function instead.)
+Enter only the part after the = sign (if you're fitting <i>y=a+b*x</i>,
+just enter <i>a+b*x</i> in the box). Refer to the parameters as <i>a</i>,
+      <i>b</i>, <i>c</i>, <i>d</i>, <i>e</i>, <i>f</i>, <i>g</i>,
+and <i>h</i>, or as <i>p1</i>, <i>p2</i>, <i>p3</i>, ..., <i>p8</i>.
+If there are fewer than eight parameters in the equation, start with <i>a</i>
+or <i>p1</i>, and don't skip letters in the sequence (for example, if
+there are 3 parameters, <b>don't </b>use <i>a</i>, <i>c</i>, and <i>d</i>).
+If there's a single independent variable, call it <i>x</i> (or <i>x1
+or t</i>); if there are more than one, use <i>x1</i> (or <i>x</i> or
+t), <i>x2</i>, <i>x3</i>, ..., <i>x8</i>.</small></font> </li>
+    <li> Type (or paste) the <font color="Red">[<i>x</i>,<i>y</i>] data</font>:<br>
+      <textarea name="data" rows="8" cols="50">0, 210
+1, 198
+2, 187
+5, 155
+10, 121
+15, 103
+30, 77
+45, 71
+60, 70 </textarea><br>
+      <font color="Purple"><small>Use a separate row for each data
+point. The independent variable (<i>x</i>) or variables (<i>x1</i>, <i>x2</i>,
+etc.) should come first, followed by the dependent variable (<i>y</i>),
+followed (if precision was specified as <b>Data</b> above) by the Std
+Err of <i>y</i>. If precision was specified as <b>Replicates</b>),
+several <i>y</i> values may be entered. Values should be separated by
+commas. You can copy data from another program, like a spreadsheet, and
+paste it into the window above. It may come in as tab-delimited text
+(without commas), but this will not be a problem; the program will
+convert tabs to commas during the first iteration.</small></font> </li>
+    <li> You may optionally specify the <a href="#Y-Precision">y-variable
+precision</a> (Std Error), <a href="#Transformations">x- and
+y-variable transformations</a>, and <a href="#Least-Abs">Least-Absolute-Value</a>
+curve fitting. </li>
+    <li> Enter your <font color="Red">best guesses for the parameters</font>:<br>
+      <tt><i>a</i> (or <i>p<sub>1</sub></i>)= </tt> <input name="ca" value="200" size="10" type="text"><tt>±</tt> <input name="sa" size="10" value="1" type="text"><tt>, p= <input name="pva" size="10" type="text"><br>
+      <i>b</i> (or <i>p<sub>2</sub></i>)= </tt> <input name="cb" value="0.2" size="10" type="text"><tt>±</tt> <input name="sb" size="10" value="1" type="text"><tt>, p= <input name="pvb" size="10" type="text"><br>
+      <i>c</i> (or <i>p<sub>3</sub></i>)= </tt> <input name="cc" value="80" size="10" type="text"><tt>±</tt> <input name="sc" size="10" value="1" type="text"><tt>, p= <input name="pvc" size="10" type="text"><br>
+      <i>d</i> (or <i>p<sub>4</sub></i>)= <input name="cd" size="10" value="0" type="text">±</tt> <input name="sd" size="10" value="1" type="text"><tt>, p= <input name="pvd" size="10" type="text"><br>
+      <i>e</i> (or <i>p<sub>5</sub></i>)= <input name="ce" size="10" value="0" type="text">±</tt> <input name="se" size="10" value="1" type="text"><tt>, p= <input name="pve" size="10" type="text"><br>
+      <i>f </i>(or <i>p<sub>6</sub></i>)= <input name="cf" size="10" value="0" type="text">±</tt> <input name="sf" size="10" value="1" type="text"><tt>, p= <input name="pvf" size="10" type="text"><br>
+      <i>g </i>(or <i>p<sub>7</sub></i>)= <input name="cg" size="10" value="0" type="text">±</tt> <input name="sg" size="10" value="1" type="text"><tt>, p= <input name="pvg" size="10" type="text"><br>
+      <i>h </i>(or <i>p<sub>8</sub></i>)= <input name="ch" size="10" value="0" type="text">±</tt> <input name="sh" size="10" value="1" type="text"><tt>, p= <input name="pvh" size="10" type="text"></tt><br>
+      <font color="Purple"><small>If there are fewer than eight
+parameters, set the extra boxes to zero. (Any values you enter in the
+boxes for these "extra" parameters beyond the number specified in Step
+3 will be "made available" for use in the formula, but will not be
+adjusted by the iterative process.) Don't put anything into the boxes
+to the right of the ± sign; that's where the program will put the
+standard errors and significance level of the parameters.</small></font>
+    </li>
+    <li> <font color="Red">Click the <input value="Iterate" onclick="Iterate(this.form)" type="button"> button</font> to perform a
+      <b>single iteration cycle</b>, and observe how the parameters
+change in the boxes above. Also look at the RMS Error and the Output
+area below.<br>
+If you encounter problems getting the parameters to converge, you can
+specify a <b>fractional adjustment factor</b> here:
+      <select name="RelaxF"><option selected="selected">1.0 </option><option>0.5 </option><option>0.2 </option><option>0.1 </option><option>0.05</option></select>
+      <font color="Purple"><small>Values less than 1.0 will apply only
+that fraction of the calculated adjustment to the parameters, making
+the convergence slower but more stable. Change this value back to 1.0
+once the iterations seem to be converging.</small></font><br>
+      <br>
+RMS Err = <input name="cRMS" size="10" type="text"> <font color="Purple"><small>Weighted Standard Error of Estimate: the average
+scatter of the points from the fitted curve. This is relative to the
+estimated error of the points themselves. Values much above 1 indicate
+the curve is not fitting the points to within their intrinsic errors.</small></font><br>
+      <textarea name="output" rows="10" cols="80"></textarea><br>
+      <font color="Purple"><small>Note that after each iteration step
+the calculated <i>yc</i> values, differences, correlation coefficient
+and RMS Error are all based on the parameter values at the end of the <b>previous</b>
+iteration step. Always click the <b>Iterate</b> button an extra time
+after convergence has been attained.</small></font> </li>
+    <li> If the new parameter values seem reasonable, click the <b>Iterate</b>
+button again, and continue until the parameters converge. </li>
+    <li> If any parameters seem to be diverging, enter a more
+reasonable value and click the <b>Iterate</b> button again. </li>
+    <li> To print out results, copy and paste the contents of the
+Output window above into a word processor or text editor, then Print.
+For best appearance, use a fixed-width font like Courier. </li>
+    <li> You can also transfer your results to a spreadsheet like Excel
+for graphing. Select the lines in the output window that have x, yo,
+yc, etc. (including the line with the column headers), Copy to the
+clipboard, paste into Excel, then use Excel's "Text to Columns" feature
+to split the data into separate columns. You can then have Excel
+prepare a graph that shows the observed points, calculated curve, and
+even confidence bands around the fitted curve!<br>
+It may be easier to first check the <font color="Red">Tab-delimited
+output</font> box (below) and then click the <b>Iterate</b> button one
+more time. The output in the box above will look a lot uglier, but will
+paste into Excel much more nicely, and you won't have to go through
+Excel's Text -to-Columns process. </li>
+  </ol>
+  <p> </p>
+  <hr>
+  <h3> Optional Features: </h3>
+  <p> The following optional features can be invoked. They have been
+collected here to avoid cluttering up the main part of the
+computational page. </p>
+  <p> <a name="Y-Precision"><!-- --></a><font color="Green">(Optional)</font>
+click here for <input name="TabDel" value="1" type="checkbox"><font color="Red">Tab-delimited output</font> (more convenient for pasting
+the results into spreadsheets). </p>
+  <p> <a name="Standard-Errors"><!-- --></a><font color="Green">(Optional)</font>
+Specify the <font color="Red">Standard Error associated with the <span style="font-style: italic;">Y</span>
+variable</font>: <font color="Purple">
+  <select name="SEy"><option value="1" selected="SELECTED">Equal </option><option value="Y">Relative </option><option value="Sqrt(Y)">Counts </option><option value="w">Data </option><option value="Rep">Replicates </option></select>
+  <br>
+  <small><b>Equal</b>: all points are equally precise; <br>
+  <b>Relative</b>: Std Err of each <span style="font-style: italic;">Y</span>
+value is proportional to <span style="font-style: italic;">Y</span>
+variable itself; <br>
+  <b>Counts</b>: Std Err = square root of <i>Y</i>; this is
+appropriate if <i>Y</i> represents the # of occurrences of something
+(such as radioactive decay events); <br>
+  <b>Data</b>: Std Err is specified in the data window as a separate
+column of numbers, immediately to the right of the <span style="font-style: italic;">Y</span> values;<br>
+  <b>Replicates</b>: Specify this if you have entered several <span style="font-style: italic;">Y</span>
+values.<br>
+(When in doubt, choose <b>Equal</b>.)</small></font> </p>
+  <p> <a name="Transformations"><!-- --></a><font color="Green">(Optional)</font>
+Specify any <font color="Red">transformations to applied to the
+dependent and/or independent variables</font>:<br>
+  <select name="yTrans"><option selected="selected">Y </option><option>LN(Y) </option><option>SQRT(Y) </option><option>1/Y</option></select>
+  <select name="x1Trans"><option selected="selected">X </option><option>LN(X) </option><option>SQRT(X) </option><option>1/X</option></select>
+  <select name="x2Trans"><option selected="selected">X2 </option><option>LN(X2) </option><option>SQRT(X2) </option><option>1/X2</option></select>
+  <select name="x3Trans"><option selected="selected">X3 </option><option>LN(X3) </option><option>SQRT(X3) </option><option>1/X3</option></select>
+  <select name="x4Trans"><option selected="selected">X4 </option><option>LN(X4) </option><option>SQRT(X4) </option><option>1/X4</option></select>
+  <select name="x5Trans"><option selected="selected">X5 </option><option>LN(X5) </option><option>SQRT(X5) </option><option>1/X5</option></select>
+  <select name="x6Trans"><option selected="selected">X6 </option><option>LN(X6) </option><option>SQRT(X6) </option><option>1/X6</option></select>
+  <select name="x7Trans"><option selected="selected">X7 </option><option>LN(X7) </option><option>SQRT(X7) </option><option>1/X7</option></select>
+  <font color="Purple">
+  <select name="x8Trans"><option selected="selected">X8 </option><option>LN(X8) </option><option>SQRT(X8) </option><option>1/X8</option></select>
+  <br>
+  <small>A nonlinear curve fitter generally doesn't require that you
+transform the data. But transformations might make the function more
+nearly linear, making the curve-fitting process more stable and faster
+to converge. The program will automatically adjust the weighting to
+compensate for <i>y</i>-variable transformations.</small></font> </p>
+  <p> <a name="CenteredDerivs"><!-- --></a><font color="Green">(Optional)</font>
+click here for <input name="Centered" value="1" type="checkbox"><font color="Red">Centered Approximation to Partial Derivatives</font> (more
+accurate, but slower). </p>
+  <p> <a name="Least-Abs"><!-- --></a><font color="Green">(Optional
+Feature -- Use at your own risk!)</font> Click here for <font color="Red"> <input name="LeastAbs" value="1" type="checkbox">Least-Absolute
+-Value curve fitting</font>. This option attempts to minimize the sum of
+the absolute values of the (y<sub>o</sub>-y<sub>c</sub>) differences,
+rather than the sum of the squares of the differences. Least-Abs
+fitting bears the same relationship to Least Squares fitting that the
+median of a set of numbers bears to the mean. The Least-Abs curve is
+much less affected by outliers than the Least Squares curve. It will
+also have the property that about 50% of the points will fall above the
+curve and 50% below. Alternatively, you can specify the percentage of
+points you want to fall below the curve here: <input name="cPctile" value="50" size="6" type="text"> (as a number greater than 0 and less
+than 100). This allows you to fit percentile curves to your data!<br>
+  <font color="Purple"><small>Convergence may be very slow and/or
+erratic (parameters bouncing around aimlessly).<br>
+Setting the Adjustment Factor to 0.2 or 0.5 may (or may not) improve
+convergence.<br>
+An N-parameter curve will usually pass almost exactly through N of the
+points.</small></font> </p>
+  <h3> <font color="Red"><a name="Syntax">Expression Syntax</a>:</font>
+  </h3>
+  <p> <strong>Operators:</strong> + - * / and parentheses <font color="Red">(note
+that there is no ^ for raising to a power; instead use the Power
+function,
+described below)</font><br>
+  <strong>Constants:</strong> Pi <font color="Purple"><small>[=3.14...]</small></font>,
+Deg <font color="Purple"><small>[=180/Pi = 57.2...]</small></font><br>
+  <strong>Conditional Expressions: </strong>(Condition) ? ValueIfTrue
+:
+ValueIfFalse<br>
+  <strong>Built-in Functions...</strong> <font color="Purple"><small>[Unless
+otherwise indicated, all functions take a single numeric argument,
+enclosed
+in parentheses after the name of the function.]</small></font><br>
+  <strong>Algebraic:</strong> Abs, Sqrt, Power(x,y) <font color="Purple"><small>[= x raised to power of y)]</small></font>,
+Fact <font color="Purple"><small>[factorial]</small></font>, Min(x,y) <font color="Purple"><small>[= the lesser of x or y]</small></font>,
+Max(x,y) <font color="Purple"><small>[= the greater of x or y]</small></font><br>
+  <strong>Transcendental:</strong> Exp, Ln <font color="Purple"><small>[natural]</small></font>,
+Log10, Log2<br>
+  <strong>Trigonometric:</strong> Sin, Cos, Tan, Cot, Sec, Csc<br>
+  <strong>Inverse Trig:</strong> ASin, ACos, ATan, ACot, ASec, ACsc<br>
+  <strong>Hyperbolic:</strong> SinH, CosH, TanH, CotH, SecH, CscH<br>
+  <strong>Inverse Hyp:</strong> ASinH, ACosH, ATanH, ACotH, ASecH, ACscH<br>
+  <strong>Statistical:</strong> Norm, Gauss, Erf, ChiSq(csq,df),
+StudT(t,df),
+FishF(F,df<sub>1</sub>,df<sub>2</sub>)<br>
+  <strong>Inverse Stat:</strong> ANorm, AGauss, AErf, AChiSq(p,df),
+AStudT(p,df),
+AFishF(p,df<sub>1</sub>,df<sub>2</sub>) </p>
+  <p><font color="Red">Note:</font> This program is <span style="font-weight: bold;">not</span> case-sensitive, so you can refer
+to the variables as x, X, X1, x2, t, or T, etc., and the parameters as p1,
+P1, p2, or P2, etc.; and the function names can be written as (for square root,
+for example) sqrt, SQRT, Sqrt, SqRt, sQRt, etc. </p>
+  <p><font color="Red">Note:</font> The trig functions work in radians.
+For degrees,
+multiply or divide by the Deg variable. For example: Sin(30/Deg) will
+return
+0.5, and ATan(1)*Deg will return 45. </p>
+  <p><font color="Red">Note:</font> The factorial function is
+implemented for
+all real numbers -- integers or non-integers, positive, or negative. For non-integers its accuracy is about 6 significant
+figures.
+For negative integers it returns either a very large positive or negative number, or a
+division-by-zero
+error. </p>
+  <p><font color="Red">Note:</font> The statistical functions Norm and
+StudT return
+2-tail p-values (eg: Norm(1.96)=0.05), while ChiSq and FishF return
+1-tail
+values. This is consistent with the way these functions are most
+frequently
+used in statistical testing. Gauss(x) returns the integral from
+-infinity
+to x of Exp(-z*z/2)/Sqrt(2*Pi) with respect to z. It is closely related
+to
+the Norm function, differing only in the range of integration (being a
+"left
+integral" rather than a "both tails" integral). Its primary use on this page
+is
+for fitting s-shaped "probit" functions. Similarly, Erf(x) returns the
+Error
+function, which is very closely related to Gauss. </p>
+  <p> </p>
+  <hr>
+  <p align="center">Return to the <a href="index.html">Interactive
+Statistics page</a> or to
+the <a href="JCPhome.html">JCP Home Page</a><br>
+  <br>
+Send e-mail to John C. Pezzullo at <img src="emladr.gif" align="middle" border="0" height="24" width="217"></p>
+</form>
+
+</body></html>

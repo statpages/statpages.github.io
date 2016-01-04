@@ -1,0 +1,814 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<meta http-equiv="PICS-Label" content="(PICS-1.0 &quot;http://www.classify.org/safesurf/&quot; l on &quot;1996.08.22T13:37+0000 r (SS~~000 1)">
+<script language="LiveScript">
+<!-- hide this script tag's contents from old browsers
+function Ln(x) { return Math.log(x) } function Exp(x) { return Math.exp(x)}
+function xlx(x) { return x*Ln(x+1e-20) }
+function Abs(x) { return Math.abs(x) }
+function Sqrt(x) { return Math.sqrt(x) }
+function Cos(x) { return Math.cos(x) }
+function Pow(x,n) { return Math.pow(x,n) }
+function fEnt( x ) { return x * Ln(x) / Ln(2) }
+var Pi=3.141592653589793; Pi2=2*Pi; LnPi2 = Ln(Pi2); PiD2=Pi/2
+var Cell_A; var Cell_B; var Cell_C; var Cell_D
+var Cell_r1; var Cell_r2; var Cell_c1; var Cell_c2; var t
+var Ex_A; var Ex_B; var Ex_C; var Ex_D; var Sav_A; var Sav_B; var Sav_C; var Sav_D
+var cs; var od; var rr; var kp; var fc; var mcr; var sn; var sp; var pp; var np
+var arr; var rrr; var plr; var nlr; var dor; var yj; var nnd
+var dp; var nn; var nmi; var cc; var ca; var cp; var yq; var ets
+function CalcTots(form) {
+Cell_A = eval(form.Cell_A.value)
+Cell_B = eval(form.Cell_B.value)
+Cell_C = eval(form.Cell_C.value)
+Cell_D = eval(form.Cell_D.value)
+Cell_r1 = Cell_A+Cell_B
+Cell_r2 = Cell_C+Cell_D
+Cell_c1 = Cell_A+Cell_C
+Cell_c2 = Cell_B+Cell_D
+t = Cell_A+Cell_B+Cell_C+Cell_D
+form.Cell_r1.value = ''+(Cell_r1)
+form.Cell_r2.value = ''+(Cell_r2)
+form.Cell_c1.value = ''+(Cell_c1)
+form.Cell_c2.value = ''+(Cell_c2)
+form.t.value = ''+(t)
+}
+function CalcStats(form) {
+var LoSlop = Cell_A; if(Cell_D<Cell_A) { LoSlop = Cell_D }
+var HiSlop = Cell_B; if(Cell_C<Cell_B) { HiSlop = Cell_C }
+var LnProb1 = LnFact(Cell_r1) + LnFact(Cell_r2) + LnFact(Cell_c1) + LnFact(Cell_c2) - LnFact(t)
+var SingleP = Exp( LnProb1 - LnFact(Cell_A) - LnFact(Cell_B) - LnFact(Cell_C) - LnFact(Cell_D) )
+var FisherP=0; var LeftP=0; var RightP=0; var RosnerP=0; var SumCheck=0
+var k = Cell_A - LoSlop
+while( k<=Cell_A+HiSlop ) {
+var P = Exp( LnProb1 - LnFact(k) - LnFact(Cell_r1-k) - LnFact(Cell_c1-k) - LnFact(k+Cell_r2-Cell_c1) )
+SumCheck = SumCheck + P
+if( k<=Cell_A ) { LeftP = LeftP + P }
+if( k>=Cell_A ) { RightP = RightP + P }
+if( P<=(SingleP+1e-12) ) { FisherP = FisherP + P }
+k = k + 1
+}
+form.LeftP.value = Fmt(LeftP)
+form.RightP.value = Fmt(RightP)
+form.FisherP.value = Fmt(FisherP)
+form.SingleP.value = Fmt(SingleP)
+form.SumCheck.value = "" + SumCheck
+RosnerP = 0.5
+if( LeftP<RosnerP ) { RosnerP = LeftP }
+if( RightP<RosnerP ) { RosnerP = RightP }
+RosnerP = 2*RosnerP
+form.RosnerP.value = Fmt(RosnerP)
+Ex_A = Cell_r1*Cell_c1/t; Sav_A = Ex_A
+Ex_B = Cell_r1*Cell_c2/t; Sav_B = Ex_B
+Ex_C = Cell_r2*Cell_c1/t; Sav_C = Ex_C
+Ex_D = Cell_r2*Cell_c2/t; Sav_D = Ex_D
+cs=csq(Cell_A,Ex_A,.5)+csq(Cell_B,Ex_B,.5)+csq(Cell_C,Ex_C,.5)+csq(Cell_D,Ex_D,.5)
+form.csyc.value = Fmt(cs)
+form.csyc_p.value = Fmt(Csp(cs))
+od=(Cell_A/Cell_B)/(Cell_C/Cell_D); form.od.value=Fmt(od)
+rr=(Cell_A/Cell_r1)/(Cell_C/Cell_r2); form.rr.value=Fmt(rr)
+kp=2*(Cell_A*Cell_D-Cell_B*Cell_C)/((Cell_B+Cell_A)*(Cell_B+Cell_D)+(Cell_A+Cell_C)*(Cell_D+Cell_C)); form.kp.value=Fmt(kp)
+fc=(Cell_A+Cell_D)/t; form.fc.value=Fmt(fc); form.mcr.value=Fmt(1-fc)
+sn=Cell_A/Cell_c1; form.sn.value=Fmt(sn)
+sp=Cell_D/Cell_c2; form.sp.value=Fmt(sp)
+pp=Cell_A/Cell_r1; form.pp.value=Fmt(pp)
+np=Cell_D/Cell_r2; form.np.value=Fmt(np)
+plr=sn/(1-sp); form.plr.value=Fmt(plr)
+nlr=(1-sn)/sp; form.nlr.value=Fmt(nlr)
+dor=(sn/(1-sn))/((1-sp)/sp); form.dor.value=Fmt(dor)
+eor=(sn/(1-sn))/(sp/(1-sp)); form.eor.value=Fmt(eor)
+yj=sn+sp-1; form.yj.value=Fmt(yj)
+nnd=1/yj; form.nnd.value=Fmt(nnd)
+nnm=1/(1-fc); form.nnm.value=Fmt(nnm)
+dp=Cell_A/Cell_r1-Cell_C/Cell_r2; form.dp.value=Fmt(dp)
+arr=-dp; form.arr.value=Fmt(arr)
+rrr=arr/(Cell_C/Cell_r2); form.rrr.value=Fmt(rrr)
+nmi = 1 - ( xlx(Cell_B+Cell_A) + xlx(Cell_D+Cell_C) - xlx(Cell_B) - xlx(Cell_A) - xlx(Cell_D) - xlx(Cell_C) ) / ( xlx(t) - xlx(Cell_c2) - xlx(Cell_c1) ); form.nmi.value=Fmt(nmi)
+csny=csq(Cell_B,Ex_B,0)+csq(Cell_A,Ex_A,0)+csq(Cell_D,Ex_D,0)+csq(Cell_C,Ex_C,0)
+form.csny.value = Fmt(csny)
+form.csny_p.value = Fmt(Csp(csny))
+csmh=(t-1)*(Cell_A*Cell_D-Cell_B*Cell_C)*(Cell_A*Cell_D-Cell_B*Cell_C)/(Cell_r1*Cell_r2*Cell_c1*Cell_c2)
+form.csmh.value = Fmt(csmh)
+form.csmh_p.value = Fmt(Csp(csmh))
+cc=Sqrt(csny/(csny+t)); form.cc.value=Fmt(cc)
+ca=cc*Sqrt(2); form.ca.value=Fmt(ca)
+rtet=Cos(Pi/(1+Sqrt(od))); form.rtet.value = Fmt(rtet)
+cp=(Cell_A*Cell_D-Cell_B*Cell_C)/Sqrt(Cell_r1*Cell_r2*Cell_c2*Cell_c1); form.cp.value=Fmt(cp)
+yq=(Cell_A*Cell_D-Cell_B*Cell_C)/(Cell_B*Cell_C+Cell_A*Cell_D); form.yq.value=Fmt(yq)
+ets = (Cell_A - Sav_A) / (Cell_A + Cell_B + Cell_C - Sav_A); form.ets.value=Fmt(ets)
+EntR = - ( fEnt(Cell_r1/t) + fEnt(Cell_r2/t) ); form.EntR.value=Fmt(EntR)
+EntC = - ( fEnt(Cell_c1/t) + fEnt(Cell_c2/t) ); form.EntC.value=Fmt(EntC)
+EntRC = - ( fEnt(Cell_A/t) + fEnt(Cell_B/t) + fEnt(Cell_C/t) + fEnt(Cell_D/t) ); form.EntRC.value=Fmt(EntRC)
+EntIB = EntR + EntC - EntRC; form.EntIB.value=Fmt(EntIB)
+EntIA = EntRC - EntR; form.EntIA.value=Fmt(EntIA)
+EntIC = EntRC - EntC; form.EntIC.value=Fmt(EntIC)
+EntSim = EntIB / ( EntIA + EntIB + EntIC ); form.EntSim.value=Fmt(EntSim)
+EntDif = 1 - EntSim; form.EntDif.value=Fmt(EntDif)
+var pcrit = (100-form.ConfLevel.value)/100
+form.Conf_Int_Caption.value = form.ConfLevel.value+"% Conf. Interval"
+var del=LoSlop
+Ex_B=Cell_B+LoSlop; Ex_A=Cell_A-LoSlop; Ex_D=Cell_D-LoSlop; Ex_C=Cell_C+LoSlop; var pval=0
+while(del>0.000001) {
+del=del/2
+if(pval<pcrit) { Ex_B=Ex_B-del } else { Ex_B=Ex_B+del }
+Ex_A=Cell_r1-Ex_B; Ex_D=Cell_c2-Ex_B; Ex_C=Cell_r2-Ex_D
+pval=Csp(csq(Cell_B,Ex_B,0.5)+csq(Cell_A,Ex_A,0.5)+csq(Cell_D,Ex_D,0.5)+csq(Cell_C,Ex_C,0.5))
+}
+form.Low_A.value=Fmt(Ex_A); form.Low_B.value=Fmt(Ex_B); form.Low_C.value=Fmt(Ex_C); form.Low_D.value=Fmt(Ex_D); od=(Ex_A/Ex_B)/(Ex_C/Ex_D); form.od_lo.value=Fmt(od)
+rr=(Ex_A/Cell_r1)/(Ex_C/Cell_r2); form.rr_lo.value=Fmt(rr)
+kp=2*(Ex_A*Ex_D-Ex_B*Ex_C)/((Ex_B+Ex_A)*(Ex_B+Ex_D)+(Ex_A+Ex_C)*(Ex_D+Ex_C)); form.kp_lo.value=Fmt(kp)
+fc=(Ex_A+Ex_D)/(Ex_B+Ex_A+Ex_D+Ex_C); form.fc_lo.value=Fmt(fc); form.mcr_hi.value=Fmt(1-fc)
+sn=Ex_A/Cell_c1; form.sn_lo.value=Fmt(sn)
+sp=Ex_D/Cell_c2; form.sp_lo.value=Fmt(sp)
+plr=sn/(1-sp); form.plr_lo.value=Fmt(plr)
+nlr=(1-sn)/sp; form.nlr_hi.value=Fmt(nlr)
+dor=(sn/(1-sn))/((1-sp)/sp); form.dor_lo.value=Fmt(dor)
+eor=(sn/(1-sn))/(sp/(1-sp)); form.eor_lo.value=Fmt(eor)
+yj=sn+sp-1; form.yj_lo.value=Fmt(yj)
+nnd=1/yj; form.nnd_hi.value=Fmt(nnd)
+nnm=1/(1-fc); form.nnm_lo.value=Fmt(nnm)
+pp=Ex_A/Cell_r1; form.pp_lo.value=Fmt(pp)
+np=Ex_D/Cell_r2; form.np_lo.value=Fmt(np)
+dplo=Ex_A/Cell_r1-Ex_C/Cell_r2; form.dp_lo.value=Fmt(dplo)
+arr=-dplo; form.arr_hi.value=Fmt(arr)
+rrr=arr/(Ex_C/Cell_r2); form.rrr_hi.value=Fmt(rrr)
+nmi = 1 - ( xlx(Ex_B+Ex_A) + xlx(Ex_D+Ex_C) - xlx(Ex_B) - xlx(Ex_A) - xlx(Ex_D) - xlx(Ex_C) ) / ( xlx(t) - xlx(Cell_c2) - xlx(Cell_c1) ); form.nmi_lo.value=Fmt(nmi)
+csny=csq(Ex_B,Sav_B,0)+csq(Ex_A,Sav_A,0)+csq(Ex_D,Sav_D,0)+csq(Ex_C,Sav_C,0)
+cc=Sqrt(csny/(csny+t)); form.cc_lo.value=Fmt(cc)
+ca=cc*Sqrt(2); form.ca_lo.value=Fmt(ca)
+rtet=Cos(Pi/(1+Sqrt(od))); form.rtet_lo.value = Fmt(rtet)
+cp=(Ex_A*Ex_D-Ex_B*Ex_C)/Sqrt(Cell_r1*Cell_r2*Cell_c2*Cell_c1); form.cp_lo.value=Fmt(cp)
+yq=(Ex_A*Ex_D-Ex_B*Ex_C)/(Ex_B*Ex_C+Ex_A*Ex_D); form.yq_lo.value=Fmt(yq)
+ets = (Ex_A - Sav_A) / (Ex_A + Ex_B + Ex_C - Sav_A); form.ets_lo.value=Fmt(ets)
+EntR = - ( fEnt(Cell_r1/t) + fEnt(Cell_r2/t) ); form.EntR_lo.value=Fmt(EntR)
+EntC = - ( fEnt(Cell_c1/t) + fEnt(Cell_c2/t) ); form.EntC_lo.value=Fmt(EntC)
+EntRC = - ( fEnt(Ex_A/t) + fEnt(Ex_B/t) + fEnt(Ex_C/t) + fEnt(Ex_D/t) ); form.EntRC_lo.value=Fmt(EntRC)
+EntIB = EntR + EntC - EntRC; form.EntIB_hi.value=Fmt(EntIB)
+EntIA = EntRC - EntR; form.EntIA_lo.value=Fmt(EntIA)
+EntIC = EntRC - EntC; form.EntIC_lo.value=Fmt(EntIC)
+EntSim = EntIB / ( EntIA + EntIB + EntIC ); form.EntSim_hi.value=Fmt(EntSim)
+EntDif = 1 - EntSim; form.EntDif_lo.value=Fmt(EntDif)
+del=HiSlop
+Ex_B=Cell_B-HiSlop; Ex_A=Cell_A+HiSlop; Ex_D=Cell_D+HiSlop; Ex_C=Cell_C-HiSlop; var pval=0
+while(del>0.000001) {
+del=del/2
+if(pval<pcrit) { Ex_B=Ex_B+del } else { Ex_B=Ex_B-del }
+Ex_A=Cell_r1-Ex_B; Ex_D=Cell_c2-Ex_B; Ex_C=Cell_r2-Ex_D
+pval=Csp(csq(Cell_B,Ex_B,0.5)+csq(Cell_A,Ex_A,0.5)+csq(Cell_D,Ex_D,0.5)+csq(Cell_C,Ex_C,0.5))
+}
+form.High_A.value=Fmt(Ex_A); form.High_B.value=Fmt(Ex_B); form.High_C.value=Fmt(Ex_C); form.High_D.value=Fmt(Ex_D);
+od=(Ex_A/Ex_B)/(Ex_C/Ex_D); form.od_hi.value=Fmt(od)
+rr=(Ex_A/Cell_r1)/(Ex_C/Cell_r2); form.rr_hi.value=Fmt(rr)
+kp=2*(Ex_A*Ex_D-Ex_B*Ex_C)/((Ex_B+Ex_A)*(Ex_B+Ex_D)+(Ex_A+Ex_C)*(Ex_D+Ex_C)); form.kp_hi.value=Fmt(kp)
+fc=(Ex_A+Ex_D)/(Ex_B+Ex_A+Ex_D+Ex_C); form.fc_hi.value=Fmt(fc); form.mcr_lo.value=Fmt(1-fc)
+sn=Ex_A/Cell_c1; form.sn_hi.value=Fmt(sn)
+sp=Ex_D/Cell_c2; form.sp_hi.value=Fmt(sp)
+plr=sn/(1-sp); form.plr_hi.value=Fmt(plr)
+nlr=(1-sn)/sp; form.nlr_lo.value=Fmt(nlr)
+dor=(sn/(1-sn))/((1-sp)/sp); form.dor_hi.value=Fmt(dor)
+eor=(sn/(1-sn))/(sp/(1-sp)); form.eor_hi.value=Fmt(eor)
+yj=sn+sp-1; form.yj_hi.value=Fmt(yj)
+nnd=1/yj; form.nnd_lo.value=Fmt(nnd)
+nnm=1/(1-fc); form.nnm_hi.value=Fmt(nnm)
+pp=Ex_A/Cell_r1; form.pp_hi.value=Fmt(pp)
+np=Ex_D/Cell_r2; form.np_hi.value=Fmt(np)
+dphi=Ex_A/Cell_r1-Ex_C/Cell_r2; form.dp_hi.value=Fmt(dphi)
+arr=-dphi; form.arr_lo.value=Fmt(arr)
+rrr=arr/(Ex_C/Cell_r2); form.rrr_lo.value=Fmt(rrr)
+nmi = 1 - ( xlx(Ex_B+Ex_A) + xlx(Ex_D+Ex_C) - xlx(Ex_B) - xlx(Ex_A) - xlx(Ex_D) - xlx(Ex_C) ) / ( xlx(t) - xlx(Cell_c2) - xlx(Cell_c1) ); form.nmi_hi.value=Fmt(nmi)
+csny=csq(Ex_B,Sav_B,0)+csq(Ex_A,Sav_A,0)+csq(Ex_D,Sav_D,0)+csq(Ex_C,Sav_C,0)
+cc=Sqrt(csny/(csny+t)); form.cc_hi.value=Fmt(cc)
+ca=cc*Sqrt(2); form.ca_hi.value=Fmt(ca)
+rtet=Cos(Pi/(1+Sqrt(od))); form.rtet_hi.value = Fmt(rtet)
+cp=(Ex_A*Ex_D-Ex_B*Ex_C)/Sqrt(Cell_r1*Cell_r2*Cell_c2*Cell_c1); form.cp_hi.value=Fmt(cp)
+yq=(Ex_A*Ex_D-Ex_B*Ex_C)/(Ex_B*Ex_C+Ex_A*Ex_D); form.yq_hi.value=Fmt(yq)
+ets = (Ex_A - Sav_A) / (Ex_A + Ex_B + Ex_C - Sav_A); form.ets_hi.value=Fmt(ets)
+EntR = - ( fEnt(Cell_r1/t) + fEnt(Cell_r2/t) ); form.EntR_hi.value=Fmt(EntR)
+EntC = - ( fEnt(Cell_c1/t) + fEnt(Cell_c2/t) ); form.EntC_hi.value=Fmt(EntC)
+EntRC = - ( fEnt(Ex_A/t) + fEnt(Ex_B/t) + fEnt(Ex_C/t) + fEnt(Ex_D/t) ); form.EntRC_hi.value=Fmt(EntRC)
+EntIB = EntR + EntC - EntRC; form.EntIB_lo.value=Fmt(EntIB)
+EntIA = EntRC - EntR; form.EntIA_hi.value=Fmt(EntIA)
+EntIC = EntRC - EntC; form.EntIC_hi.value=Fmt(EntIC)
+EntSim = EntIB / ( EntIA + EntIB + EntIC ); form.EntSim_lo.value=Fmt(EntSim)
+EntDif = 1 - EntSim; form.EntDif_hi.value=Fmt(EntDif)
+if(dp==0) { form.nn.value="Infinite" } else { form.nn.value=Fmt(Math.abs(1/dp)) }
+form.nn_lo.value="Unknown"; form.nn_hi.value="Unknown"
+if(dplo<0 & dphi<0) { form.nn_lo.value=Fmt(-1/dplo); form.nn_hi.value=Fmt(-1/dphi) }
+if(dplo<0 & dphi==0) { form.nn_Lo.value=Fmt(-1/dplo); form.nn_hi.value="Infinite" }
+if(dplo<0 & dphi>0) { form.nn_lo.value=Fmt(1/Math.max(Math.abs(dplo),Math.abs(dphi))); form.nn_hi.value="Infinite" }
+if(dplo==0 & dphi>0) { form.nn_lo.value=Fmt(1/dphi); form.nn_hi.value="Infinite" }
+if(dplo>0 & dphi>0) { form.nn_lo.value=Fmt(1/dphi); form.nn_hi.value=Fmt(1/dplo) }
+}
+function csq(o,e,y) {
+if(e==0) { return 0 }
+var x=Abs(o-e)-y; if(x<0) { return 0 }
+return x*x/e
+}
+function Csp(x) {
+return ChiSq(x,1)
+}
+function ChiSq(x,n) {
+if(x>1000 | n>1000) { var q=Norm((Pow(x/n,1/3)+2/(9*n)-1)/Sqrt(2/(9*n)))/2; if (x>n) {return q}{return 1-q} }
+var p=Exp(-0.5*x); if((n%2)==1) { p=p*Sqrt(2*x/Pi) }
+var k=n; while(k>=2) { p=p*x/k; k=k-2 }
+var t=p; var Cell_B=n; while(t>1e-15*p) { Cell_B=Cell_B+2; t=t*x/Cell_B; p=p+t }
+return 1-p
+}
+function Norm(z) { var q=z*z
+if(Abs(z)>7) {return (1-1/q+3/(q*q))*Exp(-q/2)/(Abs(z)*Sqrt(PiD2))} {return ChiSq(q,1) }
+}
+function Fmt(x) { var v
+if(x>=0) { v=''+(x+0.0005) } else { v=''+(x-0.0005) }
+return v.substring(0,v.indexOf('.')+4)
+}
+function LnFact(z) {
+if(z<2) { return 0 }
+if(z<17) { f=z; while(z>2) { z=z-1; f=f*z }; return Ln(f) }
+return (z+0.5)*Ln(z) - z + LnPi2/2 + 1/(12*z) - 1/(360*Pow(z,3)) + 1/(1260*Pow(z,5)) - 1/(1680*Pow(z,7))
+}
+<!-- done hiding from old browsers -->
+</script><title>JavaStat -- 2-way Contingency Table Analysis</title></head>
+<body style="background-color: rgb(255, 255, 238);">
+<center>
+<h2> <font color="Red">2-way Contingency Table
+Analysis </font> </h2>
+<p>Revised: 07/23/2013 -- added NNM -- the Number Needed to
+Mis-diagnose (thanks to Farrokh Habibzadeh)<br>
+</p>
+</center>
+<p>
+This page computes various statistics from a 2-by-2 table. It will
+calculate
+the Yates-corrected chi-square, the Mantel-Haenszel chi-square,
+&nbsp;the
+Fisher Exact Test, and other indices relevant to various special kinds
+of
+2-by-2 tables:
+</p>
+<ol>
+<li> analysis of risk factors for unfavorable outcomes (odds
+ratio,
+relative risk, difference in proportions, &nbsp;absolute and
+relative
+reduction in risk, number needed to treat) </li>
+<li> analysis of the effectiveness of a diagnostic criterion
+for some
+condition (sensitivity, specificity, pos &amp; neg predictive
+values,
+pos &amp; neg likelihood ratios, diagnostic &nbsp;and error
+odds
+ratios) </li>
+<li> measures of inter-rater reliability (% correct or
+consistent,
+mis-classification rate, kappa, Forbes' NMI) </li>
+<li> other measures of association (contingency coefficient,
+Cramer's
+phi coefficient, Yule's Q) </li>
+</ol>
+<p>
+Many of these concepts are explained in detail in an online
+<a href="http://www.medicine.ox.ac.uk/bandolier/glossary.html">Evidence-based
+Medicine
+Glossary</a>. For more information about a particular index,
+click on
+the
+&lt;<font color="Blue"><u>more info</u></font>&gt;
+link for that index.
+</p>
+<p><b>Confidence intervals</b> for the estimated
+parameters are
+computed by
+a general method (based on "constant chi-square boundaries") given in:
+<i>Statistical Methods for Rates and Proportions</i> (2<sup>nd</sup>
+Ed.)
+Section 5.6, &nbsp;by Joseph L. Fleiss (Pub: John Wiley &amp;
+Sons, New
+York,
+1981). This method is also described in Numerical Recipes in C (2nd
+Ed.)
+Section 15.6, by William H. Press et al. (Pub: Cambridge University
+Press,
+Cambridge UK, 1992)
+</p>
+<p> </p>
+<hr>
+<p>Enter numbers into the four cells below. Make sure that the
+row and
+column
+totals add up correctly. Then click the Compute button.
+</p>
+<p><font color="Red"><b>Warning: Do not enter
+cell counts with a
+leading zero!
+</b>That is, if a cell count is 34, enter it as 34, <b>not
+as 034</b>.
+&nbsp;Some browsers will mis-interpret some numbers entered with
+leading
+zeros, and will produce <b>wrong results</b> (with no
+warning
+message). For
+more information about this, and for other things to be aware of before
+using
+this page for the first time, make sure you read the</font>
+<a href="userint.html">JavaStat user interface guidelines</a>.
+</p>
+<p align="center"><font color="Blue"><b>Observed
+Contingency Table</b></font>
+</p>
+<center>
+<form>
+<table border="1">
+<tbody>
+<tr>
+<td>
+<div align="center"> * </div>
+</td>
+<td>
+<div align="center"> <u>Outcome Occurred</u>
+</div>
+</td>
+<td>
+<div align="center"> <u>Outcome did not
+Occur</u> </div>
+</td>
+<td>
+<div align="center"> <u>Totals</u> </div>
+</td>
+</tr>
+<tr>
+<td>Risk Factor Present<br>
+or Dx Test Positive</td>
+<td>
+<p align="left"> <input name="Cell_A" size="8" value="" onfocus="Cell_A.select()" onblur="CalcTots(this.form)" type="text"> = a</p>
+</td>
+<td> <input name="Cell_B" size="8" value="" onfocus="Cell_B.select()" onblur="CalcTots(this.form)" type="text"> = b</td>
+<td> <input name="Cell_r1" size="8" value="" onfocus="Cell_C.focus()" type="text">
+= r1</td>
+</tr>
+<tr>
+<td>Risk Factor Absent<br>
+or Dx Test Negative</td>
+<td> <input name="Cell_C" size="8" value="" onfocus="Cell_C.select()" onblur="CalcTots(this.form)" type="text"> = c</td>
+<td> <input name="Cell_D" size="8" value="" onfocus="Cell_D.select()" onblur="CalcTots(this.form)" type="text"> = d</td>
+<td> <input name="Cell_r2" size="8" value="" onfocus="Cell_A.focus()" type="text">
+= r2</td>
+</tr>
+<tr>
+<td>Totals</td>
+<td> <input name="Cell_c1" size="8" value="" onfocus="Cell_A.focus()" type="text">
+= c1</td>
+<td> <input name="Cell_c2" size="8" value="" onfocus="Cell_A.focus()" type="text">
+= c2</td>
+<td> <input name="t" size="8" value="" onfocus="Cell_A.focus()" type="text"> = t</td>
+</tr>
+</tbody>
+</table>
+<p> Confidence Level: <input name="ConfLevel" size="8" value="95" type="text"> % </p>
+<p> <input value="Compute" onclick="CalcStats(this.form)" type="button"> <br>
+<font color="Red"><br>
+<b>Chi-Square Tests</b></font>
+<table border="1">
+<tbody>
+<tr>
+<td>
+<p align="right"> <u>Type of Test</u></p>
+</td>
+<td>
+<p align="center"> <u>Chi Square</u></p>
+</td>
+<td>
+<p align="center"> <u>d.f.</u></p>
+</td>
+<td>
+<p align="center"> <u>p-value</u></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="right"> Pearson Uncorrected</p>
+</td>
+<td> <input name="csny" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="dfny" size="4" value="1" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="csny_p" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>
+<p align="right"> Yates Corrected</p>
+</td>
+<td> <input name="csyc" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="dfyc" size="4" value="1" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="csyc_p" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>
+<p align="right"> Mantel-Haenszel</p>
+</td>
+<td> <input name="csmh" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="dfmh" size="4" value="1" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="csmh_p" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+</tbody>
+</table>
+</p>
+<p> <font color="Red"><b>Fisher Exact Test</b></font>
+<table border="1">
+<tbody>
+<tr>
+<td>
+<p align="right"> <u>Type of comparison
+(Alternate Hypothesis)</u></p>
+</td>
+<td>
+<p align="center"> <u>p-value</u></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="right"> Two-tailed (to test if the Odds
+Ratio is <i>significantly
+different</i> from 1):<br>
+If you don't know which Fisher Exact p-value to use, <font color="Blue"><b>use
+this one</b></font>.<br>
+This is the p-value produced by SAS, SPSS, R, and other software.</p>
+</td>
+<td> <input name="FisherP" size="8" value="" type="text"></td>
+</tr>
+<tr>
+<td>
+<p align="right"> Left-tailed (to test if the Odds
+Ratio is <i>significantly
+less</i> than 1):</p>
+</td>
+<td> <input name="LeftP" size="8" value="" type="text"></td>
+</tr>
+<tr>
+<td>
+<p align="right"> Right-tailed (to test if the
+Odds Ratio is <i>significantly
+greater</i> than 1):</p>
+</td>
+<td> <input name="RightP" size="8" value="" type="text"></td>
+</tr>
+<tr>
+<td>
+<p align="right"> Two-tailed p-value calculated as
+described in
+Rosner's book:<br>
+(2 times whichever is smallest: left-tail, right-tail, or 0.5)<br>
+It tends to agree closely with Yates Chi-Square p-value.</p>
+</td>
+<td> <input name="RosnerP" size="8" value="" type="text"></td>
+</tr>
+<tr>
+<td>
+<p align="right"> Probability of getting <i>exactly</i>
+the
+observed table:<br>
+(This is not really a p-value; don't use this as a significance test.)</p>
+</td>
+<td> <input name="SingleP" size="8" value="" type="text"></td>
+</tr>
+<tr>
+<td>
+<p align="right"> Verification of computational
+accuracy: <br>
+(This number should be very close to 1.0; the closer, the better.)</p>
+</td>
+<td> <input name="SumCheck" size="15" value="" type="text"></td>
+</tr>
+</tbody>
+</table>
+</p>
+<p> <font color="Red"><br>
+<b>Quantities derived from a 2-by-2 table</b></font>
+<table border="1">
+<tbody>
+<tr>
+<td>
+<div align="center"> <u>Quantities Derived
+from the 2-by-2
+Contingency Table</u> </div>
+</td>
+<td>
+<div align="center"> <u>Value</u> </div>
+</td>
+<td colspan="2">
+<div align="center"> <input name="Conf_Int_Caption" size="21" align="center" type="text"> </div>
+</td>
+</tr>
+<tr>
+<td>Odds Ratio (OR) = (a/b)/(c/d);</td>
+<td> <input name="od" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="od_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="od_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Relative Risk (RR) = (a/r1)/(c/r2);</td>
+<td> <input name="rr" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="rr_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="rr_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Kappa</td>
+<td> <input name="kp" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="kp_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="kp_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Overall Fraction Correct = (a+d)/t ; (often referred
+to
+simply as "Accuracy")</td>
+<td> <input name="fc" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="fc_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="fc_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Mis-classification Rate, = 1 - Overall Fraction
+Correct;</td>
+<td> <input name="mcr" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="mcr_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="mcr_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Sensitivity = a/c1; (use <a href="confint.html">exact
+Binomial confidence intervals</a> instead of these)</td>
+<td> <input name="sn" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="sn_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="sn_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Specificity = d/c2; (use <a href="confint.html">exact
+Binomial confidence intervals</a> instead of these)</td>
+<td> <input name="sp" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="sp_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="sp_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Positive Predictive Value (PPV) = a/r1; (use <a href="confint.html">exact Binomial confidence intervals</a>
+instead of
+these)</td>
+<td> <input name="pp" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="pp_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="pp_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Negative Predictive Value (NPV) = d/r2; (use <a href="confint.html">exact Binomial confidence intervals</a>
+instead of
+these)</td>
+<td> <input name="np" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="np_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="np_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Difference in Proportions (DP) = a/r1 - c/r2;</td>
+<td> <input name="dp" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="dp_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="dp_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Number Needed to Treat (NNT) = 1 / absolute value of
+DP;
+which = 1 / absolute value of ARR;<br>
+</td>
+<td> <input name="nn" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="nn_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="nn_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Absolute Risk Reduction (ARR) = c/r2 - a/r1; which =
+- DP</td>
+<td> <input name="arr" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="arr_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="arr_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Relative Risk Reduction (RRR) = ARR/(c/r2); &lt;<a href="http://www.shef.ac.uk/uni/projects/wrp/risk.html">more
+info</a>&gt;</td>
+<td> <input name="rrr" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="rrr_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="rrr_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Positive Likelihood Ratio (+LR) = Sensitivity / (1 -
+Specificity);</td>
+<td> <input name="plr" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="plr_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="plr_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Negative Likelihood Ratio (-LR) = (1 - Sensitivity) /
+Specificity;</td>
+<td> <input name="nlr" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="nlr_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="nlr_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Diagnostic Odds Ratio =
+(Sensitivity/(1-Sensitivity))/((1-Specificity)/Specificity);</td>
+<td> <input name="dor" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="dor_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="dor_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Error Odds Ratio =
+(Sensitivity/(1-Sensitivity))/(Specificity/(1-Specificity));</td>
+<td> <input name="eor" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="eor_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="eor_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Youden's J = Sensitivity + Specificity - 1;</td>
+<td> <input name="yj" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="yj_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="yj_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Number Needed to Diagnose (NND) = 1 / (Sensitivity -
+(1 -
+Specificity) ) = 1&nbsp;/&nbsp;(Youden's&nbsp;J); &lt;<a href="http://www.jr2.ox.ac.uk/bandolier/band27/b27-2.html">more
+info</a>&gt;</td>
+<td> <input name="nnd" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="nnd_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="nnd_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Number Needed to Mis-diagnose (NNM) = 1 / ( 1 -
+Accuracy ); &lt;<a target="_blank" href="http://journals.lww.com/epidem/Fulltext/2013/01000/Number_Needed_to_Misdiagnose__A_Measure_of.27.aspx">more info</a>&gt;</td>
+<td><input name="nnm" size="8" value="" onfocus="Cell_A.focus()" type="text">
+</td>
+<td><input name="nnm_lo" size="8" value="" onfocus="Cell_A.focus()" type="text">
+</td>
+<td> <input name="nnm_hi" size="8" value="" onfocus="Cell_A.focus()" type="text">
+</td>
+</tr>
+<tr>
+<td>Forbes' NMI Index; &lt;<a href="http://woldlab.caltech.edu/docs/MLX/user/node64.html">more
+info</a>&gt;</td>
+<td> <input name="nmi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="nmi_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="nmi_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Contingency Coefficient;</td>
+<td> <input name="cc" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="cc_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="cc_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Adjusted Contingency Coefficient;</td>
+<td> <input name="ca" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="ca_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="ca_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Tetrachoric (terachoric) Correlation Coefficient =
+Cos( Pi / (1 + Sqrt( OR ) ) );</td>
+<td> <input name="rtet" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="rtet_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="rtet_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Phi Coefficient (= Cramer's Phi, and = Cohen's w
+Index, for
+2x2 table);</td>
+<td> <input name="cp" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="cp_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="cp_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Yule's Q = (a*d-b*c)/(a*d+b*c) = (OR - 1) / (OR + 1);
+&lt;<a href="http://www2.chass.ncsu.edu/garson/pa765/assoc2x2.htm">more
+info</a>&gt;</td>
+<td> <input name="yq" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="yq_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="yq_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Equitable Threat Score = (a-e)/(a+b+c-e), where e =
+r1*c1/t; &lt;<a href="http://www.cloud-net.org/data/interpretation_cloud-fraction-model-grid-stats.html">more
+info</a>&gt;</td>
+<td> <input name="ets" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="ets_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="ets_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Entropy H(r) = - ( (r1/t)log<sub>2</sub>(r1/t)
++ (r2/t)log<sub>2</sub>(r2/t)
+)</td>
+<td> <input name="EntR" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="EntR_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="EntR_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Entropy H(c) = - ( (c1/t)log<sub>2</sub>(c1/t)
++ (c2/t)log<sub>2</sub>(c2/t)
+)</td>
+<td> <input name="EntC" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="EntC_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="EntC_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Entropy H(r,c) = - ( (a/t)log<sub>2</sub>(a/t)
++ (b/t)log<sub>2</sub>(b/t)
++ (c/t)log<sub>2</sub>(c/t) + (d/t)log<sub>2</sub>(d/t)
+)</td>
+<td> <input name="EntRC" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="EntRC_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="EntRC_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Information shared by descriptors r and c: B = H(r) +
+H(c)
+- H(r,c)</td>
+<td> <input name="EntIB" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="EntIB_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="EntIB_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>A = H(r,c) - H(r)</td>
+<td> <input name="EntIA" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="EntIA_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="EntIA_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>C = H(r,c) - H(c)</td>
+<td> <input name="EntIC" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="EntIC_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="EntIC_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Similarity of descriptors r and c: S(r,c) = B / (A +
+B + C)</td>
+<td> <input name="EntSim" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="EntSim_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="EntSim_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+<tr>
+<td>Distance between r and c: D(r,c) = (A + C) / (A + B +
+C)</td>
+<td> <input name="EntDif" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="EntDif_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="EntDif_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+</tbody>
+</table>
+</p>
+<p> <font color="Maroon">If you don't see your
+favorite "quantity"
+in this list,<br>
+drop me a line and let me know how that quantity is calculated from the
+four cell counts,<br>
+and I'll add it to the collection!</font></p>
+<p><font color="Maroon">Or you can calculate the
+limits for <span style="font-weight: bold;">any</span>
+derived quantity yourself!&nbsp; Here's how...<br>
+</font> </p>
+<p>This is the <span style="font-weight: bold;">lower</span>
+limiting table...</p>
+<table border="1">
+<tbody>
+<tr>
+<td> <input name="Low_A" size="8" value="" type="text"> </td>
+<td> <input name="Low_B" size="8" value="" type="text"> </td>
+</tr>
+<tr>
+<td> <input name="Low_C" size="8" value="" type="text"> </td>
+<td> <input name="Low_D" size="8" value="" type="text"> </td>
+</tr>
+</tbody>
+</table>
+<p>And this is the <span style="font-weight: bold;">upper</span>
+limiting table...</p>
+<table border="1">
+<tbody>
+<tr>
+<td> <input name="High_A" size="8" value="" type="text"> </td>
+<td> <input name="High_B" size="8" value="" type="text"> </td>
+</tr>
+<tr>
+<td> <input name="High_C" size="8" value="" type="text"> </td>
+<td> <input name="High_D" size="8" value="" type="text"> </td>
+</tr>
+</tbody>
+</table>
+<p>If you use <span style="font-weight: bold;">these</span>
+numbers, instead of your observed numbers, in the
+formula for <span style="font-weight: bold;">any</span>
+derived quantity, you'll get the lower and upper
+confidence limits for that quantity.</p>
+<p>(The row and column sums for these tables are the same as
+for your observed table.)<br>
+</p>
+<hr align="center" noshade="noshade" size="1" width="100%"> <br>
+<font color="Maroon"><b>Reference</b>:
+Bernard Rosner, <i>Fundamentals
+of Biostatistics</i>, 6<sup>th</sup> Ed., 2006</font>
+<p> Return to the <a href="index.html">Interactive
+Statistics page</a>
+or to the <a href="JCPhome.html">JCP Home Page</a><br>
+<br>
+Send e-mail to John C. Pezzullo at <img src="emladr.gif" align="middle" border="0" height="24" width="217">
+</p>
+</form>
+</center>
+</body></html>

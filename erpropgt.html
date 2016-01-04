@@ -1,0 +1,383 @@
+<HTML>
+<HEAD>
+  <META http-equiv="PICS-Label" content='(PICS-1.0 "http://www.classify.org/safesurf/" l on "1996.08.22T13:44+0000 r (SS~~000 1)'>
+  <SCRIPT language="LiveScript">
+<!-- hide this script tag's contents from old browsers
+
+var Pi=Math.PI; var PiD2=Pi/2; var PiD4=Pi/4; var Pi2=2*Pi
+var e=2.718281828459045235; var e10 = 1.105170918075647625
+var Deg=180/Pi
+
+function Fact(n) {
+    if(n==0) { return 1 }
+    if(n<0 & n>-1) { n=n+1; return Math.exp((n+0.5)*Math.log(n+1)-n-n*(0.1121105+n*0.08106103)/(1.452342+n*(2.410858+n)))/n }
+    var a=0; if(n<0) { n=Math.abs(n)-1; a=1 }
+    var r=n
+    if((n%1)==0) { while(n>1) { n=n-1; r=r*n } }
+        else { r=Math.exp(Math.abs((n+0.5)*Math.log(n+1)-n-n*(0.1121105+n*0.08106103)/(1.452342+n*(2.410858+n)))) }
+    if(a==1) { r=-Pi/(r*Math.sin(Pi*n)) }
+    return r
+    }
+
+function Sqrt(x) { return Math.sqrt(x) }
+function Exp(x) { return Math.exp(x) }
+function Ln(x) { return Math.log(x) }
+function Log10(x) { return Math.log(x)/Math.log(10) }
+function Log2(x) { return Math.log(x)/Math.log(2) }
+function Power(x,y) { return Math.pow(x,y) }
+function Sin(x) { return Math.sin(x) }
+function Cos(x) { return Math.cos(x) }
+function Tan(x) { return Math.sin(x)/Math.cos(x) }
+function Cot(x) { return Math.cos(x)/Math.sin(x) }
+function Sec(x) { return 1/Math.cos(x) }
+function Csc(x) { return 1/Math.sin(x) }
+function ATan(x) { return Math.atan(x) }
+function ASin(x) { return Math.asin(x) }
+function ACos(x) { return Math.acos(x) }
+function ACot(x) { return ATan(1/x) }
+function ASec(x) { return ACos(1/x) }
+function ACsc(x) { return ASin(1/x) }
+
+function SinH(x) { return (Math.exp(x)-Math.exp(-x))/2 }
+function CosH(x) { return (Math.exp(x)+Math.exp(-x))/2 }
+function TanH(x) { return SinH(x)/CosH(x) }
+function CotH(x) { return 1/TanH(x) }
+function SecH(x) { return 1/CosH(x) }
+function CscH(x) { return 1/SinH(x) }
+function ASinH(x) { return Math.log(x+Math.sqrt(x*x+1)) }
+function ACosH(x) { return Math.log(x+Math.sqrt(x*x-1)) }
+function ATanH(x) { return 0.5*Math.log((1+x)/(1-x)) }
+function ACotH(x) { return 0.5*Math.log((x+1)/(x-1)) }
+function ASecH(x) { return Math.log(1/x+Math.sqrt(1/(x*x)+1)) }
+function ACscH(x) { return Math.log(1/x+Math.sqrt(1/(x*x)-1)) }
+
+function ChiSq(x,n) {
+    var p=Math.exp(-0.5*x); if((n%2)==1) { p=p*Math.sqrt(2*x/Pi) }
+    var k=n; while(k>=2) { p=p*x/k; k=k-2 }
+    var t=p; var a=n; while(t>0.000001*p) { a=a+2; t=t*x/a; p=p+t }
+    return 1-p
+    }
+function Norm(z) { return ChiSq(z*z,1) }
+function StudT(t,n) {
+    t=Math.abs(t); var w=t/Math.sqrt(n); var th=Math.atan(w)
+    if(n==1) { return 1-th/PiD2 }
+    var sth=Math.sin(th); var cth=Math.cos(th)
+    if((n%2)==1)
+        { return 1-(th+sth*cth*StatCom(cth*cth,2,n-3,-1))/PiD2 }
+        else
+        { return 1-sth*StatCom(cth*cth,1,n-3,-1) }
+    }
+function FishF(f,n1,n2) {
+    var x=n2/(n1*f+n2)
+    if((n1%2)==0) { return StatCom(1-x,n2,n1+n2-4,n2-2)*Math.pow(x,n2/2) }
+    if((n2%2)==0){ return 1-StatCom(x,n1,n1+n2-4,n1-2)*Math.pow(1-x,n1/2) }
+    var th=Math.atan(Math.sqrt(n1*f/n2)); var a=th/PiD2; var sth=Math.sin(th); var cth=Math.cos(th)
+    if(n2>1) { a=a+sth*cth*StatCom(cth*cth,2,n2-3,-1)/PiD2 }
+    if(n1==1) { return 1-a }
+    var c=4*StatCom(sth*sth,n2+1,n1+n2-4,n2-2)*sth*Math.pow(cth,n2)/Pi
+    if(n2==1) { return 1-a+c/2 }
+    var k=2; while(k<=(n2-1)/2) {c=c*k/(k-.5); k=k+1 }
+    return 1-a+c
+    }
+function StatCom(q,i,j,b) {
+    var zz=1; var z=zz; var k=i; while(k<=j) { zz=zz*q*k/(k-b); z=z+zz; k=k+2 }
+    return z
+    }
+function ANorm(p) { var v=0.5; var dv=0.5; var z=0
+    while(dv>1e-6) { z=1/v-1; dv=dv/2; if(Norm(z)>p) { v=v-dv } else { v=v+dv } }
+    return z
+    }
+function AChiSq(p,n) { var v=0.5; var dv=0.5; var x=0
+    while(dv>1e-6) { x=1/v-1; dv=dv/2; if(ChiSq(x,n)>p) { v=v-dv } else { v=v+dv } }
+    return x
+    }
+function AStudT(p,n) { var v=0.5; var dv=0.5; var t=0
+    while(dv>1e-6) { t=1/v-1; dv=dv/2; if(StudT(t,n)>p) { v=v-dv } else { v=v+dv } }
+    return t
+    }
+function AFishF(p,n1,n2) { var v=0.5; var dv=0.5; var f=0
+    while(dv>1e-6) { f=1/v-1; dv=dv/2; if(FishF(f,n1,n2)>p) { v=v-dv } else { v=v+dv } }
+    return f
+    }
+
+function Propagate1(form) {
+x = eval(form.x1val.value)
+form.z1val.value = ''+eval(form.expr1.value)
+se = eval(form.x1se.value)
+x = x - se/2
+zlow = eval(form.expr1.value)
+x = x + se
+zhigh = eval(form.expr1.value)
+form.z1se.value = ''+Math.abs(zhigh-zlow)
+}
+
+function Propagate2(form) {
+x = eval(form.x2val.value)
+y = eval(form.yval.value)
+form.z2val.value = ''+eval(form.expr2.value)
+se = eval(form.x2se.value)
+x = x - se/2
+zlow = eval(form.expr2.value)
+x = x + se
+zhigh = eval(form.expr2.value)
+x = x - se/2
+dzdx = zhigh - zlow
+se = eval(form.yse.value)
+y = y - se/2
+zlow = eval(form.expr2.value)
+y = y + se
+zhigh = eval(form.expr2.value)
+y = y - se/2
+dzdy = zhigh - zlow
+ErrC = eval(form.ErrCorr.value)
+form.z2se.value = ''+Sqrt(dzdx*dzdx+dzdy*dzdy+2*ErrC*dzdx*dzdy)
+}
+
+<!-- done hiding from old browsers -->
+</SCRIPT>
+  <TITLE>Propagation of and Compounding Errors Through Expressions</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffee">
+<CENTER>
+  <H1>
+    <FONT color="Red">Propagation and Compounding of Errors</FONT>
+  </H1>
+  <P>
+  <SMALL>(modified 04/28/2007)</SMALL>
+</CENTER>
+<P>
+This page shows how uncertainty in a measured quantity will propagate through
+a mathematical expression involving that quantity.
+<P>
+Whenever calculations are done using imprecise numbers, then the numbers
+resulting from the calculations are also imprecise. The precision (expressed
+as the "standard error") of the result from evaluating any function f(x)
+depends on the precision of x, and on the derivative of the function with
+respect to x.
+<P>
+When two or more variables appear together in a function f(x,y), the precision
+of the result depends on:
+<UL>
+  <LI>
+    the standard errors of x and y,
+  <LI>
+    the partial derivatives of the function with respect to x and y, and
+  <LI>
+    the correlation (if any) between the fluctuations in x and y (expressed as
+    the "error-correlation").
+</UL>
+<P>
+Correlated fluctuations most commonly arise when the two variables are parameters
+resulting from a curve-fit. A good curve-fitting program should produce the
+error-correlation between the parameters as well as the standard error of
+each parameter. (Check out my <A HREF="nonlin.html">non-linear least squares
+curve fitting page</A>.)
+<P>
+If you're interested in how this page does what it does, read the
+<FONT COLOR="Red"><B>Techie-Stuff</B></FONT> section, at the bottom of this
+page.
+<P>
+This sections below perform all the required calculations for a function
+of one or two variables. Just enter the numbers and their standard errors
+(and error-correlation, if known), and click the <B>Propagate</B> button.
+<P>
+  <HR>
+<FORM method=post>
+  <H3>
+    <FONT COLOR="Red">For a single variable: z=f(x)</FONT>
+  </H3>
+  <P>
+  1. Enter the measured value of the variable (x) and its standard error of
+  estimate:<BR>
+  x = 
+  <INPUT TYPE="text" NAME="x1val" SIZE="8" onFocus=x1val.select()> +/-
+  <INPUT TYPE="text" NAME="x1se" SIZE="8"onFocus=x1se.select()>
+  <P>
+  2. Enter the expression involving x: <FONT COLOR="Green">For example:
+  1/(10-x)</FONT><BR>
+  z = 
+  <INPUT TYPE="text" NAME="expr1" SIZE="50">
+  <P>
+  3. Click on this button:
+  <INPUT TYPE="button" VALUE="Propagate" onClick=Propagate1(this.form)>
+  <P>
+  The value of the resulting expression, z, and its standard error:<BR>
+  z = 
+  <INPUT TYPE="text" NAME="z1val" SIZE="8"> +/-
+  <INPUT TYPE="text" NAME="z1se" SIZE="8">
+  <P>
+    <HR>
+  <H3>
+    <FONT COLOR="Red">For two variables: z=f(x,y)</FONT>
+  </H3>
+  <P>
+  1. Enter the measured value of the first variable (x) and its standard error
+  of estimate:<BR>
+  x = 
+  <INPUT TYPE="text" NAME="x2val" SIZE="8" onFocus=x2val.select()> +/-
+  <INPUT TYPE="text" NAME="x2se" SIZE="8"onFocus=x2se.select()>
+  <P>
+  2. Enter the measured value of the second variable (y) and its standard error
+  of estimate:<BR>
+  y = 
+  <INPUT TYPE="text" NAME="yval" SIZE="8" onFocus=yval.select()> +/-
+  <INPUT TYPE="text" NAME="yse" SIZE="8"onFocus=yse.select()>
+  <P>
+  3. Enter the "error-correlation" between the two variables (if known, otherwise
+  use 0):<BR>
+  r = 
+  <INPUT TYPE="text" NAME="ErrCorr" VALUE="0" SIZE="8">
+  <P>
+  4. Enter the expression involving x and y: <FONT COLOR="Green">For example:
+  x + 3*y - x*y/10</FONT><BR>
+  z = 
+  <INPUT TYPE="text" NAME="expr2" SIZE="50">
+  <P>
+  5. Click on this button:
+  <INPUT TYPE="button" VALUE="Propagate" onClick=Propagate2(this.form)>
+  <P>
+  The value of the resulting expression, z, and its standard error:<BR>
+  z = 
+  <INPUT TYPE="text" NAME="z2val" SIZE="8"> +/-
+  <INPUT TYPE="text" NAME="z2se" SIZE="8">
+</FORM>
+<P>
+  <HR>
+<H3>
+  <FONT COLOR="Red">Syntax Rules for Constructing Expressions:</FONT>
+</H3>
+<P>
+<STRONG>Operators:</STRONG> + - * / and parentheses <BR>
+<STRONG>Constants:</STRONG> Pi (=3.14...), e (=2.718...), Deg(=180/Pi = 57.2...)
+<BR>
+<STRONG>Built-in Functions...</STRONG> <BR>
+[Unless otherwise indicated, all functions take a single numeric argument,
+enclosed in parentheses after the name of the function.] <BR>
+<STRONG>Algebraic:</STRONG> Abs, Sqrt, Power(x,y) [= x raised to power of
+y)], Fact [factorial] <BR>
+<STRONG>Transcendental:</STRONG> Exp, Ln [natural], Log10, Log2 <BR>
+<STRONG>Trigonometric:</STRONG> Sin, Cos, Tan, Cot, Sec, Csc <BR>
+<STRONG>Inverse Trig:</STRONG> ASin, ACos, ATan, ACot, ASec, ACsc <BR>
+<STRONG>Hyperbolic:</STRONG> SinH, CosH, TanH, CotH, SecH, CscH <BR>
+<STRONG>Inverse Hyp:</STRONG> ASinH, ACosH, ATanH, ACotH, ASecH, ACscH <BR>
+<STRONG>Statistical:</STRONG> Norm, ChiSq(x,df), StudT(t,df), FishF(F,df1,df2)
+<BR>
+<STRONG>Inverse Stat:</STRONG> ANorm, AChiSq(p,df), AStudT(p,df),
+AFishF(p,df1,df2)
+<P>
+<FONT color="Red">Note:</FONT> Most versions of JavaScript are case-sensitive.
+Make sure you type function names <EM>exactly</EM> as you see them above.
+<P>
+<FONT color="Red">Note:</FONT> The trig functions work in radians. For degrees,
+multiply or divide by the Deg variable. For example: Sin(30/Deg) will return
+0.5, and ATan(1)*Deg will return 45.
+<P>
+<FONT color="Red">Note:</FONT> The factorial function is implemented for
+all real numbers. For non-integers its accuracy is about 6 significant figures.
+For negative integers it returns either a very large number or a division-by-zero
+error.
+<P>
+<FONT color="Red">Note:</FONT> The statistical functions Norm and StudT return
+2-tail p-values (eg: Norm(1.96)=0.05), while ChiSq and FishF return 1-tail
+values. This is consistent with the way these functions are most frequently
+used.
+<P>
+<FONT color="Red">Note:</FONT> Some of the functions listed above are not
+currently implemented in JavaScript, so I have programmed them as user-defined
+functions. You can see the algorithms by 'viewing the document source' for
+this page. Feel free to copy them if you find them useful. 
+<P>
+  <HR>
+<H3>
+  <FONT COLOR="Red">Techie-Stuff (for those who may be interested in how this
+  page works)...</FONT>
+</H3>
+<P>
+My error-propagation web page takes a very general approach, which is valid
+for addition, multiplication, and any other functional form.
+<P>
+For propagating an error through any function of a single variable: z = F(x),
+the rule is fairly simple:<BR>
+<I>The standard error (SE) of z is obtained by multiplying the SE of x by
+the derivative of F(x) with respect to x (ignoring the sign of the
+derivative).</I>
+<P>
+Now it would be hellishly difficult to have my web page attempt to perform
+symbolic differentiation of whatever function you typed in. So instead, it
+obtains a numerical estimate of the derivative if F(x) by the method of "finite
+differences". It takes the value of x that you provided, adds the value of
+the standard error that you provided, and then evaluates the function you
+typed in at this value and saves the resulting value of the function. Then
+it subtracts the standard error from the x value you entered, and evaluates
+the function at this value. It then takes the difference between the two
+evaluated function values, divides it by the difference between the two x
+values at which it evaluated the function (which happens to be equal to twice
+the standard error), and this ratio is a very good approximation to the
+derivative. It takes the absolute value of this derivative, and then multiplies
+it by the standard error you provided, and that's the resulting standard
+error of z that the web page reports out. Actually, the program is able to
+simply the formulas a little bit, but basically that's how it's done.
+<P>
+For a function of two variables: z = F(x,y), the rule is a little more
+complicated. If the random errors in x and y are <B>independent</B> (that
+is, <B>uncorrelated</B> with each other), then the rule is:
+<OL>
+  <LI>
+    <I>Find the partial derivative of F(x,y) with respect to x, multiply this
+    by SE(x), and square the product;</I>
+  <LI>
+    <I>Find the partial derivative of F(x,y) with respect to y, multiply this
+    by SE(y), and square the product;</I>
+  <LI>
+    <I>Add the two squares together;</I>
+  <LI>
+    <I>Take the square root of the sum of the squared products, and that will
+    be the SE(z).</I>
+</OL>
+<P>
+I obtain the partial derivatives by the same "finite differences" technique.
+<P>
+If the random fluctuations in x and y are <B>correlated</B> with each other
+(which usually happens only if they x and y have been obtained from the same
+set of measurements, such as, for example, if x and y are two parameters
+that have been obtained from a curve-fit to a set of measured data), then
+the formulas are a little more complicated -- you have to add in cross-product
+terms involving the partial derivatives and the correlation coefficient between
+the random errors in x and y.
+<P>
+All this may seem abstract, but it turns out that it is a very general approach
+-- it automatically accomplishes the same thing as the usual "special case"
+formulas:
+<UL>
+  <LI>
+    for <B>addition</B> and <B>subtraction</B> (where <I>the squares of the SE's
+    are additive</I>) and
+  <LI>
+    for <B>multiplication</B> and <B>division</B> (where <I>the squares of the
+    relative SE's (the coefficients of variation) are additive</I>),
+</UL>
+<P>
+as well as for any other kind of functional relationship involving x and
+y. The beauty is that the web page doesn't care how complicated the expression
+for F(x,y) is. It passes all the work of parsing the expression and evaluating
+it over to the JavaScript interpreter by using the built-in "eval" function,
+and gets its derivatives by the finite differences method. So the programming
+is not very complicated.
+<P>
+You can see the JavaScript programming by having your browser show the HTML
+coding for the web page (go to the View menu and select Source, or Page Source).
+All the work is done in the two functions called <B>Propagate1</B> (for handling
+expressions of only one variable) and <B>Propagate2</B> (for handling expressions
+involving two variables). The entire process for a one-variable expression
+takes only about a half-dozen simple JavaScript statements, and the two-variable
+case is handled in about 15 simple statements.
+<P>
+<P>
+  <HR>
+<P ALIGN=Center>
+Return to the <A HREF="index.html">Interactive Statistics page</A> or to
+the <A HREF="JCPhome.html">JCP Home Page</A><BR>
+<BR>
+Send e-mail to John C. Pezzullo (this page's author) at
+<IMG SRC="emladr.gif" WIDTH="217" HEIGHT="24" BORDER="0" ALIGN="Middle">
+</BODY></HTML>

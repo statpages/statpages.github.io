@@ -1,0 +1,307 @@
+<HTML>
+<HEAD>
+  <META http-equiv="PICS-Label" content='(PICS-1.0 "http://www.classify.org/safesurf/" l on "1996.08.22T13:35+0000 r (SS~~000 1)'>
+  <SCRIPT language="LiveScript">
+<!-- hide this script tag's contents from old browsers
+
+var vTL=2.5; var vTU=2.5; var vCL=95
+var wTL=0; var wTU=0
+
+function CalcCL(form) {
+    vTL = eval(form.TL.value)
+    vTU = eval(form.TU.value)
+    vCL = 100-(vTL+vTU)
+    form.CL.value = ''+vCL
+    }
+
+function CalcTails(form) {
+    vCL = eval(form.CL.value)
+    vTU = (100-vCL)/2
+    vTL = vTU
+    form.TL.value = ''+vTL
+    form.TU.value = ''+vTU
+    }
+
+function CalcDummy(form) { }
+
+function CalcBin(form) {
+    var vx = eval(form.x.value)
+    var vN = eval(form.N.value)
+    var vP = vx/vN
+    form.P.value = Fmt(vP)
+    wTL=vTL; wTU=vTU
+    if(vx==0) { wTL=0; wTU=100-vCL }
+    if(vx==vN) { wTL=100-vCL; wTU=0 }
+    if(vx==0)
+	{ form.DL.value = "0.0000" } else
+        { var v=vP/2; vsL=0; vsH=vP; var p=wTL/100
+        while((vsH-vsL)>1e-5) { if(BinP(vN,v,vx,vN)>p) { vsH=v; v=(vsL+v)/2 } else { vsL=v; v=(v+vsH)/2 } }
+        form.DL.value = Fmt(v) }
+    if(vx==vN)
+        { form.DU.value = "1.0000" } else
+        { var v=(1+vP)/2; vsL=vP; vsH=1; var p=wTU/100
+        while((vsH-vsL)>1e-5) { if(BinP(vN,v,0,vx)<p) { vsH=v; v=(vsL+v)/2 } else { vsL=v; v=(v+vsH)/2 } }
+        form.DU.value = Fmt(v) }
+    }
+
+function BinP(N,p,x1,x2) {
+    var q=p/(1-p); var k=0; var v = 1; var s=0; var tot=0
+    while(k<=N) {
+        tot=tot+v
+        if(k>=x1 & k<=x2) { s=s+v }
+        if(tot>1e30){s=s/1e30; tot=tot/1e30; v=v/1e30}
+        k=k+1; v=v*q*(N+1-k)/k
+        }
+    return s/tot
+    }
+
+function CalcPois(form) {
+    var vZ = eval(form.Z.value)
+    wTL=vTL; wTU=vTU
+    if(vZ==0) { wTL=0; wTU=100-vCL }
+    if(vZ==0)
+        { form.QL.value = "0.0000" } else
+        { var v=0.5; var dv=0.5; var p=wTL/100
+        while(dv>1e-7) { dv=dv/2; if(PoisP((1+vZ)*v/(1-v),vZ,1e10)>p) { v=v-dv } else { v=v+dv } }
+        form.QL.value = Fmt((1+vZ)*v/(1-v)) }
+    if(vTU==0)
+        { form.QU.value = "Infinity" } else
+        { var v=0.5; var dv=0.5; var p=wTU/100
+        while(dv>1e-7) { dv=dv/2; if(PoisP((1+vZ)*v/(1-v),0,vZ)<p) { v=v-dv } else { v=v+dv } }
+        form.QU.value = Fmt((1+vZ)*v/(1-v)) }
+    }
+
+function PoisP(Z,x1,x2) {
+    var q=1; var tot=0; var s=0; var k=0
+    while(k<Z || q>(tot*1e-10)) {
+        tot=tot+q
+        if(k>=x1 & k<=x2) { s=s+q }
+        if(tot>1e30){s=s/1e30; tot=tot/1e30; q=q/1e30}
+        k=k+1; q=q*Z/k
+        }
+    return s/tot
+    }
+
+function Fmt(x) { 
+var v
+if(x>=0) { v=''+(x+0.00005) } else { v=''+(x-0.00005) }
+return v.substring(0,v.indexOf('.')+5)
+}
+
+<!-- done hiding from old browsers -->
+</SCRIPT>
+  <TITLE>JavaStat -- Confidence Intervals and Comparison of Event Rates</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffee">
+<FORM>
+  <CENTER>
+    <H2>
+      <FONT COLOR="Blue">Confidence Intervals and Comparison of Event Rates</FONT>
+    </H2>
+    <H3>
+      <FONT COLOR="Red">New Page: 07/20/2004</FONT>
+    </H3>
+  </CENTER>
+  <P ALIGN=Center>
+  <A HREF="#Binomial">Binomial</A> || <A HREF="#Poisson">Poisson</A> ||
+  <A HREF="#Setting">Set Conf Levels</A>
+  <P>
+  This page computes exact (Poisson-based)confidence intervals around event
+  rates, and calculates the significance of the difference between two event
+  rates.
+  <P>
+  By default, it calculates symmetrical 95% confidence intervals, but you can
+  change the "tail areas" to anything you'd like.
+  <P>
+  The formulas used in this web page are also available as Excel macros, which
+  you can download in the file: <A HREF="confint.xls">confint.xls</A> (44k
+  long).
+  <P>
+  <FONT COLOR="Red">Note</FONT>: Before using this page for the first time,
+  make sure you read the <A href ="userintf.html">JavaStat user interface
+  guidelines</A> for important information about interacting with JavaStat
+  pages.
+  <P>
+    <HR>
+  <CENTER>
+    <H3>
+      <FONT COLOR="Red"><A NAME="Binomial">Binomial</A>
+      </FONT><FONT COLOR="Blue">Confidence Intervals</FONT>
+    </H3>
+  </CENTER>
+  <P>
+  Enter the observed numerator and denominator counts, then click the
+  <B>Compute</B> button:<BR>
+  <CENTER>
+    <TABLE>
+      <TR VALIGN="Middle">
+	<TH><P ALIGN=Right>
+	  Numerator:</TH>
+	<TD><P ALIGN=Center>
+	  <INPUT TYPE=TEXT NAME=x SIZE=5 VALUE="10" onFocus=x.select()></TD>
+      </TR>
+      <TR VALIGN="Middle">
+	<TH><DIV ALIGN=CENTER>
+	    <P ALIGN=Right>
+	    Denominator:
+	  </DIV>
+	</TH>
+	<TD><P ALIGN=Center>
+	  <INPUT TYPE=TEXT NAME=N SIZE=5 VALUE="20" onFocus=N.select()></TD>
+      </TR>
+      <TR>
+	<TD COLSPAN=2><P ALIGN=Center>
+	  <INPUT TYPE="button" VALUE="Compute" onClick=CalcBin(this.form)></TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <B>Proportion:</B></TD>
+	<TD><P ALIGN=Center>
+	  <INPUT TYPE=TEXT NAME=P SIZE=8 onFocus=x.focus()></TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Justify>
+	  <B>Exact Confidence Interval:</B></TD>
+	<TD><P ALIGN=Center>
+	  <INPUT TYPE=TEXT NAME=DL SIZE=8 onFocus=x.focus()> to
+	  <INPUT TYPE=TEXT NAME=DU SIZE=8 onFocus=x.focus()></TD>
+      </TR>
+    </TABLE>
+    <P>
+      <HR>
+  </CENTER>
+  <CENTER>
+    <H3>
+      <FONT COLOR="Red"><A NAME="Poisson">Poisson</A>
+      </FONT><FONT COLOR="Blue">Confidence Intervals</FONT>
+    </H3>
+  </CENTER>
+  <P>
+  Enter the number of observed number of events, then click the <B>Compute</B>
+  button:<BR>
+  <CENTER>
+    <TABLE>
+      <TR>
+	<TD><DIV ALIGN=CENTER>
+	    <P ALIGN=Right>
+	    <B>Observed Events:</B>
+	  </DIV>
+	</TD>
+	<TH><DIV ALIGN=CENTER>
+	    <INPUT TYPE=TEXT NAME=Z SIZE=8 VALUE="10" onFocus=Z.select()>
+	  </DIV>
+	</TH>
+      </TR>
+      <TR>
+	<TD COLSPAN=2><P ALIGN=Center>
+	  <INPUT TYPE="button" align=center VALUE="Compute" onClick=CalcPois(this.form)></TD>
+      </TR>
+      <TR>
+	<TH><P ALIGN=Right>
+	  <B>Exact Confidence Interval:</B></TH>
+	<TD><P ALIGN=Center>
+	  <INPUT TYPE=TEXT NAME=QL SIZE=8 onFocus=Z.focus()> to
+	  <INPUT TYPE=TEXT NAME=QU SIZE=8 onFocus=Z.focus()></TD>
+      </TR>
+      <TR>
+	<TH><DIV ALIGN=CENTER>
+	    <P ALIGN=Right>
+	  </DIV>
+	</TH>
+	<TD><P ALIGN=Center>
+	</TD>
+      </TR>
+    </TABLE>
+  </CENTER>
+  <P>
+    <HR>
+  <CENTER>
+    <H3>
+      <FONT COLOR="Red"><A NAME="Setting">Setting</A>
+      </FONT><FONT COLOR="Blue">Confidence Levels</FONT>
+    </H3>
+  </CENTER>
+  <P>
+  Normally you will not need to change anything in this section. People usually
+  use symmetrical 95% confidence intervals, which correspond to a 2.5% probability
+  in each tail. <BR>
+  <BR>
+  If you want a different confidence level, you can replace the 95 with your
+  preferred level, then click the Compute button. The program will split the
+  tail area evenly between the Lower and Upper tails.
+  <P>
+  If you want asymmetrical limits, you can change the % Area numbers in the
+  Lower Tail and Upper Tail cells shown below, then click the Compute button.
+  The program will adjust the Confidence Level level accordingly.<BR>
+  <CENTER>
+    <TABLE BORDER>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <B>Confidence Level:</B></TD>
+	<TD><P ALIGN=Center>
+	  <INPUT TYPE=TEXT NAME=CL SIZE=8 VALUE="95" onFocus=CL.select() onBlur=CalcTails(this.form)></TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <B>% Area in Upper Tail:</B></TD>
+	<TD><P ALIGN=Center>
+	  <INPUT TYPE=TEXT NAME=TU SIZE=8 VALUE="2.5" onFocus=TU.select() onBlur=CalcCL(this.form)></TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  <B>% Area in Lower Tail:</B></TD>
+	<TD><P ALIGN=Center>
+	  <INPUT TYPE=TEXT NAME=TL SIZE=8 VALUE="2.5" onFocus=TL.select() onBlur=CalcCL(this.form)></TD>
+      </TR>
+      <TR>
+	<TD COLSPAN=2><P ALIGN=Center>
+	  <INPUT TYPE="button" align=center VALUE="Compute" onClick=CalcDummy(this.form)></TD>
+      </TR>
+    </TABLE>
+    <P ALIGN=Left>
+    <FONT COLOR="Red"><B>Note</B>: &nbsp;A special situation arises when the
+    <B>observed</B> count falls at one or the other end of the range of possible
+    values (such as an observed count of zero). In that case, one of the confidence
+    limits must equal the observed count, so there is no "tail area" on that
+    side of the confidence interval. All of the tail area must therefore be allocated
+    to the other side of the interval, rather than split up between the two tails.
+    <B>Effective June 19, 2004, this page applies this adjustment
+    automatically</B>.</FONT>
+    <P ALIGN=Left>
+    <FONT COLOR="Red">So be aware of the following special actions this page
+    will take:</FONT>
+    <OL>
+      <LI>
+	<P ALIGN=Left>
+	<FONT COLOR="Red"> If the Poisson <B>observed event</B> count &nbsp;is
+	<B>zero</B>, or if the Binomial <B>numerator</B> is <B>zero</B>, this page
+	will return a lower confidence limit of 0, and will, in effect, double what
+	you have specified as the <B>Upper Tail probability</B>.</FONT>
+      <LI>
+	<P ALIGN=Left>
+	<FONT COLOR="Red"> If the Binomial <B>numerator</B> is equal to the
+	<B>denominator</B>, this page will return an upper confidence limit of 1,
+	and will, in effect, double what you have specified as the <B>Lower Tail
+	probability</B>.</FONT>
+    </OL>
+    <P ALIGN=Left>
+    <FONT COLOR="Red">The easiest thing to remember is: For ordinary 95% confidence
+    limits, just <B>leave the Tail Areas exactly as they are</B>, and don't worry
+    about it.</FONT>
+    <P>
+      <HR>
+    <P ALIGN=Left>
+    <B>Reference</B>: CJ Clopper and ES Pearson, "The use of confidence or fiducial
+    limits illustrated in the case of the binomial." <I>Biometrika</I>
+    <B>26</B>:404-413, 1934.
+    <P>
+      <HR NOSHADE WIDTH="100%"SIZE=1>
+    <BR>
+    Return to the <A HREF="index.html">Interactive Statistics page</A> or to
+    the <A HREF="JCPhome.html">JCP Home Page</A><BR>
+    <BR>
+    Send e-mail to John C. Pezzullo at
+    <IMG SRC="emladr.gif" WIDTH="217" HEIGHT="24" BORDER="0" ALIGN="Middle">
+  </CENTER>
+</FORM>
+</BODY></HTML>

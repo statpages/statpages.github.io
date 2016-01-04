@@ -1,0 +1,182 @@
+<HTML>
+<HEAD>
+  <META http-equiv="PICS-Label" content='(PICS-1.0 "http://www.classify.org/safesurf/" l on "1996.08.22T13:41+0000 r (SS~~000 1)'>
+  <SCRIPT language="LiveScript">
+<!-- hide this script tag's contents from old browsers
+
+var Pi=Math.PI; var PiD2=Pi/2; var PiD4=Pi/4; var Pi2=2*Pi
+var e=2.718281828459045235; var e10 = 1.105170918075647625
+var Deg=180/Pi
+
+function Norm(z) {
+z=Math.abs(z)
+var p=1+ z*(0.04986735+ z*(0.02114101+ z*(0.00327763+ z*(0.0000380036+ z*(0.0000488906+ z*0.000005383)))))
+p=p*p; p=p*p; p=p*p
+return 1/(p*p)
+}
+
+function ANorm(p) { var v=0.5; var dv=0.5; var z=0
+while(dv>1e-6) { z=1/v-1; dv=dv/2; if(Norm(z)>p) { v=v-dv } else { v=v+dv } }
+return z
+}
+
+function Calc(form) {
+var a=eval(form.alpha.value);
+var Za=ANorm(a);
+var b=eval(form.beta.value);
+if(b>=1) { b=b/100 };
+var Zb;
+if(b<0.5) { Zb=-ANorm(2*b) } else { Zb=ANorm(2-2*b) };
+var v1=eval(form.p1.value);
+var v2=eval(form.p2.value);
+var vr=eval(form.r.value);
+var pbar=(v1+vr*v2)/(1+vr);
+var qbar=1-pbar;
+var vn=Math.pow(Za * Math.sqrt((vr+1)*pbar*qbar) + Zb * Math.sqrt(vr*v1*(1-v1)+v2*(1-v2)),2) /(vr*Math.pow(Math.abs(v1-v2),2));
+form.n1a.value=''+Math.floor(vn+0.5);
+form.n2a.value=''+Math.floor(vr*vn+0.5);
+form.n3a.value=''+Math.floor(vn+vr*vn+0.5);
+vn = vn * Math.pow((1+Math.sqrt(1+2*(vr+1)/(vn*vr*Math.abs(v2-v1)))),2)/4;
+form.n1b.value=''+Math.floor(vn+0.5);
+form.n2b.value=''+Math.floor(vr*vn+0.5);
+form.n3b.value=''+Math.floor(vn+vr*vn+0.5);
+}
+
+<!-- done hiding from old browsers -->
+</SCRIPT>
+  <TITLE>JavaStat -- Binomial Proportion Differences</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffee">
+<H2>
+  <CENTER>
+    <FONT COLOR="Red">Proportion Difference Power / Sample Size Calculation</FONT>
+  </CENTER>
+</H2>
+<P ALIGN=Center>
+(Revised 10/30/2009 - Also display results of uncorrected ("classical")
+calculation.)
+<P>
+  <HR>
+This screen computes the sample size required to detect a difference between
+two proportions.
+<P>
+Note: Before using this page for the first time, make sure you read the
+<A href ="userintf.html">JavaStat user interface guidelines</A> for important
+information about interacting with JavaStat pages. <BR>
+<CENTER>
+  <FORM>
+    <TABLE BORDER>
+      <TR>
+	<TD><DIV ALIGN=RIGHT>
+	    Significance Level (alpha):
+	  </DIV>
+	</TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=alpha SIZE=6 VALUE="0.05" onFocus=alpha.select()></TD>
+	<TD><DIV ALIGN=LEFT>
+	    (Usually 0.05)
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV ALIGN=RIGHT>
+	    Power (% chance of detecting):
+	  </DIV>
+	</TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=beta SIZE=3 VALUE="80" onFocus=beta.select()></TD>
+	<TD><DIV ALIGN=LEFT>
+	    (Usually 80)
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV ALIGN=RIGHT>
+	    Group 1 Population Proportion:
+	  </DIV>
+	</TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=p1 SIZE=8 VALUE=.4 onFocus=p1.select()></TD>
+	<TD><DIV ALIGN=LEFT>
+	    (Between 0.0 and 1.0)
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD><DIV ALIGN=RIGHT>
+	    Group 2 Population Proportion:
+	  </DIV>
+	</TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=p2 SIZE=8 VALUE=.6 onFocus=p2.select()></TD>
+	<TD><DIV ALIGN=LEFT>
+	    (Between 0.0 and 1.0)
+	  </DIV>
+	</TD>
+      </TR>
+      <TR>
+	<TD>Relative Sample Sizes Required (Group 2 / Group 1):</TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=r SIZE=8 VALUE=1.0 onFocus=r.select()></TD>
+	<TD>(For equal samples, use 1.0)</TD>
+      </TR>
+    </TABLE>
+    <P>
+    <INPUT TYPE="button" VALUE="Compute" onClick=Calc(this.form)>
+    <P>
+    Sample Size Required
+    <TABLE BORDER>
+      <TR>
+	<TD></TD>
+	<TD><P ALIGN=Center>
+	  Group 1</TD>
+	<TD><P ALIGN=Center>
+	  Group 2</TD>
+	<TD><P ALIGN=Center>
+	  Total</TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  "Classical" Calculation:</TD>
+	<TD><P ALIGN=Center>
+	  <INPUT TYPE=TEXT NAME=n1a SIZE=8 VALUE=0 onFocus=alpha.focus()></TD>
+	<TD><P ALIGN=Center>
+	  <INPUT TYPE=TEXT NAME=n2a SIZE=8 VALUE=0 onFocus=alpha.focus()></TD>
+	<TD><P ALIGN=Center>
+	  <INPUT TYPE=TEXT NAME=n3a SIZE=8 VALUE=0 onFocus=alpha.focus()></TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  With Continuity Correction:</TD>
+	<TD><P ALIGN=Center>
+	  <INPUT TYPE=TEXT NAME=n1b SIZE=8 VALUE=0 onFocus=alpha.focus()></TD>
+	<TD><P ALIGN=Center>
+	  <INPUT TYPE=TEXT NAME=n2b SIZE=8 VALUE=0 onFocus=alpha.focus()></TD>
+	<TD><P ALIGN=Center>
+	  <INPUT TYPE=TEXT NAME=n3b SIZE=8 VALUE=0 onFocus=alpha.focus()></TD>
+      </TR>
+    </TABLE>
+  </FORM>
+</CENTER>
+<P>
+  <HR>
+<P>
+<FONT COLOR="Red"><B>Note: </B></FONT>This page incorporates a continuity
+correction to the usual sample-size formula based on the normal approximation
+to the binomial distribution. This correction increases the sample size (for
+each group) by an amount approximately equal to 2/abs(p1-p2), where p1 and
+p2 are the population proportions for the two groups. For a good discussion
+of this, see: <I>Statistical Methods for Rates and Proportions</I> by Joseph
+L. Fleiss (2<SUP>nd</SUP> ed., 1981, John Wiley &amp; Sons, NY), chapter
+3. This web page produces values consistent with those in Table A3 of that
+book.
+<P>
+  <HR>
+<CENTER>
+  Return to the <A HREF="index.html">Interactive Statistics page</A> or to
+  the <A HREF="JCPhome.html">JCP Home Page</A><BR>
+  <BR>
+  Send e-mail to John C. Pezzullo at
+  <IMG SRC="emladr.gif" WIDTH="217" HEIGHT="24" BORDER="0" ALIGN="Middle">
+</CENTER>
+</BODY></HTML>

@@ -1,0 +1,330 @@
+<HTML>
+<HEAD>
+  <META http-equiv="PICS-Label" content='(PICS-1.0 "http://www.classify.org/safesurf/" l on "1996.08.22T13:37+0000 r (SS~~000 1)'>
+  <SCRIPT language="LiveScript">
+<!-- hide this script tag's contents from old browsers
+
+var Pi=Math.PI; var PiD2=Pi/2; var PiD4=Pi/4; var Pi2=2*Pi
+var e=Exp(1); var e10 = Exp(0.1)
+var Deg=180/Pi
+
+function Fact(n) {
+    if(n==0) { return 1 }
+    if(n<0) { if(n> -1) { return Fact(n+1)/(n+1)} { return -Pi/( Fact(-1-n) * Sin(Pi*n))} }
+    if((n%1)==0) { var r=n; while(n>1) { n=n-1; r=r*n } }
+        else { var r=Exp((n+0.5)*Ln(n+1)-n-n*(0.1121105+n*0.08106103)/(1.452342+n*(2.410858+n))) }
+    return r
+    }
+function Gamma(n) { return Fact(n-1) }
+function Abs(x) { return Math.abs(x) }
+function Sqrt(x) { return Math.sqrt(x) }
+function Exp(x) { return Math.exp(x) }
+function Ln(x) { return Math.log(x) }
+function Log10(x) { return Math.log(x)/Math.log(10) }
+function Log2(x) { return Math.log(x)/Math.log(2) }
+function Power(x,y) { return Math.pow(x,y) }
+function Sin(x) { return Math.sin(x) }
+function Cos(x) { return Math.cos(x) }
+function Tan(x) { return Math.sin(x)/Math.cos(x) }
+function Cot(x) { return Math.cos(x)/Math.sin(x) }
+function Sec(x) { return 1/Math.cos(x) }
+function Csc(x) { return 1/Math.sin(x) }
+function ATan(x) { return Math.atan(x) }
+function ASin(x) { return Math.asin(x) }
+function ACos(x) { return Math.acos(x) }
+function ACot(x) { return ATan(1/x) }
+function ASec(x) { return ACos(1/x) }
+function ACsc(x) { return ASin(1/x) }
+
+function SinH(x) { return (Math.exp(x)-Math.exp(-x))/2 }
+function CosH(x) { return (Math.exp(x)+Math.exp(-x))/2 }
+function TanH(x) { return SinH(x)/CosH(x) }
+function CotH(x) { return 1/TanH(x) }
+function SecH(x) { return 1/CosH(x) }
+function CscH(x) { return 1/SinH(x) }
+function ASinH(x) { return Math.log(x+Math.sqrt(x*x+1)) }
+function ACosH(x) { return Math.log(x+Math.sqrt(x*x-1)) }
+function ATanH(x) { return 0.5*Math.log((1+x)/(1-x)) }
+function ACotH(x) { return 0.5*Math.log((x+1)/(x-1)) }
+function ASecH(x) { return Math.log(1/x+Math.sqrt(1/(x*x)+1)) }
+function ACscH(x) { return Math.log(1/x+Math.sqrt(1/(x*x)-1)) }
+
+function ChiSq(x,n) {
+    if(x>1000 | n>1000) { var q=Norm((Power(x/n,1/3)+2/(9*n)-1)/Sqrt(2/(9*n)))/2; if (x>n) {return q}{return 1-q} }
+    var p=Math.exp(-0.5*x); if((n%2)==1) { p=p*Math.sqrt(2*x/Pi) }
+    var k=n; while(k>=2) { p=p*x/k; k=k-2 }
+    var t=p; var a=n; while(t>1e-15*p) { a=a+2; t=t*x/a; p=p+t }
+    return 1-p
+    }
+function Norm(z) { var q=z*z
+    if(Abs(z)>7) {return (1-1/q+3/(q*q))*Exp(-q/2)/(Abs(z)*Sqrt(PiD2))} {return ChiSq(q,1) }
+    }
+function StudT(t,n) {
+    t=Math.abs(t); var w=t/Math.sqrt(n); var th=Math.atan(w)
+    if(n==1) { return 1-th/PiD2 }
+    var sth=Math.sin(th); var cth=Math.cos(th)
+    if((n%2)==1)
+        { return 1-(th+sth*cth*StatCom(cth*cth,2,n-3,-1))/PiD2 }
+        else
+        { return 1-sth*StatCom(cth*cth,1,n-3,-1) }
+    }
+function FishF(f,n1,n2) {
+    var x=n2/(n1*f+n2)
+    if((n1%2)==0) { return StatCom(1-x,n2,n1+n2-4,n2-2)*Math.pow(x,n2/2) }
+    if((n2%2)==0){ return 1-StatCom(x,n1,n1+n2-4,n1-2)*Math.pow(1-x,n1/2) }
+    var th=Math.atan(Math.sqrt(n1*f/n2)); var a=th/PiD2; var sth=Math.sin(th); var cth=Math.cos(th)
+    if(n2>1) { a=a+sth*cth*StatCom(cth*cth,2,n2-3,-1)/PiD2 }
+    if(n1==1) { return 1-a }
+    var c=4*StatCom(sth*sth,n2+1,n1+n2-4,n2-2)*sth*Math.pow(cth,n2)/Pi
+    if(n2==1) { return 1-a+c/2 }
+    var k=2; while(k<=(n2-1)/2) {c=c*k/(k-.5); k=k+1 }
+    return 1-a+c
+    }
+function StatCom(q,i,j,b) {
+    var zz=1; var z=zz; var k=i; while(k<=j) { zz=zz*q*k/(k-b); z=z+zz; k=k+2 }
+    return z
+    }
+function ANorm(p) { var v=0.5; var dv=0.5; var z=0
+    while(dv>1e-15) { z=1/v-1; dv=dv/2; if(Norm(z)>p) { v=v-dv } else { v=v+dv } }
+    return z
+    }
+function AChiSq(p,n) { var v=0.5; var dv=0.5; var x=0
+    while(dv>1e-15) { x=1/v-1; dv=dv/2; if(ChiSq(x,n)>p) { v=v-dv } else { v=v+dv } }
+    return x
+    }
+function AStudT(p,n) { var v=0.5; var dv=0.5; var t=0
+    while(dv>1e-15) { t=1/v-1; dv=dv/2; if(StudT(t,n)>p) { v=v-dv } else { v=v+dv } }
+    return t
+    }
+function AFishF(p,n1,n2) { var v=0.5; var dv=0.5; var f=0
+    while(dv>1e-15) { f=1/v-1; dv=dv/2; if(FishF(f,n1,n2)>p) { v=v-dv } else { v=v+dv } }
+    return f
+    }
+
+function CalcTol(form) {
+n = eval(form.fld_n.value)
+m = eval(form.fld_m.value)
+sd = eval(form.fld_sd.value)
+g = eval(form.fld_g.value)/100
+p = eval(form.fld_p.value)/100
+
+csg = AChiSq(g,n-1); form.fld_csg.value = Fmt(csg)
+zp2 = Power(AChiSq(1-p,1),0.5); form.fld_zp2.value = Fmt(zp2)
+k2 = zp2 * Sqrt( (n-1)*(1+1/n)/csg ); form.fld_k2.value = Fmt(k2)
+Lo2 = m - k2*sd; form.fld_Lo2.value = Fmt(Lo2)
+Up2 = m + k2*sd; form.fld_Up2.value = Fmt(Up2)
+
+if(p>0.5) {zp=Power(AChiSq(2*(1-p),1),0.5)} else {zp=-Power(AChiSq(2*p,1),0.5)}
+form.fld_zp.value = Fmt(zp)
+if(g>0.5) {zg=Power(AChiSq(2*(1-g),1),0.5)} else {zg=-Power(AChiSq(2*g,1),0.5)}
+form.fld_zg.value = Fmt(zg)
+a = 1 - zg * zg / (2*(n-1)); form.fld_a.value = Fmt(a)
+b = zp*zp - zg*zg/n; form.fld_b.value = Fmt(b)
+k1 = (zp + Sqrt(zp*zp - a*b)) / a; form.fld_k1.value = Fmt(k1)
+Lo1 = m - k1*sd; form.fld_Lo1.value = Fmt(Lo1)
+Up1 = m + k1*sd; form.fld_Up1.value = Fmt(Up1)
+}
+
+function Fmt(x) { 
+var v
+if(x>=0) { v=''+(x+0.00005) } else { v=''+(x-0.00005) }
+return v.substring(0,v.indexOf('.')+5)
+}
+
+<!-- done hiding from old browsers -->
+</SCRIPT>
+  <TITLE>Tolerance Intervals for Normal Distribution</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffee">
+<CENTER>
+  <H2>
+    <FONT COLOR="Red">Tolerance Intervals for Normal Distribution </FONT>
+  </H2>
+  <P>
+  Revised: 09/08/2005
+</CENTER>
+<P>
+<FONT COLOR="Red">Introduction.</FONT> Loosely speaking, a <I>tolerance
+interval</I> for a measured quantity is the interval in which there is some
+"likelihood" (or, of which you feel a some "level of confidence") that a
+specified fraction of the population's values lie, based on a sample that
+you measured from this population. Tolerance intervals have been widely used
+in statistical process control. This page will calculate tolerance intervals
+for any specified population fraction, and for any specified level of confidence,
+from the mean and standard deviation of a finite sample, under the assumption
+that the population is normally distributed. One-sided (upper and lower)
+intervals, as well as the two-sided interval, are calculated.
+<P>
+<FONT COLOR="Red">Reference:</FONT> NIST/Sematech <I>Engineering Statistics
+Handbook</I>, Section 7.2.6.3<BR>
+<A HREF="http://www.itl.nist.gov/div898/handbook/prc/section2/prc263.htm">http://www.itl.nist.gov/div898/handbook/prc/section2/prc263.htm</A>
+<P>
+The fields below are pre-loaded with sample data taken from one of the examples
+in this Handbook.
+<P>
+<FONT COLOR="Red">Note:</FONT> The very last line on the Handbook page:<BR>
+"<I>The upper (one-sided) tolerance limit is therefore 97.07 + 1.8752*2.68
+= 102.096.</I>"<BR>
+is wrong. The standard deviation in their example is 0.0268, not 2.68, so
+the answer should be 97.12, not 102.096 .
+<P ALIGN=Center>
+<FONT COLOR="Maroon"><B>These calculations are also available in a downloadable
+Excel spreadsheet: <A HREF="tolintvl.xls">tolintvl.xls</A> .</B></FONT>
+<P>
+  <HR>
+<P>
+<FONT COLOR="Red">Instructions:</FONT> Enter the five parameters (N, mean,
+SD, confidence level, and coverage fraction) into the five cells below. Use
+the Tab key after entering each value. The calculations will be updated whenever
+you "leave" one of these five fields, either by tabbing out of it, or by
+clicking in another field.
+<P>
+<FONT COLOR="Red">Before using this page for the first time, make sure you
+read the</FONT> <A HREF="userint.html">JavaStat user interface guidelines</A>.
+<P>
+<CENTER>
+  <FORM>
+    <TABLE>
+      <TR>
+	<TD><P ALIGN=Right>
+	  If I measure a sample consisting of</TD>
+	<TD><P ALIGN=Center>
+	  <INPUT TYPE="text" NAME="fld_n" SIZE="5" VALUE="43" onFocus=fld_n.select();
+	      onBlur="CalcTol(this.form)"></TD>
+	<TD>items,</TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  and get a mean value of</TD>
+	<TD><P ALIGN=Center>
+	  <INPUT TYPE="text" NAME="fld_m" SIZE="8" VALUE="97.07" onFocus=fld_m.select();
+	      onBlur="CalcTol(this.form)"></TD>
+	<TD></TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  and a standard deviation of</TD>
+	<TD><P ALIGN=Center>
+	  <INPUT TYPE="text" NAME="fld_sd" SIZE="8" VALUE="0.0268" onFocus=fld_sd.select();
+	      onBlur="CalcTol(this.form)"></TD>
+	<TD></TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  then I can be</TD>
+	<TD><P ALIGN=Center>
+	  <INPUT TYPE="text" NAME="fld_g" SIZE="5" VALUE="99" onFocus=fld_g.select();
+	      onBlur="CalcTol(this.form)"></TD>
+	<TD>% certain</TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  that</TD>
+	<TD><P ALIGN=Center>
+	  <INPUT TYPE="text" NAME="fld_p" SIZE="5" VALUE="90" onFocus=fld_p.select();
+	      onBlur="CalcTol(this.form)"></TD>
+	<TD>% of the population</TD>
+      </TR>
+    </TABLE>
+    <P ALIGN=Center>
+    <TABLE>
+      <TR>
+	<TD><P ALIGN=Right>
+	  lies <B>within</B> the interval from:</TD>
+	<TD><P ALIGN=Center>
+	  <INPUT TYPE="text" NAME="fld_Lo2" SIZE="8" onFocus=fld_n.focus()></TD>
+	<TD><P ALIGN=Center>
+	  to</TD>
+	<TD><P ALIGN=Center>
+	  <INPUT TYPE="text" NAME="fld_Up2" SIZE="8"></TD>
+	<TD>(a Two-sided Tolerance Interval)</TD>
+      </TR>
+      <TR>
+	<TD COLSPAN=5><P ALIGN=Center>
+	  <FONT COLOR="Blue"><B>or...</B></FONT></TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  lies <B>below</B> the value:</TD>
+	<TD COLSPAN=3><P ALIGN=Center>
+	  <INPUT TYPE="text" NAME="fld_Up1" SIZE="8"></TD>
+	<TD>(an Upper One-sided Tolerance Interval)</TD>
+      </TR>
+      <TR>
+	<TD COLSPAN=5><P ALIGN=Center>
+	  <FONT COLOR="Blue"><B>or...</B></FONT></TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  lies <B>above</B> the value:</TD>
+	<TD COLSPAN=3><P ALIGN=Center>
+	  <INPUT TYPE="text" NAME="fld_Lo1" SIZE="8"></TD>
+	<TD>(a Lower One-sided Tolerance Interval)</TD>
+      </TR>
+    </TABLE>
+    <P>
+      <HR>
+    You can ignore the following intermediate quantities used in the calculations.
+    They are displayed so that you can compare them with the values shown in
+    the Sematech handbook.
+    <TABLE>
+      <TR>
+	<TD><P ALIGN=Right>
+	  z(1-p):</TD>
+	<TD>
+	  <INPUT TYPE="text" NAME="fld_zp" SIZE="8"></TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  z(1-g):</TD>
+	<TD>
+	  <INPUT TYPE="text" NAME="fld_zg" SIZE="8"></TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  a:</TD>
+	<TD>
+	  <INPUT TYPE="text" NAME="fld_a" SIZE="8"></TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  b:</TD>
+	<TD>
+	  <INPUT TYPE="text" NAME="fld_b" SIZE="8"></TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  k1:</TD>
+	<TD>
+	  <INPUT TYPE="text" NAME="fld_k1" SIZE="8"></TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  z((1-p)/2):</TD>
+	<TD>
+	  <INPUT TYPE="text" NAME="fld_zp2" SIZE="8"></TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  ChiSq(g,n-1):</TD>
+	<TD>
+	  <INPUT TYPE="text" NAME="fld_csg" SIZE="8"></TD>
+      </TR>
+      <TR>
+	<TD><P ALIGN=Right>
+	  k2:</TD>
+	<TD>
+	  <INPUT TYPE="text" NAME="fld_k2" SIZE="8"></TD>
+      </TR>
+    </TABLE>
+  </FORM>
+  <P>
+    <HR NOSHADE ALIGN="CENTER"WIDTH="100%"SIZE=1>
+  <BR>
+  Return to the <A HREF="index.html">Interactive Statistics page</A> or to
+  the <A HREF="JCPhome.html">JCP Home Page</A><BR>
+  <BR>
+  Send e-mail to John C. Pezzullo at
+  <IMG SRC="emladr.gif" WIDTH="217" HEIGHT="24" BORDER="0" ALIGN="Middle">
+</CENTER>
+</BODY></HTML>

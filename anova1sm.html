@@ -1,0 +1,557 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<meta http-equiv="PICS-Label" content="(PICS-1.0 &quot;http://www.classify.org/safesurf/&quot; l on &quot;1996.08.22T13:41+0000 r (SS~~000 1)">
+<script language="LiveScript">
+<!-- hide this script tag's contents from old browsers
+var Pi=Math.PI; var PiD2=Pi/2; var PiD4=Pi/4; var Pi2=2*Pi
+var e=2.718281828459045235; var e10 = 1.105170918075647625
+var Deg=180/Pi
+function Fact(n) {
+if(n==0) { return 1 }
+if(n<0 & n>-1) { n=n+1; return Exp((n+0.5)*Ln(n+1)-n-n*(0.1121105+n*0.08106103)/(1.452342+n*(2.410858+n)))/n }
+var a=0; if(n<0) { n=Math.abs(n)-1; a=1 }
+var r=n
+if((n%1)==0) { while(n>1) { n=n-1; r=r*n } }
+else { r=Exp(Math.abs((n+0.5)*Ln(n+1)-n-n*(0.1121105+n*0.08106103)/(1.452342+n*(2.410858+n)))) }
+if(a==1) { r=-Pi/(r*Math.sin(Pi*n)) }
+return r
+}
+function Abs(x) { return Math.abs(x) }
+function Sqrt(x) { return Math.sqrt(x) }
+function Exp(x) { return Math.exp(x) }
+function Ln(x) { return Math.log(x) }
+function Log10(x) { return Ln(x)/Ln(10) }
+function Log2(x) { return Ln(x)/Ln(2) }
+function Power(x,y) { return Math.pow(x,y) }
+function Sin(x) { return Math.sin(x) }
+function Cos(x) { return Math.cos(x) }
+function Tan(x) { return Math.sin(x)/Math.cos(x) }
+function Cot(x) { return Math.cos(x)/Math.sin(x) }
+function Sec(x) { return 1/Math.cos(x) }
+function Csc(x) { return 1/Math.sin(x) }
+function ATan(x) { return Math.atan(x) }
+function ASin(x) { return Math.asin(x) }
+function ACos(x) { return Math.acos(x) }
+function ACot(x) { return ATan(1/x) }
+function ASec(x) { return ACos(1/x) }
+function ACsc(x) { return ASin(1/x) }
+function SinH(x) { return (Exp(x)-Exp(-x))/2 }
+function CosH(x) { return (Exp(x)+Exp(-x))/2 }
+function TanH(x) { return SinH(x)/CosH(x) }
+function CotH(x) { return 1/TanH(x) }
+function SecH(x) { return 1/CosH(x) }
+function CscH(x) { return 1/SinH(x) }
+function ASinH(x) { return Ln(x+Sqrt(x*x+1)) }
+function ACosH(x) { return Ln(x+Sqrt(x*x-1)) }
+function ATanH(x) { return 0.5*Ln((1+x)/(1-x)) }
+function ACotH(x) { return 0.5*Ln((x+1)/(x-1)) }
+function ASecH(x) { return Ln(1/x+Sqrt(1/(x*x)+1)) }
+function ACscH(x) { return Ln(1/x+Sqrt(1/(x*x)-1)) }
+function ChiSq(x,n) {
+var p=Exp(-0.5*x); if((n%2)==1) { p=p*Sqrt(2*x/Pi) }
+var k=n; while(k>=2) { p=p*x/k; k=k-2 }
+var t=p; var a=n; while(t>0.000001*p) { a=a+2; t=t*x/a; p=p+t }
+return 1-p
+}
+function Norm(z) { return ChiSq(z*z,1) }
+function NormLeft ( z ) {
+if(z>0) { return 1-Norm(z)/2 } else { return Norm(z)/2 }
+}
+function StudT(t,n) {
+t=Math.abs(t); var w=t/Sqrt(n); var th=Math.atan(w)
+if(n==1) { return 1-th/PiD2 }
+var sth=Math.sin(th); var cth=Math.cos(th)
+if((n%2)==1)
+{ return 1-(th+sth*cth*StatCom(cth*cth,2,n-3,-1))/PiD2 }
+else
+{ return 1-sth*StatCom(cth*cth,1,n-3,-1) }
+}
+function FishF(f,n1,n2) {
+var x=n2/(n1*f+n2)
+if((n1%2)==0) { return StatCom(1-x,n2,n1+n2-4,n2-2)*Power(x,n2/2) }
+if((n2%2)==0){ return 1-StatCom(x,n1,n1+n2-4,n1-2)*Power(1-x,n1/2) }
+var th=Math.atan(Sqrt(n1*f/n2)); var a=th/PiD2; var sth=Math.sin(th); var cth=Math.cos(th)
+if(n2>1) { a=a+sth*cth*StatCom(cth*cth,2,n2-3,-1)/PiD2 }
+if(n1==1) { return 1-a }
+var c=4*StatCom(sth*sth,n2+1,n1+n2-4,n2-2)*sth*Power(cth,n2)/Pi
+if(n2==1) { return 1-a+c/2 }
+var k=2; while(k<=(n2-1)/2) {c=c*k/(k-.5); k=k+1 }
+return 1-a+c
+}
+function StatCom(q,i,j,b) {
+var zz=1; var z=zz; var k=i; while(k<=j) { zz=zz*q*k/(k-b); z=z+zz; k=k+2 }
+return z
+}
+function ANorm(p) { var v=0.5; var dv=0.5; var z=0
+while(dv>1e-6) { z=1/v-1; dv=dv/2; if(Norm(z)>p) { v=v-dv } else { v=v+dv } }
+return z
+}
+function AChiSq(p,n) { var v=0.5; var dv=0.5; var x=0
+while(dv>1e-6) { x=1/v-1; dv=dv/2; if(ChiSq(x,n)>p) { v=v-dv } else { v=v+dv } }
+return x
+}
+function AStudT(p,n) { var v=0.5; var dv=0.5; var t=0
+while(dv>1e-6) { t=1/v-1; dv=dv/2; if(StudT(t,n)>p) { v=v-dv } else { v=v+dv } }
+return t
+}
+function AFishF(p,n1,n2) { var v=0.5; var dv=0.5; var f=0
+while(dv>1e-6) { f=1/v-1; dv=dv/2; if(FishF(f,n1,n2)>p) { v=v-dv } else { v=v+dv } }
+return f
+}
+function createArray() {
+this.length = createArray.arguments.length
+for (var i = 0; i < this.length; i++) { this[i] = createArray.arguments[i] }
+}
+function Fmt(x) { var v
+if(x>=0) { v=''+(x+0.00005) } else { v=''+(x-0.00005) }
+return v.substring(0,v.indexOf('.')+5)
+}
+function rprb(r,s,df) {
+if( df>100 ) { var v=0.5; var dv=0.5
+while(dv>1e-6) { dv=dv/2; if(Arprb(v,s,df)<r) { v=v-dv } else { v=v+dv } }
+return v }
+var coef = [-0,1,4,2,4,2,4,2,4,2,4,2,4,2,4,2,4, 2,4,2,4,2,4,2,4,2,4,2,4,2,4,2,4,1]
+var EMAX=89; var idf=df; var dg=df/2-1; var idg=dg; var g=0; var xi, dmax
+if(dg <0) g=.572364943
+else if (dg>0) {
+if(dg== .5) g=g-.120782238
+else {
+for (var i=1;i<=idg;i++) {
+g+=Ln(dg-i+1) }
+if(df%2 !=0 ) g=g-.120782238 //4
+}
+}
+var c = Exp(.693147181+Ln(.196349541 *df)*df/2-g) // 5
+var dt = Ln(r+1)*100
+if(df>dt) dmax=dt
+else dmax=df
+var ri=5.2+r*.5-Ln(dmax)-1/Sqrt(r)
+if(ri<.15) ri=.15
+var bi= r-ri
+if(bi<0) bi=0
+var ui=r+ri
+var si=(ui-bi)/32
+var sra=0
+for (var i=2;i<=33;i++) {
+xi=i-1
+var br = bi+si*xi
+var sr =(-.918938533-br*br/(r*r *2)+Ln(4*br/r))*df
+var ra=0
+for (var j=1;j<=33;j++) {
+var xj=j-1
+var bz=xj*.34375-7
+var rh=0
+var d = NormLeft( br + bz ) - NormLeft( bz )
+if(d>0) {
+var h = Ln(d)
+var pr = -.918938533-bz*bz/2 +h*(s-1)+Ln(s)
+if(pr+EMAX>0) rh = Exp(pr)
+}
+ra+=coef[j]*rh //10
+}
+ra=.34375*ra/3
+var srh=0
+d=(1-ra)/br
+if (d>0) {
+sr+=Ln(d)
+if((sr+EMAX)>0) srh=Exp(sr)
+}
+sra = sra+coef[i]*srh //11
+}
+var result= si*sra/3*c
+return result
+}
+function Arprb(p,s,df) { if( df>100 ) { var v=Arprb(p,s,100); return v + (1/df-1/100)*(Arprb(p,s,50)-v)/(1/50-1/100) }
+var v=0.5; var dv=0.5; var x=0
+while(dv>1e-8) { x=1/v-1; dv=dv/2; if(rprb(x,s,df)>p) { v=v-dv } else { v=v+dv } }
+return x
+}
+var gr = new createArray("","","","","","","","","","")
+var n = new createArray(0,0,0,0,0,0,0,0,0,0)
+var m = new createArray(0,0,0,0,0,0,0,0,0,0)
+var s = new createArray(0,0,0,0,0,0,0,0,0,0)
+// var gr = ["","","","","","","","","",""]; var n = [0,0,0,0,0,0,0,0,0,0]; var m = n; var s = n
+function Calc(form) {
+gr[1]=form.g1.value; n[1]=eval(form.n1.value); m[1]=eval(form.m1.value); s[1]=eval(form.s1.value)
+gr[2]=form.g2.value; n[2]=eval(form.n2.value); m[2]=eval(form.m2.value); s[2]=eval(form.s2.value)
+gr[3]=form.g3.value; n[3]=eval(form.n3.value); m[3]=eval(form.m3.value); s[3]=eval(form.s3.value)
+gr[4]=form.g4.value; n[4]=eval(form.n4.value); m[4]=eval(form.m4.value); s[4]=eval(form.s4.value)
+gr[5]=form.g5.value; n[5]=eval(form.n5.value); m[5]=eval(form.m5.value); s[5]=eval(form.s5.value)
+gr[6]=form.g6.value; n[6]=eval(form.n6.value); m[6]=eval(form.m6.value); s[6]=eval(form.s6.value)
+gr[7]=form.g7.value; n[7]=eval(form.n7.value); m[7]=eval(form.m7.value); s[7]=eval(form.s7.value)
+gr[8]=form.g8.value; n[8]=eval(form.n8.value); m[8]=eval(form.m8.value); s[8]=eval(form.s8.value)
+gr[9]=form.g9.value; n[9]=eval(form.n9.value); m[9]=eval(form.m9.value); s[9]=eval(form.s9.value)
+gr[10]=form.g10.value; n[10]=eval(form.n10.value); m[10]=eval(form.m10.value); s[10]=eval(form.s10.value)
+var g=0; var sn=0; var st=0; var sq=0; var sv=0;
+var i=1; while(i<=10) { var ni = n[i]
+if(ni>0){
+if(form.Std[form.Std.selectedIndex].value=='SE') {s[i] = s[i]*Math.sqrt(n[i])}
+var ti = ni*m[i];
+var qi = ni*m[i]*m[i] + (ni-1)*s[i]*s[i];
+var vi = ti*ti/ni;
+g = g + 1;
+sn = sn + ni;
+st = st + ti;
+sq = sq + qi; sv = sv + vi;
+}
+i=i+1;}
+var vSSb = sv - st*st/sn;
+var vSSw = sq - sv;
+var vSSt = vSSb + vSSw;
+var vDFb = g - 1;
+var vDFt = sn - 1;
+var vDFw = vDFt - vDFb;
+var vEVb = vSSb / vDFb;
+var vEVw = vSSw / vDFw;
+var vF = vEVb / vEVw;
+var vP = FishF( vF , vDFb , vDFw );
+form.SSb.value = Fmt(vSSb);
+form.SSw.value = Fmt(vSSw);
+form.SSt.value = Fmt(vSSt);
+form.DFb.value = ''+vDFb;
+form.DFw.value = ''+vDFw;
+form.DFt.value = ''+vDFt;
+form.EVb.value = Fmt(vEVb);
+form.EVw.value = Fmt(vEVw);
+form.F.value = Fmt(vF);
+form.p.value = Fmt(vP);
+var CR = unescape("%0D");
+var LF = unescape("%0A");
+var Tb = unescape("%09");
+var NL = CR + LF;
+var O = "Tukey HSD Post-hoc Test..." + NL
+ConfLevC = form.ConfLev.value; ConfLev = eval(ConfLevC)
+Qcrit = Arprb( 1-ConfLev/100, g, vDFw )
+var i = 1; while( i<g ) {
+var j = i+1; while( j<=g ) {
+Diff = m[j] - m[i]
+O = O + gr[i] + " vs " + gr[j] + ": Diff=" + Fmt(Diff)
+SE = Sqrt( vEVw * (1/n[i] + 1/n[j]) / 2 )
+Del = Qcrit * SE
+O = O + ", " + ConfLevC + "%CI=" + Fmt(Diff-Del) + " to " + Fmt(Diff+Del)
+pVal = rprb( Abs(Diff)/SE, g, vDFw )
+O = O + ", p=" + Fmt( pVal ) + NL
+j = j + 1}
+i = i + 1}
+form.output.value = O
+}
+<!-- done hiding from old browsers -->
+</script><title>Interactive Statistics -- One-way ANOVA from Summary Data</title>
+
+</head>
+<body style="background-color: rgb(255, 255, 238);">
+<h2>
+<center> <font color="Red">Analysis of Variance
+from Summary Data<br>
+<small>(updated April 17 -- handles up to 10 groups)</small></font> </center>
+</h2>
+<p>
+This web page performs a one-way ANOVA from summary data -- that is, from the
+counts, means, standard deviations (or standard errors) for each group.
+This can be useful if you don't have the individual numbers for the members of
+each group, but only the summarized data. This might happen, for example,
+if you're analyzing data that has been summarized in a book or published
+article.
+</p>
+<p>A one-way ANOVA can be thought of as an extension of the
+unpaired Student
+t-test to more than two groups. Or, you can think of the Student t-test
+as a special case of the ANOVA for only two groups (or "levels" in ANOVA
+terminology). A two-level ANOVA is algebraically equivalent to a t-test,
+and produces exactly the same p values. This page can handle up to 10 groups.
+</p>
+<p>To use this page you must know <b>how many observations</b>
+are in each group,
+and you must know the <b>average</b> (arithmetic mean) and either the
+<b>standard deviation (SD)</b> or the <b>standard error of the mean (SEM)</b>
+for the observations in each group. Enter them in the table below,
+replacing the sample data that's in the table. Leave all unused
+groups' cells <span style="font-weight: bold;">completely</span>
+blank). You can also put short meaningful group names
+into the first column, replacing the generic "Group 1", "Group 2", etc.
+&nbsp;Indicate, by the pop-up menu above the last column,
+whether you've provided SD's or SEM's. Then click the "Compute" button.
+The results will appear in the conventional "ANOVA Table" below. A p-value
+less than 0.05 indicates that there is a significant difference somewhere
+among the various groups; that is, they do not appear to have all come from
+the same population.</p>
+<p>The program also performs the <span style="font-weight: bold;">Tukey HSD</span>
+("Honestly Significant Difference") <span style="font-style: italic;">post-hoc</span>
+test, to indicate which groups were significantly different from which
+others. And it provides 95% confidence intervals around
+the differences between the groups. If you want some other confidence
+level (like 90% or 97.5% confidence intervals), you can type the
+desired confidence level (without the % sign) in the box above the
+Compute button.</p>
+<p><span style="font-weight: bold;">Technical Note</span>:
+Performing the Tukey HSD test requires evaluating the Studentized Range
+Distribution. This page uses a JavaScript routine from David Lane's <span style="font-style: italic;"></span><a target="_blank" href="http://onlinestatbook.com/2/calculators/studentized_range_dist.html">Hyperstat web page</a>,
+modified to provide more accurate results for very large samples.
+&nbsp;(Many thanks, David!)<br>
+</p>
+<center>
+<form>
+<table bgcolor="#eeeeff">
+<caption> <font color="Red"><b>Enter your summary data here...</b></font> </caption> <tbody>
+<tr>
+<td>
+<p align="center"> Group Name</p>
+</td>
+<td>
+<p align="center"> N (count)</p>
+</td>
+<td>
+<p align="center"> Mean</p>
+</td>
+<td>
+<p align="center">
+<select name="Std"><option value="SD" selected="selected">Std.
+Dev. </option><option value="SE">Std. Error</option></select>
+</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="center"> <input value="Group 1" name="g1" size="12" onfocus="g1.select()"></p>
+</td>
+<td>
+<p align="center"> <input value="20" name="n1" size="12" onfocus="n1.select()"></p>
+</td>
+<td>
+<p align="center"> <input value="164.5" name="m1" size="12" onfocus="m1.select()"></p>
+</td>
+<td>
+<p align="center"> <input value="28.3" name="s1" size="12" onfocus="s1.select()"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="center"> <input value="Group 2" name="g2" size="12" onfocus="g2.select()"></p>
+</td>
+<td>
+<p align="center"> <input value="23" name="n2" size="12" onfocus="n2.select()"></p>
+</td>
+<td>
+<p align="center"> <input value="140.1" name="m2" size="12" onfocus="m2.select()"></p>
+</td>
+<td>
+<p align="center"> <input value="23.9" name="s2" size="12" onfocus="s2.select()"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="center"> <input value="Group 3" name="g3" size="12" onfocus="g3.select()"></p>
+</td>
+<td>
+<p align="center"> <input value="18" name="n3" size="12" onfocus="n3.select()"></p>
+</td>
+<td>
+<p align="center"> <input value="156.6" name="m3" size="12" onfocus="m3.select()"></p>
+</td>
+<td>
+<p align="center"> <input value="26.1" name="s3" size="12" onfocus="s3.select()"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="center"> <input value="Group 4" name="g4" size="12" onfocus="g4.select()"></p>
+</td>
+<td>
+<p align="center"> <input name="n4" size="12" onfocus="n4.select()" type="text"></p>
+</td>
+<td>
+<p align="center"> <input name="m4" size="12" onfocus="m4.select()" type="text"></p>
+</td>
+<td>
+<p align="center"> <input name="s4" size="12" onfocus="s4.select()" type="text"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="center"> <input value="Group 5" name="g5" size="12" onfocus="g5.select()"></p>
+</td>
+<td>
+<p align="center"> <input name="n5" size="12" onfocus="n5.select()" type="text"></p>
+</td>
+<td>
+<p align="center"> <input name="m5" size="12" onfocus="m5.select()" type="text"></p>
+</td>
+<td>
+<p align="center"> <input name="s5" size="12" onfocus="s5.select()" type="text"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="center"> <input value="Group 6" name="g6" size="12" onfocus="g6.select()"></p>
+</td>
+<td>
+<p align="center"> <input name="n6" size="12" onfocus="n6.select()" type="text"></p>
+</td>
+<td>
+<p align="center"> <input name="m6" size="12" onfocus="m6.select()" type="text"></p>
+</td>
+<td>
+<p align="center"> <input name="s6" size="12" onfocus="s6.select()" type="text"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="center"> <input value="Group 7" name="g7" size="12" onfocus="g.select()"></p>
+</td>
+<td>
+<p align="center"> <input name="n7" size="12" onfocus="n7.select()" type="text"></p>
+</td>
+<td>
+<p align="center"> <input name="m7" size="12" onfocus="m7.select()" type="text"></p>
+</td>
+<td>
+<p align="center"> <input name="s7" size="12" onfocus="s7.select()" type="text"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="center"> <input value="Group 8" name="g8" size="12" onfocus="g8.select()"></p>
+</td>
+<td>
+<p align="center"> <input name="n8" size="12" onfocus="n8.select()" type="text"></p>
+</td>
+<td>
+<p align="center"> <input name="m8" size="12" onfocus="m8.select()" type="text"></p>
+</td>
+<td>
+<p align="center"> <input name="s8" size="12" onfocus="s8.select()" type="text"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="center"> <input value="Group 9" name="g9" size="12" onfocus="g9.select()"></p>
+</td>
+<td>
+<p align="center"> <input name="n9" size="12" onfocus="n9.select()" type="text"></p>
+</td>
+<td>
+<p align="center"> <input name="m9" size="12" onfocus="m9.select()" type="text"></p>
+</td>
+<td>
+<p align="center"> <input name="s9" size="12" onfocus="s9.select()" type="text"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="center"> <input value="Group 10" name="g10" size="12" onfocus="g10.select()"></p>
+</td>
+<td>
+<p align="center"> <input name="n10" size="12" onfocus="n10.select()" type="text"></p>
+</td>
+<td>
+<p align="center"> <input name="m10" size="12" onfocus="m10.select()" type="text"></p>
+</td>
+<td>
+<p align="center"> <input name="s10" size="12" onfocus="s10.select()" type="text"></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Desired confidence level for post-hoc confidence intervals: <input value="95" name="ConfLev" size="8" onfocus="ConfLev.select()" type="text">
+</p>
+<p> <input value="Compute" onclick="Calc(this.form)" type="button"> </p>
+<p>
+<table bgcolor="#eeeeff" cellpadding="2">
+<caption> <font color="Red"><b>ANOVA
+Table...</b></font> </caption> <tbody>
+<tr>
+<td>
+<p align="right"> Source of Variation</p>
+</td>
+<td>
+<p align="center"> Sum of Squares</p>
+</td>
+<td>
+<p align="center"> d.f.</p>
+</td>
+<td>
+<p align="center"> Variance</p>
+</td>
+<td>
+<p align="center"> F</p>
+</td>
+<td>
+<p align="center"> p</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="right"> Between Groups:</p>
+</td>
+<td>
+<p align="right"> <input name="SSb" type="text"></p>
+</td>
+<td>
+<p align="right"> <input name="DFb" size="6" type="text"></p>
+</td>
+<td>
+<p align="right"> <input name="EVb" size="12" type="text"></p>
+</td>
+<td>
+<p align="right"> <input name="F" size="8" type="text"></p>
+</td>
+<td>
+<p align="right"> <input name="p" size="6" type="text"></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="right"> Within Groups:</p>
+</td>
+<td>
+<p align="right"> <input name="SSw" type="text"></p>
+</td>
+<td>
+<p align="right"> <input name="DFw" size="6" type="text"></p>
+</td>
+<td>
+<p align="right"> <input name="EVw" size="12" type="text"></p>
+</td>
+<td>
+<p align="right"> </p>
+</td>
+<td>
+<p align="right"> </p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="right"> Total:</p>
+</td>
+<td>
+<p align="right"> <input name="SSt" type="text"></p>
+</td>
+<td>
+<p align="right"> <input name="DFt" size="6" type="text"></p>
+</td>
+<td>
+<p align="right"> </p>
+</td>
+<td>
+<p align="right"> </p>
+</td>
+<td>
+<p align="right"> </p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+<p> <font color="Red"><b> Post-hoc tests...</b></font>
+<br>
+<textarea name="output" rows="10" cols="80"></textarea><br>
+</p>
+<hr>
+<p> Return to the <a href="index.html">Interactive
+Statistics page</a> or to the <a href="JCPhome.html">JCP
+Home Page</a><br>
+<br>
+or send e-mail to <img src="emladr.gif" align="middle" border="0" height="24" width="217"> </p>
+</form>
+</center>
+</body></html>

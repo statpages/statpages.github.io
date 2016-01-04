@@ -1,0 +1,314 @@
+<HTML>
+<HEAD>
+  <!-- Created with AOLpress/2.0 -->
+  <SCRIPT language="JavaScript">
+<!-- hide this script tag's contents from old browsers
+
+var Pi=Math.PI; var PiD2=Pi/2; var PiD4=Pi/4; var Pi2=2*Pi
+var Deg=180/Pi
+
+function Fact(n) {
+    if(n==0) { return 1 }
+    if(n<0) { if(n> -1) { return Fact(n+1)/(n+1)} { return -Pi/( Fact(-1-n) * Sin(Pi*n))} }
+    if((n%1)==0) { var r=n; while(n>1) { n=n-1; r=r*n } }
+        else { var r=Exp((n+0.5)*Ln(n+1)-n-n*(0.1121105+n*0.08106103)/(1.452342+n*(2.410858+n))) }
+    return r
+    }
+
+function Abs(x) { return Math.abs(x) }
+function Sqrt(x) { return Math.sqrt(x) }
+function Exp(x) { return Math.exp(x) }
+function Ln(x) { return Math.log(x) }
+function Log10(x) { return Math.log(x)/Math.log(10) }
+function Log2(x) { return Math.log(x)/Math.log(2) }
+function Power(x,y) { return Math.pow(x,y) }
+function Sin(x) { return Math.sin(x) }
+function Cos(x) { return Math.cos(x) }
+function Tan(x) { return Math.sin(x)/Math.cos(x) }
+function Cot(x) { return Math.cos(x)/Math.sin(x) }
+function Sec(x) { return 1/Math.cos(x) }
+function Csc(x) { return 1/Math.sin(x) }
+function ATan(x) { return Math.atan(x) }
+function ASin(x) { return Math.asin(x) }
+function ACos(x) { return Math.acos(x) }
+function ACot(x) { return ATan(1/x) }
+function ASec(x) { return ACos(1/x) }
+function ACsc(x) { return ASin(1/x) }
+
+function SinH(x) { return (Math.exp(x)-Math.exp(-x))/2 }
+function CosH(x) { return (Math.exp(x)+Math.exp(-x))/2 }
+function TanH(x) { return SinH(x)/CosH(x) }
+function CotH(x) { return 1/TanH(x) }
+function SecH(x) { return 1/CosH(x) }
+function CscH(x) { return 1/SinH(x) }
+function ASinH(x) { return Math.log(x+Math.sqrt(x*x+1)) }
+function ACosH(x) { return Math.log(x+Math.sqrt(x*x-1)) }
+function ATanH(x) { return 0.5*Math.log((1+x)/(1-x)) }
+function ACotH(x) { return 0.5*Math.log((x+1)/(x-1)) }
+function ASecH(x) { return Math.log(1/x+Math.sqrt(1/(x*x)+1)) }
+function ACscH(x) { return Math.log(1/x+Math.sqrt(1/(x*x)-1)) }
+
+function ChiSq(x,n) {
+    var p=Math.exp(-0.5*x); if((n%2)==1) { p=p*Math.sqrt(2*x/Pi) }
+    var k=n; while(k>=2) { p=p*x/k; k=k-2 }
+    var t=p; var a=n; while(t>0.00000001*p) { a=a+2; t=t*x/a; p=p+t }
+    return 1-p
+    }
+function Norm(z) { return ChiSq(z*z,1) }
+
+function Gauss(z) { return ( (z<0) ? ( (z<-6) ? 0 : ChiSq(z*z,1)/2 ) : ( (z>6) ? 1 : 1-ChiSq(z*z,1)/2 ) ) }
+
+function Erf(z) { return 2*Gauss(1.41421356*z)-1 }
+
+function StudT(t,n) {
+    t=Math.abs(t); var w=t/Math.sqrt(n); var th=Math.atan(w)
+    if(n==1) { return 1-th/PiD2 }
+    var sth=Math.sin(th); var cth=Math.cos(th)
+    if((n%2)==1)
+        { return 1-(th+sth*cth*StatCom(cth*cth,2,n-3,-1))/PiD2 }
+        else
+        { return 1-sth*StatCom(cth*cth,1,n-3,-1) }
+    }
+function FishF(f,n1,n2) {
+    var x=n2/(n1*f+n2)
+    if((n1%2)==0) { return StatCom(1-x,n2,n1+n2-4,n2-2)*Math.pow(x,n2/2) }
+    if((n2%2)==0){ return 1-StatCom(x,n1,n1+n2-4,n1-2)*Math.pow(1-x,n1/2) }
+    var th=Math.atan(Math.sqrt(n1*f/n2)); var a=th/PiD2; var sth=Math.sin(th); var cth=Math.cos(th)
+    if(n2>1) { a=a+sth*cth*StatCom(cth*cth,2,n2-3,-1)/PiD2 }
+    if(n1==1) { return 1-a }
+    var c=4*StatCom(sth*sth,n2+1,n1+n2-4,n2-2)*sth*Math.pow(cth,n2)/Pi
+    if(n2==1) { return 1-a+c/2 }
+    var k=2; while(k<=(n2-1)/2) {c=c*k/(k-.5); k=k+1 }
+    return 1-a+c
+    }
+function StatCom(q,i,j,b) {
+    var zz=1; var z=zz; var k=i; while(k<=j) { zz=zz*q*k/(k-b); z=z+zz; k=k+2 }
+    return z
+    }
+function ANorm(p) { var v=0.5; var dv=0.5; var z=0
+    while(dv>1e-6) { z=1/v-1; dv=dv/2; if(Norm(z)>p) { v=v-dv } else { v=v+dv } }
+    return z
+    }
+function AGauss(p) { if(p>0.5) { return( Sqrt(AChiSq(2*(1-p),1)) ) } else { return( -Sqrt(AChiSq(2*p,1)) ) } }
+
+function AErf(p) { return AGauss(p/2+0.5)/1.41421356 }
+
+function AChiSq(p,n) { var v=0.5; var dv=0.5; var x=0
+    while(dv>1e-6) { x=1/v-1; dv=dv/2; if(ChiSq(x,n)>p) { v=v-dv } else { v=v+dv } }
+    return x
+    }
+function AStudT(p,n) { var v=0.5; var dv=0.5; var t=0
+    while(dv>1e-6) { t=1/v-1; dv=dv/2; if(StudT(t,n)>p) { v=v-dv } else { v=v+dv } }
+    return t
+    }
+function AFishF(p,n1,n2) { var v=0.5; var dv=0.5; var f=0
+    while(dv>1e-6) { f=1/v-1; dv=dv/2; if(FishF(f,n1,n2)>p) { v=v-dv } else { v=v+dv } }
+    return f
+    }
+function Max(x1,x2) { return (x1>x2)?x1:x2 }
+function Min(x1,x2) { return (x1<x2)?x1:x2 }
+
+function ix(j,k) { return (j-1)*(nEq+1)+k }
+
+function createArray() {
+	this.length = createArray.arguments.length
+	for (var i = 1; i <= this.length; i++) { this[i] = createArray.arguments[i] }
+	}
+
+var nEq = 0
+var Var = new createArray(0,0,0)
+var Eqx = new createArray("","","")
+var Eqn = new createArray(0,0,0)
+var Der = new createArray(0,0,0)
+var Arr = new createArray(0,0,0,0, 0,0,0,0, 0,0,0,0)
+var xArr = new createArray(0,0,0,0,0,0,0,0,0)
+
+function EvalFs(form) {
+nEq = eval(form.nEq.value)
+x1 = eval(form.x1.value); x = x1; Var[1] = x1
+x2 = eval(form.x2.value); y = x2; Var[2] = x2
+x3 = eval(form.x3.value); z = x3; Var[3] = x3
+Eqx[1] = form.f1.value; Eqn[1] = eval(Eqx[1]); form.f1c.value = "" + Eqn[1]
+Eqx[2] = form.f2.value; Eqn[2] = eval(Eqx[2]); form.f2c.value = "" + Eqn[2]
+Eqx[3] = form.f3.value; Eqn[3] = eval(Eqx[3]); form.f3c.value = "" + Eqn[3]
+}
+
+function Iterate(form) {
+
+EvalFs(form)
+
+for (j = 1; j <= nEq * (nEq+1); j++) { Arr[j] = 0; } 
+
+for(j=1; j<=nEq; j++) {
+	Arr[ix(j,nEq+1)] = Eqn[j]
+	}
+for(k=1; k<=nEq; k++) {
+	Save = Var[k]; if(Save==0) {Del = 0.0001} else {Del = Save/1000}
+	Var[k] = Save + Del;
+	x=Var[1]; x1=x; y=Var[2]; x2=y; z=Var[3]; x3=z
+	for(j=1; j<=nEq; j++) {
+		Arr[ix(j,k)] = ( eval( Eqx[j] ) - Eqn[j] ) / Del;
+		}
+	Var[k] = Save;
+	x=Var[1]; x1=x; y=Var[2]; x2=y; z=Var[3]; x3=z
+	}
+
+for (i=1; i<=nEq; i++) { s = Arr[ix(i,i)]; Arr[ix(i,i)] = 1;
+	for (k=1; k<=nEq+1; k++) { Arr[ix(i,k)] = Arr[ix(i,k)] / s; }
+	for (j=1; j<=nEq; j++) {
+		if (i!=j) { s = Arr[ix(j,i)]; Arr[ix(j,i)] = 0;
+			for (k=1; k<=nEq+1; k++) {
+				Arr[ix(j,k)] = Arr[ix(j,k)] - s * Arr[ix(i,k)];
+				}
+			}
+		}
+	}
+var FRelax = eval(form.RelaxF[form.RelaxF.selectedIndex].text)
+for( i=1; i<=nEq; i++) {
+	Var[i] = Var[i] - FRelax * Arr[ix(i,nEq+1)];
+	}
+form.x1.value = "" + Var[1]
+form.x2.value = "" + Var[2]
+form.x3.value = "" + Var[3]
+EvalFs(form)
+
+}
+
+<!-- done hiding from old browsers -->
+</SCRIPT>
+  <TITLE>Solve Simultaneous Non-linear Equations</TITLE>
+</HEAD>
+<BODY>
+<H2 ALIGN=Center>
+  Solve Simultaneous Non-linear Equations
+</H2>
+<P>
+  <HR>
+<FORM method=post>
+  <H3>
+    <FONT COLOR="Red"><A NAME="Instructions">Instructions</A>:</FONT>
+  </H3>
+  <OL>
+    <LI>
+      Enter the <FONT COLOR="Red">number of equations</FONT>:
+      <INPUT TYPE="text" NAME="nEq" VALUE="3" SIZE="4"> (1, 2, or 3)
+    <LI>
+      Enter the <FONT COLOR="Red">formulas for the equations to be
+      solved</FONT>:<BR>
+      f1 = 0 =
+      <INPUT TYPE="text" NAME="f1" VALUE="x*Sin(x*y)-1" SIZE="48" onBlur=EvalFs(this.form)>,
+      Calc'd f1 = 
+      <INPUT TYPE="text" NAME="f1c" VALUE="0" SIZE="24"><BR>
+      f2 = 0 =
+      <INPUT TYPE="text" NAME="f2" VALUE="x+y/Exp(z)-2" SIZE="48" onBlur=EvalFs(this.form)>,
+      Calc'd f2 = 
+      <INPUT TYPE="text" NAME="f2c" VALUE="0" SIZE="24"><BR>
+      f3 = 0 =
+      <INPUT TYPE="text" NAME="f3" VALUE="Sqrt(x)-Ln(y*z) " SIZE="48" onBlur=EvalFs(this.form)>,
+      Calc'd f3 = 
+      <INPUT TYPE="text" NAME="f3c" VALUE="0" SIZE="24"><BR>
+      <FONT COLOR="Purple"><SMALL>Be sure to adhere to the expression syntax rules
+      described below. (In particular, note that you <B>cannot</B> use ^ for
+      exponentiation; you must use the Power function instead.) Transpose all the
+      terms of the equation over to one side, so you have an expression that should
+      equal zero; then enter that expression into the fields above. Refer to the
+      variables as x, y, and z, or as <I>v1</I>, v<I>2</I>, and v<I>3</I>. If there
+      are fewer than three equations, start with <I>x</I> or <I>v1</I>, and don't
+      skip letters in the sequence (for example, if there are 2 parameters, <B>don't
+      </B>use <I>x</I> and z).</SMALL></FONT>
+    <LI>
+      Enter your <FONT COLOR="Red">best guesses for the variables</FONT>:<BR>
+      <TT><I>x</I> (or <I>v<SUB>1</SUB></I>)= </TT>
+      <INPUT TYPE="text" NAME="x1" VALUE="1" SIZE="10" onBlur=EvalFs(this.form)><TT>,
+      <I>y</I> (or <I>v<SUB>2</SUB></I>)= </TT>
+      <INPUT TYPE="text" NAME="x2" VALUE="0.5" SIZE="10" onBlur=EvalFs(this.form)><TT>,
+      <I>z</I> (or <I>v<SUB>3</SUB></I>)= </TT>
+      <INPUT TYPE="text" NAME="x3" VALUE="4" SIZE="10" onBlur=EvalFs(this.form)><TT><BR>
+      </TT><FONT COLOR="Purple"><SMALL>If there are fewer than three variables,
+      set the extra boxes to zero. (Any values you enter in the boxes for these
+      "extra" variables beyond the number specified in Step 1 will be "made available"
+      for use in the formulas, but will not be adjusted by the iterative
+      process.)</SMALL></FONT>
+    <LI>
+      <FONT COLOR="Red">Click the
+      <INPUT TYPE="button" VALUE="Iterate" onClick=Iterate(this.form)> button</FONT>
+      to perform a <B>single iteration cycle</B>, and observe how the variables
+      change in the boxes above. Also look at the function values below (they should
+      all become very small).<BR>
+      If you encounter problems getting the variables to converge, you can specify
+      a <B>fractional adjustment factor</B> here:
+      <SELECT NAME="RelaxF"> 
+      <OPTION SELECTED>1.0 
+      <OPTION>0.5 
+      <OPTION>0.2 
+      <OPTION>0.1 
+      <OPTION>0.05</SELECT><FONT COLOR="Purple"><SMALL>Values less than 1.0 will
+      apply only that fraction of the calculated adjustment to the variables, making
+      the convergence slower but more stable. Change this value back to 1.0 once
+      the iterations seem to be converging.</SMALL></FONT><BR>
+    <LI>
+      If the new variable values seem reasonable, click the <B>Iterate</B> button
+      again, and continue until the variables converge.
+    <LI>
+      If any variables seem to be diverging, enter a more reasonable value and
+      click the <B>Iterate</B> button again.
+  </OL>
+  <P>
+    <HR>
+  <H3>
+    <FONT COLOR="Red">Expression Syntax:</FONT>
+  </H3>
+  <P>
+  Operators: + - * / and parentheses (note that there is no ^ for raising to
+  a power; instead use the Power function, described below)
+  <P>
+  Constants: Pi [=3.14...], Deg [=180/Pi = 57.2...]
+  <P>
+  Conditional Expressions: (Condition) ? ValueIfTrue : ValueIfFalse
+  <P>
+  Built-in Functions... [Unless otherwise indicated, all functions take a single
+  numeric argument, enclosed in parentheses after the name of the function.]
+  <P>
+  Algebraic: Abs, Sqrt, Power(x,y) [= x raised to power of y)], Fact [factorial],
+  Min(x,y) [= the lesser of x or y], Max(x,y) [= the greater of x or y]
+  <P>
+  Transcendental: Exp, Ln [natural], Log10, Log2
+  <P>
+  Trigonometric: Sin, Cos, Tan, Cot, Sec, Csc
+  <P>
+  Inverse Trig: ASin, ACos, ATan, ACot, ASec, ACsc
+  <P>
+  Hyperbolic: SinH, CosH, TanH, CotH, SecH, CscH
+  <P>
+  Inverse Hyp: ASinH, ACosH, ATanH, ACotH, ASecH, ACscH
+  <P>
+  Statistical: Norm, Gauss, Erf, ChiSq(csq,df), StudT(t,df), FishF(F,df1,df2)
+  <P>
+  Inverse Stat: ANorm, AGauss, AErf, AChiSq(p,df), AStudT(p,df), AFishF(p,df1,df2)
+  <P>
+  <FONT COLOR="Red">Note: </FONT>JavaScript is case-sensitive, so make sure
+  you type function names exactly as you see them above.
+  <P>
+  <FONT COLOR="Red">Note: </FONT>The trig functions work in radians. For degrees,
+  multiply or divide by the Deg variable. For example: Sin(30/Deg) will return
+  0.5, and ATan(1)*Deg will return 45.
+  <P>
+  <FONT COLOR="Red">Note: </FONT>The factorial function is implemented for
+  all real numbers. For non-integers its accuracy is about 6 significant figures.
+  For negative integers it returns either a very large number or a division-by-zero
+  error.
+  <P>
+  <FONT COLOR="Red">Note: </FONT>The statistical functions Norm and StudT return
+  2-tail p-values (eg: Norm(1.96)=0.05), while ChiSq and FishF return 1-tail
+  values. This is consistent with the way these functions are most frequently
+  used in statistical testing. Gauss(x) returns the integral from -infinity
+  to x of Exp(-z*z/2)/Sqrt(2*Pi) with respect to z. It is closely related to
+  the Norm function, differing only in the range of integration (being a "left
+  integral" rather than a "tails" integral). Its primary use on this page is
+  for fitting s-shaped "probit" functions. Similarly, Erf(x) returns the Error
+  function, which is very closely related to Gauss.
+  <P>
+    <HR>
+  <P>
+</FORM>
+</BODY></HTML>

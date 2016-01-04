@@ -1,0 +1,147 @@
+<HTML>
+<HEAD>
+  <META http-equiv="PICS-Label" content='(PICS-1.0 "http://www.classify.org/safesurf/" l on "1996.08.22T13:41+0000 r (SS~~000 1)'>
+  <SCRIPT language="LiveScript">
+<!-- hide this script tag's contents from old browsers
+
+var Pi=Math.PI; var PiD2=Pi/2; var PiD4=Pi/4; var Pi2=2*Pi
+var e=2.718281828459045235; var e10 = 1.105170918075647625
+var Deg=180/Pi
+
+function Norm(z) {
+az=Math.abs(z)
+var p=1+ az*(0.04986735+ az*(0.02114101+ az*(0.00327763+ az*(0.0000380036+ az*(0.0000488906+ az*0.000005383)))))
+p=p*p; p=p*p; p=p*p
+return 1/(p*p)
+}
+
+function ANorm(p) { var v=0.5; var dv=0.5; var z=0
+while(dv>1e-6) { z=1/v-1; dv=dv/2; if(Norm(z)>p) { v=v-dv } else { v=v+dv } }
+return z
+}
+
+function Calc(form) {
+var va=eval(form.a.value)
+var vn=eval(form.n.value)
+var vd=eval(form.d.value)
+var vz=ANorm(va)
+var vp=Norm(Math.abs(vz-1.96))/2
+if(vz>1.96) {vp=1-vp}
+form.p.value=''+Math.floor(100*vp+.5)+'%'
+var vr=1.96/vz
+var vd2=vr*vd
+form.d2.value=''+vd2
+var vn2=vr*vr*vn
+form.n2.value=''+Math.floor(vn2+.5)
+}
+
+<!-- done hiding from old browsers -->
+</SCRIPT>
+  <TITLE>JavaStat -- Retrospective Power Calculations</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffee">
+<H2>
+  <CENTER>
+    <FONT COLOR="Red">Retrospective Power Calculations</FONT>
+  </CENTER>
+</H2>
+<P>
+This screen performs "after the fact" power analyses. After you have performed
+a statistical analysis and have a p-value, this screen tells you: (1) the
+power of your original analysis to detect this difference with this sample
+size, (2) the minimum difference detectable with a sample this size, and
+(3) the minimum sample size to detect this difference. This sort of analysis
+is most often done after a non-significant (p&gt;0.05) result has been obtained,
+although it can be used with any value for p.
+<P>
+It should be noted that the whole idea of retrospective power calculations
+is a controversial one. Purists maintain that the very concept is meaningless,
+and that power calculations must be performed prior to the execution of the
+experiment. (Download the
+<A HREF="http://www.stat.uiowa.edu/~rlenth/Power/2badHabits.pdf">PDF document
+by Russel Lenth</A> to get this side of the story. And anyone feeling that
+they need to do one of these calculations might want to first check out
+<A HREF="http://www.onetrickwords.com/retro.htm">Richard Stevens' interesting
+web page</A>, which can be thought of as a "pre-retrospective-power-calculation
+screening test", to see if you really need to do one.) Yet the major statistical
+software products (SAS, SPSS, etc.) routinely provide this kind of post-hoc
+analysis. It is perhaps best thought of as using the results of your
+just-completed experiment as if it were a pilot run to help you design your
+next experiment. Anyway, for good or for bad, here's a web page that carries
+out a typical set of basic retrospective power calculations.
+<P>
+This method used here is based on formulas for comparing two large unpaired
+samples, but it appears to be applicable to a wide variety of two-variable
+tests.
+<P>
+Note: Before using this page for the first time, make sure you read the
+<A href ="userintf.html">JavaStat user interface guidelines</A> for important
+information about interacting with JavaStat pages. <BR>
+<CENTER>
+  <FORM>
+    <TABLE>
+      <TR>
+	<TD><DIV ALIGN=RIGHT>
+	    Significance Level Obtained:
+	  </DIV>
+	</TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=a SIZE=6 onFocus=a.select()></TD>
+      </TR>
+      <TR>
+	<TD><DIV ALIGN=RIGHT>
+	    Actual Difference Observed:
+	  </DIV>
+	</TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=d SIZE=6 onFocus=d.select()></TD>
+      </TR>
+      <TR>
+	<TD><DIV ALIGN=RIGHT>
+	    Original Sample Size:
+	  </DIV>
+	</TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=n SIZE=3 onFocus=n.select()></TD>
+      </TR>
+    </TABLE>
+    <P>
+    <INPUT TYPE="button" VALUE="Compute" onClick=Calc(this.form)>
+    <P>
+    <TABLE>
+      <TR>
+	<TD><DIV ALIGN=RIGHT>
+	    Power of Test:
+	  </DIV>
+	</TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=p SIZE=8 onFocus=p.select()></TD>
+      </TR>
+      <TR>
+	<TD><DIV ALIGN=RIGHT>
+	    Minimal Detectable Difference:
+	  </DIV>
+	</TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=d2 SIZE=8 onFocus=d2.select()></TD>
+      </TR>
+      <TR>
+	<TD><DIV ALIGN=RIGHT>
+	    Required Sample Size:
+	  </DIV>
+	</TD>
+	<TD>
+	  <INPUT TYPE=TEXT NAME=n2 SIZE=8 onFocus=n2.focus()></TD>
+      </TR>
+    </TABLE>
+    <P>
+      <HR>
+    <P>
+    Return to the <A HREF="index.html">Interactive Statistics page</A> or to
+    the <A HREF="JCPhome.html">JCP Home Page</A><BR>
+    <BR>
+    Send e-mail to John C. Pezzullo at
+    <IMG SRC="emladr.gif" WIDTH="217" HEIGHT="24" BORDER="0" ALIGN="Middle">
+  </FORM>
+</CENTER>
+</BODY></HTML>
