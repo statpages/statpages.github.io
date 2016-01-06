@@ -70,9 +70,9 @@ add (stage) all changes for commit
 
 3)
 
-    git commit -a -m 'comment on the particular commit'
+    git commit -a -m "comment on the particular commit"
 
-commits/confirms Your edits for Git
+commits/confirms Your edits for Git.
 
 4)
 
@@ -85,4 +85,4 @@ It's essential, BEFORE starting editing, that You run a git pull to be sure You 
 Although collaborators rarely will work on the exact same problem, conflicts may occur if You forget this step.
 
 Fell free to read about Git. There is a lot of nice documentation out there.
-Please contact me (soren.merser@gmail.com) in case You are in doubt, BEFORE commit/push (Windows)
+Please contact me (soren.merser@gmail.com) in case You are in doubt, BEFORE commit/push
