@@ -14,7 +14,7 @@ includes both command line tool and GUI
 or
 
     https://git-scm.com/download/win
-    
+
 this installed effortlessly on my old XP. After setting the PATH, git run nicely from the command line
 
 
@@ -50,7 +50,7 @@ This will download the repostory to your PC. It will take some time because of t
 
 3)
 
-    git status 
+    git status
 
 tells You that everything fine, and You are ready for work using Your favorit editor :-)
 
@@ -85,4 +85,4 @@ It's essential, BEFORE starting editing, that You run a git pull to be sure You 
 Although collaborators rarely will work on the exact same problem, conflicts may occur if You forget this step.
 
 Fell free to read about Git. There is a lot of nice documentation out there.
-Please contact me (soren.merser@gmail.com) in case You are in doubt, BEFORE commit/push
+Please contact me (soren.merser@gmail.com) in case You are in doubt, BEFORE commit/push (Windows)
