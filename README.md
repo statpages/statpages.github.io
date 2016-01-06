@@ -32,7 +32,7 @@ After install run the following commands:
 That set You are ready for cloning. I recon that You are running a local internet server for testing before deploying (i.e. You do not edit directly on the server)?
 If, cd to Your document root, else go (create) eg. C:/Documents/www
 
-then run
+Now run:
 
 1)
 
@@ -52,14 +52,16 @@ tells You that everything fine :-)
 
 
 
-Commond commands:
+Common commands:
 
 1)
+
     git status
 
 tells if anything changed
 
 2)
+
     git add .
 
 add all changes for commit
