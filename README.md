@@ -47,12 +47,11 @@ This will download the repostory to your PC. It will take some time because of t
 2)
 
     cd statpages.github.io
-
-3)
-
     git status
 
 tells You that everything fine, and You are ready for work using Your favorit editor :-)
+
+
 
 Somme common commands:
 
@@ -72,7 +71,7 @@ add (stage) all changes for commit
 
     git commit -a -m "comment on the particular commit"
 
-commits/confirms Your edits for Git.
+commits/confirms Your edits for Git
 
 4)
 
@@ -80,9 +79,17 @@ commits/confirms Your edits for Git.
 
 sends changes to GitHub. You will be prompted for Your Git password
 
+5)
+
+    git pull
+
+get the latest changes from the repostory
+
 
 It's essential, BEFORE starting editing, that You run a git pull to be sure You have the latest changes.
 Although collaborators rarely will work on the exact same problem, conflicts may occur if You forget this step.
+
+
 
 Fell free to read about Git. There is a lot of nice documentation out there.
 Please contact me (soren.merser@gmail.com) in case You are in doubt, BEFORE commit/push
