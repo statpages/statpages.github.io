@@ -15,7 +15,7 @@ or
 
     https://git-scm.com/download/win
     
-    this installed effortlessly on my old XP. After setting the PATH, git run nicely from the command line
+this installed effortlessly on my old XP. After setting the PATH, git run nicely from the command line
 
 
 After install run the following commands:
@@ -35,14 +35,17 @@ If, cd to Your document root, else go (create) eg. C:/Documents/www
 then run
 
 1)
+
     git clone https://github.com/statpages/statpages.github.io.git
 
 This will download the repostory to your PC. It will take some time because of the size of the repostory (Bill has a lot of stuff) and You are ready for work :-)
 
 2)
+
     cd statpages.github.io
 
 3)
+
     git status 
 
 tells You that everything fine :-)
