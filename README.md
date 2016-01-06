@@ -2,7 +2,7 @@
 Version control for John C Pezzullo's StatPages.info site
 
 
-WORKING with GitHub
+SIMPLE WORKING with GitHub
 
 Each collaborator must have a GitHub account and a local running Git version (Windows, Linux, Mac)
 
@@ -29,8 +29,12 @@ After install run the following commands:
     git config --global user.email johndoe@example.com
 
 
-That set You are ready for cloning. I recon that You are running a local internet server for testing before deploying (i.e. You do not edit directly on the server)?
+That set You are ready for cloning. I recon that You are running a local internet server for testing before deploying (i.e. You do not edit directly on the server?)
 If, cd to Your document root, else go (create) eg. C:/Documents/www
+
+    cd \Documents
+    mk www
+    cd www
 
 Now run:
 
@@ -48,11 +52,9 @@ This will download the repostory to your PC. It will take some time because of t
 
     git status 
 
-tells You that everything fine :-)
+tells You that everything fine, and You are ready for work using Your favorit editor :-)
 
-
-
-Common commands:
+Somme common commands:
 
 1)
 
@@ -64,7 +66,7 @@ tells if anything changed
 
     git add .
 
-add all changes for commit
+add (stage) all changes for commit
 
 3)
 
@@ -79,7 +81,8 @@ commits/confirms Your edits for Git
 sends changes to GitHub. You will be prompted for Your Git password
 
 
-It's essential that, BEFORE starting editing, You run a git pull to be sure You have the latest changes.
-Although collaborators rarely will work on the exact same problem, conflicts may occur if You forget this step
+It's essential, BEFORE starting editing, that You run a git pull to be sure You have the latest changes.
+Although collaborators rarely will work on the exact same problem, conflicts may occur if You forget this step.
 
-Please contact me (soren@merser@gmail.com) in case You are in doubt, BEFORE commit/push
+Fell free to read about Git. There is a lot of nice documentation out there.
+Please contact me (soren.merser@gmail.com) in case You are in doubt, BEFORE commit/push
