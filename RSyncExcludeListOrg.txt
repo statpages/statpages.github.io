@@ -1,0 +1,22 @@
+# Merser Jan 2016
+# --dry-run
+
+
+# StatPages.org
+# Compare content ignoring modification date
+# rsync -avnc --exclude-from /Library/WebServer/Documents/github.io/RSyncExcludeListOrg.txt /Library/WebServer/Documents/github.io/ statpages@StatPages.org:public_html/
+
+# Syncronize
+# rsync -avz  --exclude-from /Library/WebServer/Documents/github.io/RSyncExcludeListOrg.txt /Library/WebServer/Documents/github.io/ statpages@StatPages.org:public_html/
+
+
+.git/
+.gitignore
+
+.DS_Store
+stats/
+miller/
+
+
+CNAME
+RSyncExcludeListInfo.txt

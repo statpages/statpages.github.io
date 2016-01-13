@@ -1,0 +1,18 @@
+# Merser Jan 2016
+# --dry-run
+
+# STATCOM.DK
+# cd /Library/WebServer/Documents/github.io 
+# rsync -avz --exclude-from /Library/WebServer/Documents/github.io/RSyncExcludeListInfo.txt /Library/WebServer/Documents/github.io/ /Library/WebServer/Documents/StatPages/
+# git status, commit, push
+
+
+.git/
+.gitignore
+
+.DS_Store
+
+stats/
+
+CNAME
+RSyncExcludeListOrg.txt
