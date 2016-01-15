@@ -1,0 +1,26 @@
+# RSyncExcludeListStatcom.dk.txt
+# Merser Jan 2016
+
+# --dry-run
+
+# STATCOM.DK
+
+# rsync -avz --exclude-from /Library/WebServer/Documents/github.io/RSyncExcludeListStatcom.dk.txt /Library/WebServer/Documents/github.io/ /Library/WebServer/Documents/StatPages/
+# Run: git status, commit, push. Pushing automatically makes statcom.dk pull from GitHub
+
+.git/
+.gitignore
+
+.DS_Store
+
+stats/
+
+# We don't want the Miller binary files on Mac local server twice nor on statcom.dk for now
+*.zip
+*.gz
+*.exe
+*.doc
+*.pdf
+
+CNAME
+RSyncExcludeListOrg.txt

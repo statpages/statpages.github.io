@@ -1,3 +1,4 @@
+# RSyncExcludeListOrg.txt
 # Merser Jan 2016
 # --dry-run
 
@@ -8,6 +9,7 @@
 
 # Syncronize
 # rsync -avz  --exclude-from /Library/WebServer/Documents/github.io/RSyncExcludeListOrg.txt /Library/WebServer/Documents/github.io/ statpages@StatPages.org:public_html/
+# This command is run by the Git hook: post-push
 
 
 .git/
@@ -15,8 +17,7 @@
 
 .DS_Store
 stats/
-miller/
 
 
 CNAME
-RSyncExcludeListInfo.txt
+RSyncExcludeListStatcom.dk.txt
