@@ -1,6 +1,6 @@
 # RSyncExcludeListOrg.txt
 # Merser Jan 2016
-# --dry-run ------------------------
+# --dry-run
 
 
 # StatPages.org
