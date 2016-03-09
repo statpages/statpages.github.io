@@ -10,15 +10,15 @@ http://www.tipue.com/search
 // List of pages for Live mode
 
 var tipuesearch_pages = [
-    "http://statpages.github.io/index.html", 
-    "http://statpages.github.io/javasta2.html",
-    "http://statpages.github.io/javasta3.html",
-    "http://statpages.github.io/javasta4.html",
-    "http://statpages.github.io/javasta5.html",
-    "http://statpages.github.io/javasta6.html",
-    "http://statpages.github.io/javasta7.html",
-    "http://statpages.github.io/jokes.html",
-    "http://statpages.github.io/JCPhome.html"
+    "http://statpages.info/index.html", 
+    "http://statpages.info/javasta2.html",
+    "http://statpages.info/javasta3.html",
+    "http://statpages.info/javasta4.html",
+    "http://statpages.info/javasta5.html",
+    "http://statpages.info/javasta6.html",
+    "http://statpages.info/javasta7.html",
+    "http://statpages.info/jokes.html",
+    "http://statpages.info/JCPhome.html"
     ];
 
 
