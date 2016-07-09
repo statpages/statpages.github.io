@@ -1,67 +1,41 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<head>
+    <head>
+        <title>John C. Pezzullo</title>
+        <meta charset="utf-8" />
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    </head>
 
 
+<body style="background-color: rgb(255, 255, 238); padding: 1%;">
 
+<div ng-app="myApp" ng-controller="customersCtrl">
 
+<table align="center" bgcolor="#ddddff" border="solid black" cellpadding="5" cellspacing="0">
+    <caption>
+          <font color="#804000">Sections of the <i>StatPages.net</i> web site</font>
+    </caption>
+    <tr>
+        <td  ng-repeat="x in names">
+            <div ng-if="x.Tag != 'Pezzullo'">
+                <a href="{{ x.Link }}" style="text-decoration: none;"> {{ x.Name }} </a>
+            </div>
+            <div ng-if="x.Tag == 'Pezzullo'" style="color: grey;">
+                 {{ x.Name }}
+            </div>
+        </td>
+    </tr>
+</table>
 
+</div>
 
-
-
-
-  
-  
-  
-  
-  
-  
-  
-  
-  <meta http-equiv="PICS-Label" content="(PICS-1.0 &quot;http://www.classify.org/safesurf/&quot; l on &quot;1996.08.05T10:22+0000 r (SS~~000 1)">
-
-
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-  
-  
-  
-  <meta name="description" content="John Pezullo">
-
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-  
-  
-  
-  <title>John C. Pezzullo</title>
-</head>
-
-
-<body style="background-color: rgb(255, 255, 238);">
-
-
-
-
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('customersCtrl', function($scope, $http) {
+        $http.get("choices.php")
+        .then(function (response) {$scope.names = response.data.records;});
+    });
+</script>
 
 
 
@@ -76,7 +50,7 @@
         We are sorry to report that Dr. John C. Pezzullo passed away on Thursday June 2, 2016.
         It was John who created <i>StatPages.org</i> and <i>StatPages.info</i> to provide free statistics programs, instructional materials and a host of other valuable links for practitioners and users from a variety of backgrounds.
         John served as a biostatistician for a number of years and as a consultant to several universities and agencies.
-        His research and publication speaks clearly of his genius in a variety of areas.  Click on this link to see his impressive <a href="jcpcv.html">curriculum vita</a>.  John was particularly generous with his web sites.  He hosted pages for several people and has paid all expenses to maintain these sights.  As a friend and mentor, he will never be forgotten and live in our hearts forever.
+        His research and publication speaks clearly of his genius in a variety of areas.  Click on this <a href="jcpcv.html">link</a> to see his impressive Curriculum Vita</a>.  John was particularly generous with his web sites.  He hosted pages for several people and has paid all expenses to maintain these sights.  As a friend and mentor, he will never be forgotten and live in our hearts forever.
         In John’s memory, we will endeavor to keep statpages.org an ongoing resource for the scientific community. 
         We will continue to respond to site maintenance issues.<br>In the near term, we are planning to create a Bulletin Board  area where topics of interest can be explored. Please feel free to contact us at statpages.org@gmail.com<br>
         <font style="font-style: italic; color: black; font-size:initial">
@@ -465,7 +439,7 @@ Stores</a></p>
       
       
       
-      <p align="center"> </p>
+      <p align="center"> <a href="#Miscellaneous">Miscellaneous</a>
 
 
 
@@ -565,106 +539,6 @@ Course</a></p>
 
 
 
-    <tr>
-
-
-
-
-
-
-
-
-
-      <td bgcolor="#ccffff">
-      
-      
-      
-      
-      
-      
-      
-      
-      <p align="center"> <a href="index.html">Interactive
-Statistics Pages</a></p>
-
-
-
-
-
-
-
-
-
-      </td>
-
-
-
-
-
-
-
-
-
-      <td bgcolor="#ffffff">
-      
-      
-      
-      
-      
-      
-      
-      
-      <p align="center"> <a href="#Miscellaneous">Miscellaneous</a></p>
-
-
-
-
-
-
-
-
-
-      </td>
-
-
-
-
-
-
-
-
-
-      <td bgcolor="#ddeeff">
-      
-      
-      
-      
-      
-      
-      
-      
-      <p align="center"> <a href="jcpcv.html">John Pezzullos
-C.V.</a></p>
-
-
-
-
-
-
-
-
-
-      </td>
-
-
-
-
-
-
-
-
-
-    </tr>
 
 
 

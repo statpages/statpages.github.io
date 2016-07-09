@@ -1,45 +1,44 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-  <meta http-equiv="PICS-Label" content="(PICS-1.0 &quot;http://www.classify.org/safesurf/&quot; l on &quot;1996.08.05T10:43+0000 r (SS~~000 1)">
-  <meta name="description" content="A large collection of links to interactive web pages that perform statistical calculations">
-  <title>About the Interactive Statistical Pages Web Site</title></head>
-<body bgcolor="#ffffee">
-<center>
-  <table align="center" bgcolor="#ddddff" border="1" cellpadding="5" cellspacing="0">
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <title>About the Interactive Statistical Pages Web Site</title>
+    </head>
+    
+<body style="background-color: rgb(255, 255, 238); padding: 1%;">
+
+<div ng-app="myApp" ng-controller="customersCtrl">
+
+<table align="center" bgcolor="#ddddff" border="solid black" cellpadding="5" cellspacing="0">
     <caption>
-      <font color="#804000">Sections of the <i>StatPages.net</i> web site</font>
+          <font color="#804000">Sections of the <i>StatPages.net</i> web site</font>
     </caption>
-    <tbody><tr>
-      <td><p align="center">
-    <b><small><a href="index.html">Interactive<br>
-    Stats</a></small></b></p></td>
-      <td><p align="center">
-    <b><small><a href="javasta2.html">Free<br>
-    Software</a></small></b></p></td>
-      <td><p align="center">
-    <b><small><a href="javasta3.html">Books &amp;<br>
-    Manuals</a></small></b></p></td>
-      <td><p align="center">
-    <b><small><a href="javasta4.html">Demo's &amp;<br>
-    Tutorials</a></small></b></p></td>
-      <td><p align="center">
-    <b><small><a href="javasta5.html">Other<br>
-    Links</a></small></b></p></td>
-      <td><p align="center">
-    <b><small><a href="javasta6.html">About this<br>
-    Website</a></small></b></p></td>
-      <td><p align="center">
-    <b><small><a href="javasta7.html">What's<br>
-    New</a></small></b></p></td>
-      <td><p align="center">
-    <b><small><a href="JCPhome.html">John Pezzullo<br>
-    Page</a></small></b></p></td>
+    <tr>
+        <td  ng-repeat="x in names">
+            <div ng-if="x.Tag != 'About'">
+                <a href="{{ x.Link }}" style="text-decoration: none;"> {{ x.Name }} </a>
+            </div>
+            <div ng-if="x.Tag == 'About'" style="color: grey;">
+                 {{ x.Name }}
+            </div>
+        </td>
     </tr>
-  </tbody></table>
-</center>
-<h2 align="center">
-  <font color="Red">About this Web Site</font>
-</h2>The <i><b>Interactive Statistical Pages</b></i> project represents an ongoing
+</table>
+
+</div>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('customersCtrl', function($scope, $http) {
+        $http.get("choices.php")
+        .then(function (response) {$scope.names = response.data.records;});
+    });
+</script>
+
+<h2 align="center"><font color="Red">About this Web Site</font></h2>
+
+The <i><b>Interactive Statistical Pages</b></i> project represents an ongoing
 effort to develop and disseminate statistical analysis software in the form
 of web pages. Utilizing HTML forms, <i>CGI</i> and <i>Perl</i> scripts,
 <i>Java</i>, <i>JavaScript</i> and other browser-based technologies, each

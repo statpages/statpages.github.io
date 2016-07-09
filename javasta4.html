@@ -1,218 +1,41 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-
-
-
-
-  
-  
-  
-  <meta http-equiv="PICS-Label" content="(PICS-1.0 " http="" www.classify.org="" safesurf="" l="" on="" 1996.08.05t10:43+0000="" r="" (ss~~000="" 1="">
-
-
-
-
-  
-  
-  
-  <meta name="description" content="A large collection of links to interactive web pages that perform statistical calculations">
-
-
-
-  
-  
-  
-  <title>Interactive Statistical Demonstrations and Tutorials</title>
+    <meta charset="utf-8" />
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <title>Interactive Statistical Demonstrations and Tutorials</title>
 </head>
 
 
-<body style="background-color: rgb(255, 255, 238);">
+<body style="background-color: rgb(255, 255, 238); padding: 1%;">
 
+<div ng-app="myApp" ng-controller="customersCtrl">
 
-
-
-<center>
-<table align="center" bgcolor="#ddddff" border="1" cellpadding="5" cellspacing="0">
-
-
-
-
-  <caption> <font color="#804000">Sections of the <i>StatPages.net</i>
-web site</font> </caption> <tbody>
-
-
-
-
+<table align="center" bgcolor="#ddddff" border="solid black" cellpadding="5" cellspacing="0">
+    <caption>
+          <font color="#804000">Sections of the <i>StatPages.net</i> web site</font>
+    </caption>
     <tr>
-
-
-
-
-      <td>
-      
-      
-      
-      <p align="center"> <b><small><a href="index.html">Interactive<br>
-
-
-
-
-Stats</a></small></b></p>
-
-
-
-
-      </td>
-
-
-
-
-      <td>
-      
-      
-      
-      <p align="center"> <b><small><a href="javasta2.html">Free<br>
-
-
-
-
-Software</a></small></b></p>
-
-
-
-
-      </td>
-
-
-
-
-      <td>
-      
-      
-      
-      <p align="center"> <b><small><a href="javasta3.html">Books &amp;<br>
-
-
-
-
-Manuals</a></small></b></p>
-
-
-
-
-      </td>
-
-
-
-
-      <td>
-      
-      
-      
-      <p align="center"> <b><small><a href="javasta4.html">Demo's &amp;<br>
-
-
-
-
-Tutorials</a></small></b></p>
-
-
-
-
-      </td>
-
-
-
-
-      <td>
-      
-      
-      
-      <p align="center"> <b><small><a href="javasta5.html">Other<br>
-
-
-
-
-Links</a></small></b></p>
-
-
-
-
-      </td>
-
-
-
-
-      <td>
-      
-      
-      
-      <p align="center"> <b><small><a href="javasta6.html">About this<br>
-
-
-
-
-Website</a></small></b></p>
-
-
-
-
-      </td>
-
-
-
-
-      <td>
-      
-      
-      
-      <p align="center"> <b><small><a href="javasta7.html">What's<br>
-
-
-
-
-New</a></small></b></p>
-
-
-
-
-      </td>
-
-
-
-
-      <td>
-      
-      
-      
-      <p align="center"> <b><small><a href="JCPhome.html">John Pezzullo<br>
-      Page</a></small></b></p>
-
-
-
-
-      </td>
-
-
-
-
+        <td  ng-repeat="x in names">
+            <div ng-if="x.Tag != 'Demos'">
+                <a href="{{ x.Link }}" style="text-decoration: none;"> {{ x.Name }} </a>
+            </div>
+            <div ng-if="x.Tag == 'Demos'" style="color: grey;">
+                 {{ x.Name }}
+            </div>
+        </td>
     </tr>
-
-
-
-
-  
-  
-  
-  </tbody>
 </table>
 
+</div>
 
-
-
-</center>
-
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('customersCtrl', function($scope, $http) {
+        $http.get("choices.php")
+        .then(function (response) {$scope.names = response.data.records;});
+    });
+</script>
 
 
 

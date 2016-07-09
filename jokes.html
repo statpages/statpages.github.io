@@ -12,14 +12,17 @@
 
 <div ng-app="myApp" ng-controller="customersCtrl">
 
-<table align="center" bgcolor="#ddddff" border="2px solid black" cellpadding="5" cellspacing="0">
+<table align="center" bgcolor="#ddddff" border="solid black" cellpadding="5" cellspacing="0">
     <caption>
           <font color="#804000">Sections of the <i>StatPages.net</i> web site</font>
     </caption>
     <tr>
         <td  ng-repeat="x in names">
-            <div ng-if="x.Name != 'Statistical Jokes'">
-                <a href="{{ x.Link }}" > {{ x.Name }} </a>
+            <div ng-if="x.Tag != 'Jokes'">
+                <a href="{{ x.Link }}" style="text-decoration: none;"> {{ x.Name }} </a>
+            </div>
+            <div ng-if="x.Tag == 'Jokes'" style="color: grey;">
+                 {{ x.Name }}
             </div>
         </td>
     </tr>

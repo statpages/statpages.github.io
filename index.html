@@ -1,141 +1,55 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<head>
+    <head>
 
-  <title>Interactive Statistical Calculation Pages</title>
-    <meta content="text/html; charset=windows-1252" http-equiv="Content-Type">
-    <meta name="description" content="A large collection of links to interactive web pages that perform statistical calculations">
-    <meta content="The Interactive Statistics Pages have a new web address --- http://StatPages.net" http-equiv="Bulletin-Text">
-    <meta content="Fri, 10-Dec-99 14:14:20" http-equiv="Bulletin-Date">
+        <title>Interactive Statistical Calculation Pages</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <meta name="description" content="A large collection of links to interactive web pages that perform statistical calculations">
+        <meta content="The Interactive Statistics Pages have a new web address --- http://StatPages.net" http-equiv="Bulletin-Text">
+        <meta content="Fri, 10-Dec-16 14:14:20" http-equiv="Bulletin-Date">
 
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
-    <link href="tipuesearch/tipuesearch.css" rel="stylesheet">
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+        <link href="tipuesearch/tipuesearch.css" rel="stylesheet">
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="tipuesearch/tipuesearch_content.js"></script>
-    <script src="tipuesearch/tipuesearch_set.js"></script>
-    <script src="tipuesearch/tipuesearch.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="tipuesearch/tipuesearch_content.js"></script>
+        <script src="tipuesearch/tipuesearch_set.js"></script>
+        <script src="tipuesearch/tipuesearch.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
-</head>
-
-
-<body style="background-color: rgb(255, 255, 238);">
+    </head>
 
 
-<center>
-    
-<table align="center" bgcolor="#ddddff" border="1" cellpadding="5" cellspacing="0">
+<body style="background-color: rgb(255, 255, 238); padding: 1%;">
 
 
-        <caption>
+<div ng-app="myApp" ng-controller="customersCtrl">
+
+<table align="center" bgcolor="#ddddff" border="solid black" cellpadding="5" cellspacing="0">
+    <caption>
           <font color="#804000">Sections of the <i>StatPages.net</i> web site</font>
-        </caption>
-
-        <tbody>
-
-            <tr>
-
-                <td>
-                  
-      <p align="center"><b><small><a href="index.html">Interactive<br>
-Stats</a></small></b></p>
-
-                </td>
-
-
-                <td>
-                  
-      <p align="center"><b><small><a href="javasta2.html">Free<br>
-Software</a></small></b></p>
-
-                </td>
-
-
-                <td>
-                  
-      <p align="center"><b><small><a href="javasta3.html">Books &amp;<br>
-Manuals</a></small></b></p>
-
-                </td>
-
-
-                <td>
-                  
-      <p align="center"><b><small><a href="javasta4.html">Demo's &amp;<br>
-Tutorials</a></small></b></p>
-
-                </td>
-
-
-                <td>
-                  
-      <p align="center"><b><small><a href="javasta5.html">Other<br>
-Links</a></small></b></p>
-
-                </td>
-
-
-                <td>
-                  
-      <p align="center"><b><small><a href="javasta6.html">About this<br>
-Website</a></small></b></p>
-
-                </td>
-
-
-                <td>
-                  
-      <p align="center"><b><small><a href="javasta7.html">What's<br>
-New</a></small></b></p>
-
-                </td>
-
-
-                <td>
-                  
-      <p align="center"><b><small><a href="JCPhome.html">John Pezzullo<br>
-Page</a></small></b></p>
-
-                 </td>
-
-
-                <td>
-                  
-      <p align="center"><b><small><a href="jokes.html">Statistical<br>
-Jokes</a></small></b></p>
-
-                </td>
-
-                <td>
-<!--
-                    <p align="center"><b><small><a href="search.html">Site Search</a></small></b></p>
--->
-<!--
-                    <p align="center"><b><small><a href="GoogleSiteSearch.html">Site Search</a></small></b></p>
--->
-                    <p>
-                        <form action="search.html">
-                            <input type="text" name="q" autocomplete="off" placeholder=" Site Search" required />
-                        </form>
-                    </p>
-
-                </td>
-
-            </tr>  
-        </tbody>
-
-            </tr>
-  
-        
-  </tbody>
-
-    
+    </caption>
+    <tr>
+        <td  ng-repeat="x in names">
+            <div ng-if="x.Tag != 'Index'">
+                <a href="{{ x.Link }}" style="text-decoration: none;"> {{ x.Name }} </a>
+            </div>
+            <div ng-if="x.Tag == 'Index'" style="color: grey;">
+                 {{ x.Name }}
+            </div>
+        </td>
+    </tr>
 </table>
 
-</center>
+</div>
 
-
-
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('customersCtrl', function($scope, $http) {
+        $http.get("choices.php")
+        .then(function (response) {$scope.names = response.data.records;});
+    });
+</script>
 
 
 <h2 align="center"><font color="red">Web Pages that Perform Statistical Calculations!<br>
