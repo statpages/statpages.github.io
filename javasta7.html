@@ -1,11 +1,17 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<head>
+    <head>
 
-    <title>What's New in the Interactive Statistical Pages</title>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-</head>
+        <title>What's New in the Interactive Statistical Pages</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+        <style>
+            a:link      { color: black; text-decoration: none; }
+            a:visited   { color: black; text-decoration: none; }
+        </style>
+
+    </head>
 
 
 <body style="background-color: rgb(255, 255, 238); padding: 1%;">
@@ -20,7 +26,7 @@
     <tr>
         <td  ng-repeat="x in names">
             <div ng-if="x.Tag != 'News'">
-                <a href="{{ x.Link }}" style="text-decoration: none;"> {{ x.Name }} </a>
+                <a href="{{ x.Link }}"> {{ x.Name }} </a>
             </div>
             <div ng-if="x.Tag == 'News'" style="color: grey;">
                 {{ x.Name}}

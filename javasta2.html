@@ -6,6 +6,11 @@
         <meta charset="utf-8" />
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
+        <style>
+            a:link      { color: black; text-decoration: none; }
+            a:visited   { color: black; text-decoration: none; }
+        </style>
+
     </head>
 
 <body style="background-color: rgb(255, 255, 238); padding: 1%;">
@@ -19,7 +24,7 @@
     <tr>
         <td  ng-repeat="x in names">
             <div ng-if="x.Tag != 'Free'">
-                <a href="{{ x.Link }}" style="text-decoration: none;"> {{ x.Name }} </a>
+                <a href="{{ x.Link }}"> {{ x.Name }} </a>
             </div>
             <div ng-if="x.Tag == 'Free'" style="color: grey;">
                  {{ x.Name }}
@@ -43,15 +48,10 @@
 <h2 align="center"> <font color="Red">Free Statistical Software</font></h2>
 
 
-<div style="text-align: center;">Updated 04/23/2016 -- OpenStat back!!!<br>
-Updated 03/14/2016 -- Added Marko Lucijanic's Excel worksheet to perform the Log Ranks test on survival data.<br>
-
-
-
+<div style="text-align: center;">
+    Updated 07/10/2016 -- Added link to gretl, an open souce econometric package.<br>
+    Updated 04/23/2016 -- OpenStat back!!!<br>
 <br>
-
-
-
 </div>
 
 
@@ -977,6 +977,11 @@ usually restricted or limited in some way.</td>
     </tr>
 
 
+
+    <tr>
+        <td><a target="_blank" href="http://gretl.sourceforge.net"><b>gretl</b></a> An econometric package. It has some simple routines and menus, but it is also programmable for more sophisticated analyses. Its routines are pretty powerful.</td>
+        <td></td>
+    </tr>
 
 
     <tr valign="top">

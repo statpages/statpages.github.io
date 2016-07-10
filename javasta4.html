@@ -4,6 +4,13 @@
     <meta charset="utf-8" />
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <title>Interactive Statistical Demonstrations and Tutorials</title>
+
+        <style>
+            a:link      { color: black; text-decoration: none; }
+            a:visited   { color: black; text-decoration: none; }
+        </style>
+
+
 </head>
 
 
@@ -18,7 +25,7 @@
     <tr>
         <td  ng-repeat="x in names">
             <div ng-if="x.Tag != 'Demos'">
-                <a href="{{ x.Link }}" style="text-decoration: none;"> {{ x.Name }} </a>
+                <a href="{{ x.Link }}"> {{ x.Name }} </a>
             </div>
             <div ng-if="x.Tag == 'Demos'" style="color: grey;">
                  {{ x.Name }}

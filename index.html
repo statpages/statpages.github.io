@@ -17,6 +17,11 @@
         <script src="tipuesearch/tipuesearch.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
+        <style>
+            a:link      { color: black; text-decoration: none; }
+            a:visited   { color: black; text-decoration: none; }
+        </style>
+
     </head>
 
 
@@ -32,7 +37,7 @@
     <tr>
         <td  ng-repeat="x in names">
             <div ng-if="x.Tag != 'Index'">
-                <a href="{{ x.Link }}" style="text-decoration: none;"> {{ x.Name }} </a>
+                <a href="{{ x.Link }}"> {{ x.Name }} </a>
             </div>
             <div ng-if="x.Tag == 'Index'" style="color: grey;">
                  {{ x.Name }}
