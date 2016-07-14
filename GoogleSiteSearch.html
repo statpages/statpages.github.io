@@ -12,13 +12,40 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-</head>
+        <link rel="stylesheet" href="statpages.css">
+
+    </head>
+
 <body>
+<div ng-app="myApp" ng-controller="customersCtrl">
 
-<body style="background-color: rgb(255, 255, 238);" ng-app="">
+<table align="center" bgcolor="#ddddff" border="solid black" cellpadding="5" cellspacing="0">
+    <caption>
+          <font color="#804000">Sections of the <i>StatPages.net</i> web site</font>
+    </caption>
+    <tr>
+        <td  ng-repeat="x in names">
+            <div ng-if="x.Tag != 'Search'">
+                <a href="{{ x.Link }}"> {{ x.Name }} </a>
+            </div>
+            <div ng-if="x.Tag == 'Search'" style="color: grey;">
+                 {{ x.Name }}
+            </div>
+        </td>
+    </tr>
+</table>
 
-<div ng-include="'indexHead.html'"></div>
-<h2 align="center"><font color="red">Site Search<br></font></h2>
+</div>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('customersCtrl', function($scope, $http) {
+        $http.get("choices.php")
+        .then(function (response) {$scope.names = response.data.records;});
+    });
+</script>
+
+<h2 align="center"><font color="red">Site Search with the Google Search Engine<br></font></h2>
 <center>
 <div id="V1-code" style="width: 50%;">
 <script>
