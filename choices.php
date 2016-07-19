@@ -8,6 +8,7 @@
             {"Name":"What's New",           "Tag":"News",       "Link":"javasta7.html"},
             {"Name":"John Pezzullo",        "Tag":"Pezzullo",   "Link":"JCPhome.html"},
             {"Name":"Statistical Jokes",    "Tag":"Jokes",      "Link":"jokes.html"},
-            {"Name":"Site Search",          "Tag":"Search",     "Link":"search.html"}
+            {"Name":"Site Search",          "Tag":"Search",     "Link":"search.html"},
+            {"Name":"Blog",                 "Tag":"Blog",       "Link:":"http://kensartworks.com/statpagesbb/"}
             ]
 }
