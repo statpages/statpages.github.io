@@ -1,7 +1,7 @@
 { "records":[
             {"Name":"Interactive Stats",    "Tag":"Index",      "Link":"index.html"}, 
             {"Name":"Free Software",        "Tag":"Free",       "Link":"javasta2.html"},
-            {"Name":"Blog",                 "Tag":"Blog",       "Link":"http://kensartworks.com/statpagesbb/"},
+            {"Name":"Statpages Blog",       "Tag":"Blog",       "Link":"http://kensartworks.com/statpagesbb/"},
             {"Name":"Books & Manuals",      "Tag":"Books",      "Link":"javasta3.html"},
             {"Name":"Demos & Tutorials",    "Tag":"Demos",      "Link":"javasta4.html"},
             {"Name":"Other Links",          "Tag":"Link",       "Link":"javasta5.html"},
