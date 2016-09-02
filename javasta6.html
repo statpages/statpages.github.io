@@ -19,7 +19,7 @@
     <tr>
         <td  ng-repeat="x in names">
             <div ng-if="x.Tag != 'About'">
-                <a href="{{ x.Link }}"> {{ x.Name }} </a>
+                <a id="bar" href="{{ x.Link }}"> {{ x.Name }} </a>
             </div>
             <div ng-if="x.Tag == 'About'" style="color: grey;">
                  {{ x.Name }}

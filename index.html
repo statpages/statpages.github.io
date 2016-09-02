@@ -42,7 +42,7 @@
     <tr>
         <td  ng-repeat="x in names">
             <div ng-if="x.Tag != 'Index'">
-                <a href="{{ x.Link }}"> {{ x.Name }} </a>
+                <a id="bar" href="{{ x.Link }}"> {{ x.Name }} </a>
             </div>
             <div ng-if="x.Tag == 'Index'" style="color: grey;">
                  {{ x.Name }}
