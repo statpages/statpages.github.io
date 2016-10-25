@@ -33,7 +33,7 @@ form.Cell_c1.value = ''+(Cell_c1)
 form.Cell_c2.value = ''+(Cell_c2)
 form.t.value = ''+(t)
 }
-function CalcStats(form) {
+function CalcStats(form, csv) {
 var LoSlop = Cell_A; if(Cell_D<Cell_A) { LoSlop = Cell_D }
 var HiSlop = Cell_B; if(Cell_C<Cell_B) { HiSlop = Cell_C }
 var LnProb1 = LnFact(Cell_r1) + LnFact(Cell_r2) + LnFact(Cell_c1) + LnFact(Cell_c2) - LnFact(t)
@@ -198,6 +198,92 @@ if(dplo<0 & dphi==0) { form.nn_Lo.value=Fmt(-1/dplo); form.nn_hi.value="Infinite
 if(dplo<0 & dphi>0) { form.nn_lo.value=Fmt(1/Math.max(Math.abs(dplo),Math.abs(dphi))); form.nn_hi.value="Infinite" }
 if(dplo==0 & dphi>0) { form.nn_lo.value=Fmt(1/dphi); form.nn_hi.value="Infinite" }
 if(dplo>0 & dphi>0) { form.nn_lo.value=Fmt(1/dphi); form.nn_hi.value=Fmt(1/dplo) }
+//// Merser Nov. 2016
+if(csv) {
+    var data = [
+            ["Observed Contingency Table"],
+                ["", "Outcome Occurred","Outcome did not Occur","Totals"],
+                ["Risk Factor Present or Dx Test Positive", Cell_A, Cell_B, Cell_r1],
+                ["Risk Factor Absentor Dx Test Negative",   Cell_C, Cell_D, Cell_r2],
+                ["Totals", Cell_c1, Cell_c2, Cell_A+Cell_B+Cell_C+Cell_D],
+            [],
+            ["Confidence Level", form.ConfLevel.value + "%"],
+            [],
+            ["Chi-Square Tests"],
+                ["Type of Test", "Chi Square", "d.f.", "p-value"],
+                ["Pearson Uncorrected", form.csny.value, form.dfny.value, form.csny_p.value],
+                ["Yates Corrected",     form.csyc.value, form.dfyc.value, form.csyc_p.value],
+                ["Mantel-Haenszel",     form.csmh.value, form.dfmh.value, form.csmh_p.value],
+            [],
+            ["Fisher Exact Test"],
+                ["Type of comparison (Alternate Hypothesis)", "p-value"],
+                ["Two-tailed (to test if the Odds Ratio is significantly different from 1): If you don't know which Fisher Exact p-value to use, use this one", form.FisherP.value],
+                ["Left-tailed (to test if the Odds Ratio is significantly less than 1)", form.LeftP.value],
+                ["Right-tailed (to test if the Odds Ratio is significantly greater than 1)",  form.RightP.value],
+                ["Two-tailed p-value calculated as described in Rosner's book: (2 times whichever is smallest: left-tail or right-tail or 0.5) It tends to agree closely with Yates Chi-Square p-value", form.RosnerP.value],
+                ["Probability of getting exactly the observed table. (This is not really a p-value; don't use this as a significance test)", form.SingleP.value],
+                ["Verification of computational accuracy (This number should be very close to 1.0; the closer, the better)", form.SumCheck.value],
+            [],
+            ["Quantities derived from a 2-by-2 table"],
+                ["Statistics", "Value", "Low 95% CI", "High 95% CI"],
+                ["Odds Ratio (OR) = (a/b)/(c/d)",                                                                       form.od.value,      form.od_lo.value,     form.od_hi.value],
+                ["Relative Risk (RR) = (a/r1)/(c/r2)",                                                                  form.rr.value,      form.rr_lo.value,     form.rr_hi.value],
+                ["Kappa",                                                                                               form.kp.value,      form.kp_lo.value,     form.kp_hi.value],
+                ["Overall Fraction Correct = (a+d)/t ; (often referred to simply as 'Accuracy')",                       form.fc.value,      form.fc_lo.value,     form.fc_hi.value],
+                ["Mis-classification Rate = 1 - Overall Fraction Correct",                                              form.mcr.value,     form.mcr_lo.value,    form.mcr_hi.value],
+                ["Sensitivity = a/c1; (use exact Binomial confidence intervals instead of these)",                      form.sn.value,      form.sn_lo.value,     form.sn_hi.value],
+                ["Specificity = d/c2; (use exact Binomial confidence intervals instead of these)",                      form.sp.value,      form.sp_lo.value,     form.sp_hi.value],
+                ["Positive Predictive Value (PPV) = a/r1; (use exact Binomial confidence intervals instead of these)",  form.pp.value,      form.pp_lo.value,     form.pp_hi.value],
+                ["Negative Predictive Value (NPV) = d/r2; (use exact Binomial confidence intervals instead of these)",  form.np.value,      form.np_lo.value,     form.np_hi.value],
+                ["Difference in Proportions (DP) = a/r1 - c/r2",                                                        form.dp.value,      form.dp_lo.value,     form.dp_hi.value],
+                ["Number Needed to Treat (NNT) = 1 / absolute value of DP which = 1 / absolute value of ARR",           form.nn.value,      form.nn_lo.value,     form.nn_hi.value],
+                ["Absolute Risk Reduction (ARR) = c/r2 - a/r1 which = - DP",                                            form.arr.value,     form.arr_lo.value,    form.arr_hi.value],
+                ["Relative Risk Reduction (RRR) = ARR/(c/r2)",                                                          form.rrr.value,     form.rrr_lo.value,    form.rrr_hi.value],
+                ["Positive Likelihood Ratio (+LR) = Sensitivity / (1 - Specificity)",                                   form.plr.value,     form.plr_lo.value,    form.plr_hi.value],
+                ["Negative Likelihood Ratio (-LR) = (1 - Sensitivity) / Specificity",                                   form.nlr.value,     form.nlr_lo.value,    form.nlr_hi.value],
+                ["Diagnostic Odds Ratio = (Sensitivity/(1-Sensitivity))/((1-Specificity)/Specificity)",                 form.dor.value,     form.dor_lo.value,    form.dor_hi.value],
+                ["Error Odds Ratio = (Sensitivity/(1-Sensitivity))/(Specificity/(1-Specificity))",                      form.eor.value,     form.eor_lo.value,    form.eor_hi.value],
+                ["Youden's J = Sensitivity + Specificity - 1",                                                          form.yj.value,      form.yj_lo.value,     form.yj_hi.value],
+                ["Number Needed to Diagnose (NND) = 1 / (Sensitivity - (1 - Specificity) ) = 1 / (Youden's J)",         form.nnd.value,     form.nnd_lo.value,    form.nnd_hi.value],
+                ["Number Needed to Mis-diagnose (NNM) = 1 / ( 1 - Accuracy )",                                          form.nnm.value,     form.nnm_lo.value,    form.nnm_hi.value],
+                ["Forbes' NMI Index",                                                                                   form.nmi.value,     form.nmi_lo.value,    form.nmi_hi.value],
+                ["Contingency Coefficient",                                                                             form.cc.value,      form.cc_lo.value,     form.cc_hi.value],
+                ["Adjusted Contingency Coefficient",                                                                    form.ca.value,      form.ca_lo.value,     form.ca_hi.value],
+                ["Tetrachoric (terachoric) Correlation Coefficient = Cos( Pi / (1 + Sqrt( OR ) ) )",                    form.rtet.value,    form.rtet_lo.value,   form.rtet_hi.value],
+                ["Phi Coefficient (Cramer's Phi and = Cohen's w Index for 2x2 table)",                                  form.cp.value,      form.cp_lo.value,     form.cp_hi.value],
+                ["Yule's Q = (a*d-b*c)/(a*d+b*c) = (OR - 1) / (OR + 1)",                                                form.yq.value,      form.yq_lo.value,     form.yq_hi.value],
+                ["Equitable Threat Score = (a-e)/(a+b+c-e) where e = r1*c1/t",                                          form.ets.value,     form.ets_lo.value,    form.ets_hi.value],
+                ["Entropy H(r) = - ( (r1/t)log2(r1/t) + (r2/t)log2(r2/t) )",                                            form.EntR.value,    form.EntR_lo.value,   form.EntR_hi.value],
+                ["Entropy H(c) = - ( (c1/t)log2(c1/t) + (c2/t)log2(c2/t) )",                                            form.EntC.value,    form.EntC_lo.value,   form.EntC_hi.value],
+                ["Entropy H(r;c) = - ( (a/t)log2(a/t) + (b/t)log2(b/t) + (c/t)log2(c/t) + (d/t)log2(d/t) )",            form.EntRC.value,   form.EntRC_lo.value,  form.EntRC_hi.value],
+                ["Information shared by descriptors r and c: B = H(r) + H(c) - H(r;c)",                                 form.EntIB.value,   form.EntIB_lo.value,  form.EntIB_hi.value],
+                ["A = H(r;c) - H(r)",                                                                                   form.EntIA.value,   form.EntIA_lo.value,  form.EntIA_hi.value],
+                ["C = H(r;c) - H(c)",                                                                                   form.EntIC.value,   form.EntIC_lo.value,  form.EntIC_hi.value],
+                ["Similarity of descriptors r and c: S(r;c) = B / (A + B + C)",                                         form.EntSim.value,  form.EntSim_lo.value, form.EntSim_hi.value],
+                ["Distance between r and c: D(r;c) = (A + C) / (A + B + C)",                                            form.EntDif.value,  form.EntDif_lo.value, form.EntDif_hi.value],
+            [],
+            ["Lower limiting table"],
+                [form.Low_A.value, form.Low_B.value],
+                [form.Low_C.value, form.Low_D.value],
+            [],
+            ["Upper limiting table"],
+                [form.High_A.value, form.High_B.value],
+                [form.High_C.value, form.High_D.value]
+            ];
+    var csvContent = "data:text/csv;charset=utf-8";
+    data.forEach(function(infoArray, index){
+       dataString = infoArray.join(",");
+       csvContent += index < data.length ? dataString+ "\n" : dataString;
+    }); 
+
+    var encodedUri = encodeURI(csvContent);
+    var link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "ctab2x2.csv");
+    document.body.appendChild(link); // Required for FF
+    link.click(); // This will download the data file named "my_data.csv".
+}
+////
 }
 function csq(o,e,y) {
 if(e==0) { return 0 }
@@ -364,7 +450,7 @@ or Dx Test Negative</td>
 </tbody>
 </table>
 <p> Confidence Level: <input name="ConfLevel" size="8" value="95" type="text"> % </p>
-<p> <input value="Compute" onclick="CalcStats(this.form)" type="button"> <br>
+<p> <input value="Compute" onclick="CalcStats(this.form, false)" type="button"> <input value="Download result as CSV" onclick="CalcStats(this.form, true)" type="button"> <br>
 <font color="Red"><br>
 <b>Chi-Square Tests</b></font>
 <table border="1">
@@ -807,7 +893,7 @@ of Biostatistics</i>, 6<sup>th</sup> Ed., 2006</font>
 Statistics page</a>
 or to the <a href="JCPhome.html">JCP Home Page</a><br>
 <br>
-Send e-mail to John C. Pezzullo at <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com</a>
+Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com</a>
 </p>
 </form>
 </center>
