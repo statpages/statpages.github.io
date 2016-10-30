@@ -457,7 +457,7 @@ or Dx Test Negative</td>
 </tbody>
 </table>
 <p> Confidence Level: <input name="ConfLevel" size="8" value="95" type="text"> % </p>
-<p> <input value="Compute" type="button" id="compute"> <input value="Download result as CSV" type="button" id="csv" hidden> <br>
+<p> <input type="button" value="Compute" id="compute"> <input type="button" value="Download result as CSV" id="csv" hidden> <br>
 <font color="Red"><br>
 <b>Chi-Square Tests</b></font>
 <table border="1">
@@ -910,12 +910,12 @@ Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com
             CalcStats(this.form);
             $("input#csv").show();
         });
-        
+    
         $("input#csv").click(function(){
             saveCSV(this.form);
             $(this).hide();
         });
-        
+    
     });
 </script>
 </body></html>
