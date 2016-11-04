@@ -101,56 +101,68 @@ Contingency Table</b></font>
 <center>
 <form id="form">
 <table border="1">
-<tbody>
-<tr>
-<td>
-<div align="center">  </div>
-</td>
-<td>
-<div align="center"> <u>Outcome Occurred</u>
-</div>
-</td>
-<td>
-<div align="center"> <u>Outcome did not
-Occur</u> </div>
-</td>
-<td>
-<div align="center"> <u>Totals</u> </div>
-</td>
-</tr>
-<tr>
-<td>Risk Factor Present<br>
-or Dx Test Positive</td>
-<td>
-<p align="left"> <input name="Cell_A" size="8" value="" onfocus="Cell_A.select()" onblur="CalcTots(this.form)" type="text"> = a</p>
-</td>
-<td> <input name="Cell_B" size="8" value="" onfocus="Cell_B.select()" onblur="CalcTots(this.form)" type="text"> = b</td>
-<td> <input name="Cell_r1" size="8" value="" onfocus="Cell_C.focus()" type="text">
-= r1</td>
-</tr>
-<tr>
-<td>Risk Factor Absent<br>
-or Dx Test Negative</td>
-<td> <input name="Cell_C" size="8" value="" onfocus="Cell_C.select()" onblur="CalcTots(this.form)" type="text"> = c</td>
-<td> <input name="Cell_D" size="8" value="" onfocus="Cell_D.select()" onblur="CalcTots(this.form)" type="text" id="Cell_D"> = d</td>
-<td> <input name="Cell_r2" size="8" value="" onfocus="Cell_A.focus()" type="text">
-= r2</td>
-</tr>
-<tr>
-<td>Totals</td>
-<td> <input name="Cell_c1" size="8" value="" onfocus="Cell_A.focus()" type="text">
-= c1</td>
-<td> <input name="Cell_c2" size="8" value="" onfocus="Cell_A.focus()" type="text">
-= c2</td>
-<td> <input name="t" size="8" value="" onfocus="Cell_A.focus()" type="text"> = t</td>
-</tr>
-</tbody>
+    <tbody>
+        <tr>
+            <td>
+            </td>
+            <td>
+                Outcome Occurred
+            </td>
+            <td>
+                Outcome did not Occur
+            </td>
+            <td style="text-align:center;">
+                Totals
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Risk Factor Present<br> or Dx Test Positive</td>
+            <td>
+                <input name="Cell_A" size="8" value="" onfocus="Cell_A.select()" onblur="CalcTots(this.form)" type="text"> = a
+            </td>
+            <td>
+                <input name="Cell_B" size="8" value="" onfocus="Cell_B.select()" onblur="CalcTots(this.form)" type="text"> = b
+            </td>
+            <td>
+                <input name="Cell_r1" size="8" value="" onfocus="Cell_C.focus()" type="text"> = r1
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Risk Factor Absent<br>or Dx Test Negative
+            </td>
+            <td>
+                <input name="Cell_C" size="8" value="" onfocus="Cell_C.select()" onblur="CalcTots(this.form)" type="text"> = c
+            </td>
+            <td>
+                <input name="Cell_D" size="8" value="" onfocus="Cell_D.select()" onblur="CalcTots(this.form)" type="text" id="Cell_D"> = d
+            </td>
+            <td>
+                <input name="Cell_r2" size="8" value="" onfocus="Cell_A.focus()" type="text" >= r2
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Totals
+            </td>
+            <td>
+                <input name="Cell_c1" size="8" value="" onfocus="Cell_A.focus()" type="text"> = c1
+            </td>
+            <td>
+                <input name="Cell_c2" size="8" value="" onfocus="Cell_A.focus()" type="text"> = c2
+            </td>
+            <td>
+                <input name="t" size="8" value="" onfocus="Cell_A.focus()" type="text"> = t
+            </td>
+        </tr>
+    </tbody>
 </table>
 <p> Confidence Level: <input name="ConfLevel" size="8" value="95" type="text"> % </p>
 <p> <input type="button" value="Compute" id="compute"> <input type="button" value="Download result as CSV" id="csv" hidden> <br>
-<p>
+<p><br/>
 <!-- Merser 2016 Start-->
-<font color="Red"><b>Diagnostic Test</b></font><br/>
+<font color="Green"><b>Diagnostic Test</b></font><br/>
 Specify disease prevalence, test sensivity and test specificity (sample size optional, default N=1000)<p>
 <table border="">
   <tr>
@@ -167,138 +179,152 @@ Specify disease prevalence, test sensivity and test specificity (sample size opt
     <td><input type="text" name="tssz"  size="10" maxlength="10" value="" /></td></tr>
 </table>
 <p> <input type="button" value="Run diagnostic test with above parameters" id="diagnostics">
-<p/>
+<p/><br/>
 <!-- Merser 2016 End -->
 <font color="Red"><b>Chi-Square Tests</b></font>
 <table border="1">
-<tbody>
-<tr>
-<td>
-<p align="right"> <u>Type of Test</u></p>
-</td>
-<td>
-<p align="center"> <u>Chi Square</u></p>
-</td>
-<td>
-<p align="center"> <u>d.f.</u></p>
-</td>
-<td>
-<p align="center"> <u>p-value</u></p>
-</td>
-</tr>
-<tr>
-<td>
-<p align="right"> Pearson Uncorrected</p>
-</td>
-<td> <input name="csny" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="dfny" size="4" value="1" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="csny_p" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-</tr>
-<tr>
-<td>
-<p align="right"> Yates Corrected</p>
-</td>
-<td> <input name="csyc" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="dfyc" size="4" value="1" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="csyc_p" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-</tr>
-<tr>
-<td>
-<p align="right"> Mantel-Haenszel</p>
-</td>
-<td> <input name="csmh" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="dfmh" size="4" value="1" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="csmh_p" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-</tr>
-</tbody>
+    <tbody>
+        <tr>
+            <th>
+                Type of Test
+            </th>
+            <th style="text-align:center;">
+                Chi Square
+            </th>
+            <th>
+                d.f.
+            </th>
+            <th>
+                p-value
+            </th>
+        </tr>
+        <tr>
+            <td style="text-align:right;">
+                Pearson Uncorrected
+            </td>
+            <td>
+                <input name="csny" size="8" value="" onfocus="Cell_A.focus()" type="text">
+            </td>
+            <td>
+                <input name="dfny" size="4" value="1" onfocus="Cell_A.focus()" type="text">
+            </td>
+            <td>
+                <input name="csny_p" size="8" value="" onfocus="Cell_A.focus()" type="text">
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:right;">
+                Yates Corrected
+            </td>
+            <td>
+                <input name="csyc" size="8" value="" onfocus="Cell_A.focus()" type="text">
+            </td>
+            <td>
+                <input name="dfyc" size="4" value="1" onfocus="Cell_A.focus()" type="text">
+            </td>
+            <td>
+                <input name="csyc_p" size="8" value="" onfocus="Cell_A.focus()" type="text">
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:right;">
+                Mantel-Haenszel
+            </td>
+            <td>    <input name="csmh" size="8" value="" onfocus="Cell_A.focus()" type="text">
+            </td>
+            <td>
+                <input name="dfmh" size="4" value="1" onfocus="Cell_A.focus()" type="text">
+            </td>
+            <td>
+                <input name="csmh_p" size="8" value="" onfocus="Cell_A.focus()" type="text">
+            </td>
+        </tr>
+    </tbody>
 </table>
-</p>
+<p><br/>
 <p> <font color="Red"><b>Fisher Exact Test</b></font>
 <table border="1">
 <tbody>
-<tr>
-<td>
-<p align="right"> <u>Type of comparison
-(Alternate Hypothesis)</u></p>
-</td>
-<td>
-<p align="center"> <u>p-value</u></p>
-</td>
-</tr>
-<tr>
-<td>
-<p align="right"> Two-tailed (to test if the Odds
-Ratio is <i>significantly
-different</i> from 1):<br>
-If you don't know which Fisher Exact p-value to use, <font color="Blue"><b>use
-this one</b></font>.<br>
-This is the p-value produced by SAS, SPSS, R, and other software.</p>
-</td>
-<td> <input name="FisherP" size="8" value="" type="text"></td>
-</tr>
-<tr>
-<td>
-<p align="right"> Left-tailed (to test if the Odds
-Ratio is <i>significantly
-less</i> than 1):</p>
-</td>
-<td> <input name="LeftP" size="8" value="" type="text"></td>
-</tr>
-<tr>
-<td>
-<p align="right"> Right-tailed (to test if the
-Odds Ratio is <i>significantly
-greater</i> than 1):</p>
-</td>
-<td> <input name="RightP" size="8" value="" type="text"></td>
-</tr>
-<tr>
-<td>
-<p align="right"> Two-tailed p-value calculated as
-described in
-Rosner's book:<br>
-(2 times whichever is smallest: left-tail, right-tail, or 0.5)<br>
-It tends to agree closely with Yates Chi-Square p-value.</p>
-</td>
-<td> <input name="RosnerP" size="8" value="" type="text"></td>
-</tr>
-<tr>
-<td>
-<p align="right"> Probability of getting <i>exactly</i>
-the
-observed table:<br>
-(This is not really a p-value; don't use this as a significance test.)</p>
-</td>
-<td> <input name="SingleP" size="8" value="" type="text"></td>
-</tr>
-<tr>
-<td>
-<p align="right"> Verification of computational
-accuracy: <br>
-(This number should be very close to 1.0; the closer, the better.)</p>
-</td>
-<td> <input name="SumCheck" size="15" value="" type="text"></td>
-</tr>
-</tbody>
+    <tr>
+        <th>
+            Type of comparison (Alternate Hypothesis)
+        </th>
+        <th>
+            p-value
+        </th>
+    </tr>
+    <tr>
+        <td>
+            Two-tailed (to test if the Odds Ratio is <i>significantly different</i> from 1):<br/>
+            If you don't know which Fisher Exact p-value to use, <font color="Blue"><b>use this one</b></font>.<br/>
+            This is the p-value produced by SAS, SPSS, R, and other software.
+        </td>
+        <td>
+            <input name="FisherP" size="8" value="" type="text">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Left-tailed (to test if the Odds Ratio is <i>significantly less</i> than 1):
+        </td>
+        <td>
+            <input name="LeftP" size="8" value="" type="text">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Right-tailed (to test if the Odds Ratio is <i>significantly greater</i> than 1):
+        </td>
+        <td>
+            <input name="RightP" size="8" value="" type="text">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Two-tailed p-value calculated as described in Rosner's book:<br>
+            (2 times whichever is smallest: left-tail, right-tail, or 0.5)<br>
+            It tends to agree closely with Yates Chi-Square p-value.
+        </td>
+        <td>
+            <input name="RosnerP" size="8" value="" type="text">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Probability of getting <i>exactly</i> the observed table:<br/>
+            (This is not really a p-value; don't use this as a significance test.)
+        </td>
+        <td>
+            <input name="SingleP" size="8" value="" type="text">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Verification of computational accuracy: <br>
+        (This number should be very close to 1.0; the closer, the better.)
+        </td>
+        <td>
+            <input name="SumCheck" size="8" value="" type="text">
+        </td>
+    </tr>
+    </tbody>
 </table>
-</p>
-<p> <font color="Red"><br>
+</p><br/>
+<font color="Red"><br>
 <b>Quantities derived from a 2-by-2 table</b></font>
 <table border="1">
 <tbody>
-<tr>
-<td>
-<div align="center"> <u>Quantities Derived
-from the 2-by-2
-Contingency Table</u> </div>
-</td>
-<td>
-<div align="center"> <u>Value</u> </div>
-</td>
-<td colspan="2">
-<div align="center"> <input name="Conf_Int_Caption" size="21" align="center" type="text"> </div>
-</td>
-</tr>
+    <tr>
+        <th>
+            Quantities Derived from the 2-by-2 Contingency Table
+        </th>
+        <th>
+            Value
+        </th>
+        <td colspan="2" style="text-align:center;">
+            <input name="Conf_Int_Caption" size="21" align="center" type="text">
+        </th>
+    </tr>
 <tr>
 <td>Odds Ratio (OR) = (a/b)/(c/d);</td>
 <td> <input name="od" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
@@ -613,6 +639,7 @@ Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com
 </form>
 </center>
 
+<!-- Merser 2016 START -->
 <script>
     $(document).ready(function(){
     
@@ -635,4 +662,5 @@ Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com
     
     });
 </script>
+<!-- Merser 2016 END -->
 </body></html>
