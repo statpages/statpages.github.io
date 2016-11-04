@@ -11,8 +11,12 @@
 <center>
 <h2> <font color="Red">2-way Contingency Table
 Analysis </font> </h2>
-<p>Revised: 07/23/2013 -- added NNM -- the Number Needed to
-Mis-diagnose (thanks to Farrokh Habibzadeh)<br>
+<p>
+<div style="text-align:left; padding-left:30%;">
+Revised: 11/04/2016 -- added Diagnostic Test (suggested by Michael Meier)<br/>
+Revised: 07/23/2013 -- added NNM -- the Number Needed to
+Mis-diagnose (thanks to Farrokh Habibzadeh)<br/>
+</div>
 </p>
 </center>
 <p>
@@ -100,7 +104,7 @@ Contingency Table</b></font>
 <tbody>
 <tr>
 <td>
-<div align="center"> * </div>
+<div align="center">  </div>
 </td>
 <td>
 <div align="center"> <u>Outcome Occurred</u>
@@ -147,22 +151,22 @@ or Dx Test Negative</td>
 <p>
 <!-- Merser 2016 Start-->
 <font color="Red"><b>Diagnostic Test</b></font><br/>
-Disease prevalence, test sensivity and test specificity (and optional sample size)<p>
+Specify disease prevalence, test sensivity and test specificity (sample size optional, default N=1000)<p>
 <table border="">
   <tr>
-    <td>Prevalence</td> 
+    <td>Prevalence (eg. 0.1)</td> 
     <td><input type="text" name="prev"  size="10" maxlength="10" value=".1" /></td></tr>
   <tr>
-    <td>Sensitivity</td>
+    <td>Sensitivity (eg. 0.8)</td>
     <td><input type="text" name="sens"  size="10" maxlength="10" value=".8" /></td></tr>
   <tr>
-    <td>Specificity</td>
+    <td>Specificity (eg. 0.8)</td>
     <td><input type="text" name="spec"  size="10" maxlength="10" value=".8" /></td></tr>
   <tr>
-    <td>Total sample size: </td> 
+    <td>Total sample size</td> 
     <td><input type="text" name="tssz"  size="10" maxlength="10" value="" /></td></tr>
 </table>
-<p> <input type="button" value="Compute" id="diagnostics">
+<p> <input type="button" value="Run diagnostic test with above parameters" id="diagnostics">
 <p/>
 <!-- Merser 2016 End -->
 <font color="Red"><b>Chi-Square Tests</b></font>
@@ -619,7 +623,7 @@ Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com
     
         $("input#diagnostics").click(function(){
             CalcFromDiagnostics(this.form);
-            $("input#Cell_D").focus().blur();   // Hack: needed to update form
+            $("input#Cell_D").focus().blur();   // Hack: needed to update the changed form
             CalcStats(this.form);
             $("input#csv").show();
         });
