@@ -4,6 +4,7 @@
         <meta http-equiv="PICS-Label" content="(PICS-1.0 &quot;http://www.classify.org/safesurf/&quot; l on &quot;1996.08.22T13:37+0000 r (SS~~000 1)">
         <script src="jquery-3.1.1.min.js"></script>
         <script src="ctab2x2.js"></script>
+        <script src="norminv.js"></script>
 
         <title>JavaStat -- 2-way Contingency Table Analysis</title>
     </head>
@@ -162,24 +163,56 @@ Contingency Table</b></font>
 <p> <input type="button" value="Compute" id="compute"> <input type="button" value="Download result as CSV" id="csv" hidden> <br>
 <p><br/>
 <!-- Merser 2016 Start-->
-<font color="Green"><b>Diagnostic Test</b></font><br/>
-Specify disease prevalence, test sensivity and test specificity (sample size optional, default N=1000)<p>
-<table border="">
-  <tr>
-    <td>Prevalence (eg. 0.1)</td> 
-    <td><input type="text" name="prev"  size="10" maxlength="10" value=".1" /></td></tr>
-  <tr>
-    <td>Sensitivity (eg. 0.8)</td>
-    <td><input type="text" name="sens"  size="10" maxlength="10" value=".8" /></td></tr>
-  <tr>
-    <td>Specificity (eg. 0.8)</td>
-    <td><input type="text" name="spec"  size="10" maxlength="10" value=".8" /></td></tr>
-  <tr>
-    <td>Total sample size</td> 
-    <td><input type="text" name="tssz"  size="10" maxlength="10" value="" /></td></tr>
-</table>
-<p> <input type="button" value="Run diagnostic test with above parameters" id="diagnostics">
-<p/><br/>
+<span>
+<div style="width: 60%; ">
+    <div style="float:left;">
+        <font color="Green"><b>Diagnostic Test</b></font><br/>
+        Specify disease prevalence, test sensivity, test specificity and sample size<p>
+        <table border="">
+            <tr>
+                <td>
+                    Prevalence (eg. 0.1)
+                </td> 
+                <td>
+                    <input type="text" name="prev"  size="10" maxlength="10" value=".1" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Sensitivity (eg. 0.8)
+                </td>
+                <td>
+                    <input type="text" name="sens"  size="10" maxlength="10" value=".8" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Specificity (eg. 0.8)
+                </td>
+                <td>
+                    <input type="text" name="spec"  size="10" maxlength="10" value=".8" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Total sample size
+                </td> 
+                <td>
+                    <input type="text" name="tssz"  size="10" maxlength="10" value="1000" />
+                </td>
+            </tr>
+        </table>
+        <p> <input type="button" value="Run diagnostic test with above parameters" id="diagnostics">
+    </div>
+    <div style="style=float:right; padding-top: 50px; text-align:justify;">
+        Please enter your population prevalence estimate in the upper right field.<br/><br/>
+        <i>The positive and negative predictive values is calculated using the sample prevalence,
+        whereas the <b>adjusted</b> values is calculated using <b>this</b>, i.e. your estimated population prevalence.
+    </div>
+</div>
+</span>
+<p><br/><p><p><br/><p>
+
 <!-- Merser 2016 End -->
 <font color="Red"><b>Chi-Square Tests</b></font>
 <table border="1">
@@ -372,6 +405,14 @@ Binomial confidence intervals</a> instead of these)</td>
 <td> <input name="sp_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 <td> <input name="sp_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
+
+<tr>
+<td>Prevalence (estimated from sample)</td>
+<td> <input name="pv" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="pv_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="pv_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+
 <tr>
 <td>Positive Predictive Value (PPV) = a/r1; (use <a href="confint.html">exact Binomial confidence intervals</a>
 instead of
@@ -380,6 +421,14 @@ these)</td>
 <td> <input name="pp_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 <td> <input name="pp_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
+
+<tr>
+<td id="ppc"></td>
+<td> <input name="ppc" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="ppc_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="ppc_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+
 <tr>
 <td>Negative Predictive Value (NPV) = d/r2; (use <a href="confint.html">exact Binomial confidence intervals</a>
 instead of
@@ -388,6 +437,14 @@ these)</td>
 <td> <input name="np_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 <td> <input name="np_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
+
+<tr>
+<td id="npc"></td>
+<td> <input name="npc" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="npc_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+<td> <input name="npc_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+
 <tr>
 <td>Difference in Proportions (DP) = a/r1 - c/r2;</td>
 <td> <input name="dp" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
@@ -643,9 +700,15 @@ Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com
 <script>
     $(document).ready(function(){
     
+        function foo(){
+            $("td#ppc").html("Adjusted PPV (prevalence: " +  $("input[name=prev]").val()*100 + "%)");
+            $("td#npc").html("Adjusted NPV (prevalence: " +  $("input[name=prev]").val()*100 + "%)");
+        }
+    
         $("input#compute").click(function(){
             CalcStats(this.form);
             $("input#csv").show();
+            foo();
         });
     
         $("input#diagnostics").click(function(){
@@ -653,12 +716,16 @@ Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com
             $("input#Cell_D").focus().blur();   // Hack: needed to update the changed form
             CalcStats(this.form);
             $("input#csv").show();
+            foo();
         });
         
         $("input#csv").click(function(){
             saveCSV(this.form);
             $(this).hide();
         });
+    
+        $("td#ppc").html("Adjusted PPV");
+        $("td#npc").html("Adjusted NPV");
     
     });
 </script>

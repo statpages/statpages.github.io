@@ -7,7 +7,7 @@ function Cos(x) { return Math.cos(x) }
 function Pow(x,n) { return Math.pow(x,n) }
 function fEnt( x ) { return x * Ln(x) / Ln(2) }
 var Pi=3.141592653589793; Pi2=2*Pi; LnPi2 = Ln(Pi2); PiD2=Pi/2
-var Cell_A; var Cell_B; var Cell_C; var Cell_D
+var Cell_A; var Cell_B; var Cell_C; var Cell_D; var N
 var Cell_r1; var Cell_r2; var Cell_c1; var Cell_c2; var t
 var Ex_A; var Ex_B; var Ex_C; var Ex_D; var Sav_A; var Sav_B; var Sav_C; var Sav_D
 var cs; var od; var rr; var kp; var fc; var mcr; var sn; var sp; var pp; var np
@@ -18,6 +18,8 @@ Cell_A = eval(form.Cell_A.value)
 Cell_B = eval(form.Cell_B.value)
 Cell_C = eval(form.Cell_C.value)
 Cell_D = eval(form.Cell_D.value)
+N      =Cell_A+Cell_B+Cell_C+Cell_D
+
 Cell_r1 = Cell_A+Cell_B
 Cell_r2 = Cell_C+Cell_D
 Cell_c1 = Cell_A+Cell_C
@@ -67,8 +69,12 @@ function CalcStats(form) {
     fc=(Cell_A+Cell_D)/t; form.fc.value=Fmt(fc); form.mcr.value=Fmt(1-fc)
     sn=Cell_A/Cell_c1; form.sn.value=Fmt(sn)
     sp=Cell_D/Cell_c2; form.sp.value=Fmt(sp)
+    pv=(Cell_A+Cell_C)/N; form.pv.value=Fmt(pv)     // observed (sample) prevalence
     pp=Cell_A/Cell_r1; form.pp.value=Fmt(pp)
+    pf=parseFloat(form.prev.value); // user given prevalence
+    ppc=(sn*pf)/( (sn*pf)+(1-sp)*(1-pf) ); form.ppc.value=Fmt(ppc)  // PP corrected for user specified prevalence
     np=Cell_D/Cell_r2; form.np.value=Fmt(np)
+    npc=(sp*(1-pf))/((1-sn)*pf+sp*(1-pf)); form.npc.value=Fmt(npc)  // NP corrected for user specified prevalence
     plr=sn/(1-sp); form.plr.value=Fmt(plr)
     nlr=(1-sn)/sp; form.nlr.value=Fmt(nlr)
     dor=(sn/(1-sn))/((1-sp)/sp); form.dor.value=Fmt(dor)
@@ -127,8 +133,23 @@ function CalcStats(form) {
     yj=sn+sp-1; form.yj_lo.value=Fmt(yj)
     nnd=1/yj; form.nnd_hi.value=Fmt(nnd)
     nnm=1/(1-fc); form.nnm_lo.value=Fmt(nnm)
+    form.pv_lo.value=Fmt(cip(Cell_c1,N, pcrit,0))
+    form.pv_hi.value=Fmt(cip(Cell_c1,N, pcrit,1))
     pp=Ex_A/Cell_r1; form.pp_lo.value=Fmt(pp)
+    form.ppc_lo.value=Fmt(cip(ppc*Cell_r1,Cell_r1, pcrit,0))
+    form.ppc_hi.value=Fmt(cip(ppc*Cell_r1,Cell_r1, pcrit,1))
     np=Ex_D/Cell_r2; form.np_lo.value=Fmt(np)
+    if(Math.abs(form.prev.value-pv)<.001){      // if prevalences is alike, use same CI for predictive and adjusted
+        form.ppc_lo.value=form.pp_lo.value
+        form.ppc_hi.value=form.pp_hi.value
+        form.npc_lo.value=form.np_lo.value
+        form.npc_hi.value=form.np_hi.value
+    } else {
+        form.ppc_lo.value=Fmt(cip(ppc*Cell_r1,Cell_r1, pcrit,0))
+        form.ppc_hi.value=Fmt(cip(ppc*Cell_r1,Cell_r1, pcrit,1))
+        form.npc_lo.value=Fmt(cip(npc*Cell_r2,Cell_r2, pcrit,0))
+        form.npc_hi.value=Fmt(cip(npc*Cell_r2,Cell_r2, pcrit,1))
+    }
     dplo=Ex_A/Cell_r1-Ex_C/Cell_r2; form.dp_lo.value=Fmt(dplo)
     arr=-dplo; form.arr_hi.value=Fmt(arr)
     rrr=arr/(Ex_C/Cell_r2); form.rrr_hi.value=Fmt(rrr)
@@ -238,8 +259,11 @@ function saveCSV(form){
                 ["Mis-classification Rate = 1 - Overall Fraction Correct",                                              form.mcr.value,     form.mcr_lo.value,    form.mcr_hi.value],
                 ["Sensitivity = a/c1; (use exact Binomial confidence intervals instead of these)",                      form.sn.value,      form.sn_lo.value,     form.sn_hi.value],
                 ["Specificity = d/c2; (use exact Binomial confidence intervals instead of these)",                      form.sp.value,      form.sp_lo.value,     form.sp_hi.value],
+                ["Prevalence (estimated from sample)",                                                                  form.pv.value,      form.pv_lo.value,     form.pv_hi.value],
                 ["Positive Predictive Value (PPV) = a/r1; (use exact Binomial confidence intervals instead of these)",  form.pp.value,      form.pp_lo.value,     form.pp_hi.value],
+                ["Adjusted PPV (prevalence: " + form.prev.value*100 + "%)",                                             form.ppc.value,     form.ppc_lo.value,    form.ppc_hi.value],
                 ["Negative Predictive Value (NPV) = d/r2; (use exact Binomial confidence intervals instead of these)",  form.np.value,      form.np_lo.value,     form.np_hi.value],
+                ["Adjusted NPV (prevalence: " + form.prev.value*100 + "%)",                                             form.npc.value,     form.npc_lo.value,    form.npc_hi.value],
                 ["Difference in Proportions (DP) = a/r1 - c/r2",                                                        form.dp.value,      form.dp_lo.value,     form.dp_hi.value],
                 ["Number Needed to Treat (NNT) = 1 / absolute value of DP which = 1 / absolute value of ARR",           form.nn.value,      form.nn_lo.value,     form.nn_hi.value],
                 ["Absolute Risk Reduction (ARR) = c/r2 - a/r1 which = - DP",                                            form.arr.value,     form.arr_lo.value,    form.arr_hi.value],
@@ -316,17 +340,30 @@ if(z<17) { f=z; while(z>2) { z=z-1; f=f*z }; return Ln(f) }
 return (z+0.5)*Ln(z) - z + LnPi2/2 + 1/(12*z) - 1/(360*Pow(z,3)) + 1/(1260*Pow(z,5)) - 1/(1680*Pow(z,7))
 }
 function CalcFromDiagnostics(form) {
-    var prev = form.prev.value;
-    var sens = form.sens.value;
-    var spec = form.spec.value;
-    var N    = form.tssz.value;
+    var prev = form.prev.value
+    var sens = form.sens.value
+    var spec = form.spec.value
+    var N    = form.tssz.value
     
     if(N=="")
         N=1000;
     
     form.Cell_A.value=N*sens*prev;
-    form.Cell_B.value=(N*(1-prev))-(N*(1-prev)*spec);
-    form.Cell_C.value=(N*prev)-(N*prev*sens);
-    form.Cell_D.value=N*(1-prev)*spec;
+    form.Cell_B.value=(N*(1-prev))-(N*(1-prev)*spec)
+    form.Cell_C.value=(N*prev)-(N*prev*sens)
+    form.Cell_D.value=N*(1-prev)*spec
+}
+function cip(r,n,p,lv){ // Conf. Int. for proportion
+    // n: positive test, r: n*prevalence, p: alfa, lv: lo/hi level
+    z=normsInv(1-p/2, 0, 1)
+    q=1-r/n
+    a=2*r+z*z
+    b=z*Math.sqrt(z*z+4*r*q)
+    c=2*(n+z*z)
+    if(lv==0)
+        ci=(a-b)/c
+    else
+        ci=(a+b)/c
+    return ci
 }
 <!-- done hiding from old browsers -->
