@@ -133,22 +133,22 @@ function CalcStats(form) {
     yj=sn+sp-1; form.yj_lo.value=Fmt(yj)
     nnd=1/yj; form.nnd_hi.value=Fmt(nnd)
     nnm=1/(1-fc); form.nnm_lo.value=Fmt(nnm)
-    form.pv_lo.value=Fmt(cip(Cell_c1,N, pcrit,0))
-    form.pv_hi.value=Fmt(cip(Cell_c1,N, pcrit,1))
+    form.pv_lo.value=Fmt(ciw(Cell_c1,N, pcrit,0))
+    form.pv_hi.value=Fmt(ciw(Cell_c1,N, pcrit,1))
     pp=Ex_A/Cell_r1; form.pp_lo.value=Fmt(pp)
-    form.ppc_lo.value=Fmt(cip(ppc*Cell_r1,Cell_r1, pcrit,0))
-    form.ppc_hi.value=Fmt(cip(ppc*Cell_r1,Cell_r1, pcrit,1))
+    form.ppc_lo.value=Fmt(ciw(ppc*Cell_r1,Cell_r1, pcrit,0))
+    form.ppc_hi.value=Fmt(ciw(ppc*Cell_r1,Cell_r1, pcrit,1))
     np=Ex_D/Cell_r2; form.np_lo.value=Fmt(np)
-    if(Math.abs(form.prev.value-pv)<.001){      // if prevalences is alike, use same CI for predictive and adjusted
+    if(Math.abs(form.prev.value-pv)<.001){  // if prevalences is alike, use same CI for predictive and adjusted
         form.ppc_lo.value=form.pp_lo.value
         form.ppc_hi.value=form.pp_hi.value
         form.npc_lo.value=form.np_lo.value
         form.npc_hi.value=form.np_hi.value
     } else {
-        form.ppc_lo.value=Fmt(cip(ppc*Cell_r1,Cell_r1, pcrit,0))
-        form.ppc_hi.value=Fmt(cip(ppc*Cell_r1,Cell_r1, pcrit,1))
-        form.npc_lo.value=Fmt(cip(npc*Cell_r2,Cell_r2, pcrit,0))
-        form.npc_hi.value=Fmt(cip(npc*Cell_r2,Cell_r2, pcrit,1))
+        form.ppc_lo.value=Fmt(ciw(ppc*Cell_r1,Cell_r1, pcrit,0))
+        form.ppc_hi.value=Fmt(ciw(ppc*Cell_r1,Cell_r1, pcrit,1))
+        form.npc_lo.value=Fmt(ciw(npc*Cell_r2,Cell_r2, pcrit,0))
+        form.npc_hi.value=Fmt(ciw(npc*Cell_r2,Cell_r2, pcrit,1))
     }
     dplo=Ex_A/Cell_r1-Ex_C/Cell_r2; form.dp_lo.value=Fmt(dplo)
     arr=-dplo; form.arr_hi.value=Fmt(arr)
@@ -313,31 +313,33 @@ function saveCSV(form){
     link.click(); // This will download the data file named "my_data.csv".
 }
 function csq(o,e,y) {
-if(e==0) { return 0 }
-var x=Abs(o-e)-y; if(x<0) { return 0 }
-return x*x/e
+    if(e==0) { return 0 }
+    var x=Abs(o-e)-y; if(x<0) { return 0 }
+    return x*x/e
 }
 function Csp(x) {
-return ChiSq(x,1)
+    return ChiSq(x,1)
 }
 function ChiSq(x,n) {
-if(x>1000 | n>1000) { var q=Norm((Pow(x/n,1/3)+2/(9*n)-1)/Sqrt(2/(9*n)))/2; if (x>n) {return q}{return 1-q} }
-var p=Exp(-0.5*x); if((n%2)==1) { p=p*Sqrt(2*x/Pi) }
-var k=n; while(k>=2) { p=p*x/k; k=k-2 }
-var t=p; var Cell_B=n; while(t>1e-15*p) { Cell_B=Cell_B+2; t=t*x/Cell_B; p=p+t }
-return 1-p
+    if(x>1000 | n>1000) { var q=Norm((Pow(x/n,1/3)+2/(9*n)-1)/Sqrt(2/(9*n)))/2; if (x>n) {return q}{return 1-q} }
+    var p=Exp(-0.5*x); if((n%2)==1) { p=p*Sqrt(2*x/Pi) }
+    var k=n; while(k>=2) { p=p*x/k; k=k-2 }
+    var t=p; var Cell_B=n; while(t>1e-15*p) { Cell_B=Cell_B+2; t=t*x/Cell_B; p=p+t }
+    return 1-p
 }
-function Norm(z) { var q=z*z
-if(Abs(z)>7) {return (1-1/q+3/(q*q))*Exp(-q/2)/(Abs(z)*Sqrt(PiD2))} {return ChiSq(q,1) }
+function Norm(z) {
+    var q=z*z
+    if(Abs(z)>7) {return (1-1/q+3/(q*q))*Exp(-q/2)/(Abs(z)*Sqrt(PiD2))} {return ChiSq(q,1) }
 }
-function Fmt(x) { var v
-if(x>=0) { v=''+(x+0.0005) } else { v=''+(x-0.0005) }
-return v.substring(0,v.indexOf('.')+4)
+function Fmt(x) {
+    var v
+    if(x>=0) { v=''+(x+0.0005) } else { v=''+(x-0.0005) }
+    return v.substring(0,v.indexOf('.')+4)
 }
 function LnFact(z) {
-if(z<2) { return 0 }
-if(z<17) { f=z; while(z>2) { z=z-1; f=f*z }; return Ln(f) }
-return (z+0.5)*Ln(z) - z + LnPi2/2 + 1/(12*z) - 1/(360*Pow(z,3)) + 1/(1260*Pow(z,5)) - 1/(1680*Pow(z,7))
+    if(z<2) { return 0 }
+    if(z<17) { f=z; while(z>2) { z=z-1; f=f*z }; return Ln(f) }
+    return (z+0.5)*Ln(z) - z + LnPi2/2 + 1/(12*z) - 1/(360*Pow(z,3)) + 1/(1260*Pow(z,5)) - 1/(1680*Pow(z,7))
 }
 function CalcFromDiagnostics(form) {
     var prev = form.prev.value
@@ -353,8 +355,9 @@ function CalcFromDiagnostics(form) {
     form.Cell_C.value=(N*prev)-(N*prev*sens)
     form.Cell_D.value=N*(1-prev)*spec
 }
-function cip(r,n,p,lv){ // Conf. Int. for proportion
-    // n: positive test, r: n*prevalence, p: alfa, lv: lo/hi level
+function ciw(r,n,p,lv){
+// Conf. Int. for proportion. Ref: Statistics with Confidence DG Altman et al. 2.ed; Single sampleCI, Wilson method; p. 46
+// r: observed positive, n: sample size, p: alfa, lv: CI level (lower:0, upper:1)
     z=normsInv(1-p/2, 0, 1)
     q=1-r/n
     a=2*r+z*z

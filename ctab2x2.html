@@ -21,33 +21,22 @@ Mis-diagnose (thanks to Farrokh Habibzadeh)<br/>
 </p>
 </center>
 <p>
-This page computes various statistics from a 2-by-2 table. It will
-calculate
-the Yates-corrected chi-square, the Mantel-Haenszel chi-square,
-&nbsp;the
-Fisher Exact Test, and other indices relevant to various special kinds
-of
-2-by-2 tables:
-</p>
+This page computes various statistics from a 2-by-2 table. It will calculate the Yates-corrected chi-square, the Mantel-Haenszel chi-square,
+the Fisher Exact Test, and other indices relevant to various special kinds of 2-by-2 tables:
+<p>
 <ol>
-<li> analysis of risk factors for unfavorable outcomes (odds
-ratio,
-relative risk, difference in proportions, &nbsp;absolute and
-relative
-reduction in risk, number needed to treat) </li>
-<li> analysis of the effectiveness of a diagnostic criterion
-for some
-condition (sensitivity, specificity, pos &amp; neg predictive
-values,
-pos &amp; neg likelihood ratios, diagnostic &nbsp;and error
-odds
-ratios) </li>
-<li> measures of inter-rater reliability (% correct or
-consistent,
-mis-classification rate, kappa, Forbes' NMI) </li>
-<li> other measures of association (contingency coefficient,
-Cramer's
-phi coefficient, Yule's Q) </li>
+    <li>
+        analysis of risk factors for unfavorable outcomes (odds ratio, relative risk, difference in proportions, absolute and relative reduction in risk, number needed to treat)
+    </li>
+    <li>
+        analysis of the effectiveness of a diagnostic criterion for some condition (sensitivity, specificity, prevalence, pos &amp; neg predictive values, adjusted predictive values, pos &amp; neg likelihood ratios, diagnostic &nbsp;and error odds ratios)
+    </li>
+    <li>
+        measures of inter-rater reliability (% correct or consistent, mis-classification rate, kappa, Forbes' NMI)
+    </li>
+    <li>
+        other measures of association (contingency coefficient, Cramer's phi coefficient, Yule's Q)
+    </li>
 </ol>
 <p>
 Many of these concepts are explained in detail in an online
@@ -59,20 +48,17 @@ the
 &lt;<font color="Blue"><u>more info</u></font>&gt;
 link for that index.
 </p>
-<p><b>Confidence intervals</b> for the estimated
-parameters are
-computed by
+<p><b>Confidence intervals</b> for the estimated parameters are computed by
 a general method (based on "constant chi-square boundaries") given in:
-<i>Statistical Methods for Rates and Proportions</i> (2<sup>nd</sup>
-Ed.)
+<i>Statistical Methods for Rates and Proportions</i> (2<sup>nd</sup> Ed.)
 Section 5.6, &nbsp;by Joseph L. Fleiss (Pub: John Wiley &amp;
 Sons, New
 York,
 1981). This method is also described in Numerical Recipes in C (2nd
 Ed.)
-Section 15.6, by William H. Press et al. (Pub: Cambridge University
-Press,
-Cambridge UK, 1992)
+Section 15.6, by William H. Press et al. (Pub: Cambridge University Press, Cambridge UK, 1992).
+Wilson's method is used to find CI for adjusted predictive values. It's described p.46-7 and p.106-8: <i>Statistics with Confidence (2<sup>nd</sup> Ed.)</i>
+by DG Altman et al. (Pub: British Medical Journal Books, UK 2000).
 </p>
 <p> </p>
 <hr>
