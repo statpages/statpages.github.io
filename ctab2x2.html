@@ -158,9 +158,12 @@ Contingency Table</b></font>
             <tr>
                 <td>
                     Prevalence (eg. 0.1)
-                </td> 
+                </td>
                 <td>
                     <input type="text" name="prev"  size="10" maxlength="10" value=".1" />
+                </td>
+                <td style="border:none;">
+                    <font style=color:red;">*</font>
                 </td>
             </tr>
             <tr>
@@ -191,9 +194,10 @@ Contingency Table</b></font>
         <p> <input type="button" value="Run diagnostic test with above parameters" id="diagnostics">
     </div>
     <div style="style=float:right; padding-top: 50px; text-align:justify;">
-        Please enter your population prevalence estimate in the upper right field.<br/><br/>
+        <font style=color:red;">*</font> Enter your population prevalence estimate to calculate
+        PPV/NPV in an alternative prevalence setting.<br/><br/>
         <i>The positive and negative predictive values is calculated using the sample prevalence,
-        whereas the <b>adjusted</b> values is calculated using <b>this</b>, i.e. your estimated population prevalence.
+        whereas the <b>adjusted</b> values is calculated using <b>your</b> estimated population prevalence.
     </div>
 </div>
 </span>
