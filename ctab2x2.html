@@ -81,13 +81,14 @@ more information about this, and for other things to be aware of before
 using
 this page for the first time, make sure you read the</font>
 <a href="userint.html">JavaStat user interface guidelines</a>.
-</p>
-<p align="center"><font color="Blue"><b>Observed
-Contingency Table</b></font>
-</p>
+<p>
 <center>
+<p><br/>
 <form id="form">
 <table border="1">
+    <heading>
+        <font color="Blue"><b>Observed Contingency Table</b></font><br/>&nbsp;
+    </heading>
     <tbody>
         <tr>
             <td>
@@ -149,29 +150,35 @@ Contingency Table</b></font>
 <p> <input type="button" value="Compute" id="compute"> <input type="button" value="Download result as CSV" id="csv" hidden> <br>
 <p><br/>
 <!-- Merser 2016 Start-->
-<span>
 <div style="width: 60%; ">
-    <div style="float:left;">
+        <heading>
         <font color="Green"><b>Diagnostic Test</b></font><br/>
-        Specify disease prevalence, test sensivity, test specificity and sample size<p>
+        Specify disease prevalence, test sensivity, test specificity and sample size<br/>&nbsp;
+        </heading>
         <table border="">
             <tr>
                 <td>
                     Prevalence (eg. 0.1)
                 </td>
                 <td>
-                    <input type="text" name="prev"  size="10" maxlength="10" value=".1" />
+                    <input type="text" name="prev" size="10" maxlength="10" value=".1" />
                 </td>
                 <td style="border:none;">
-                    <font style=color:red;">*</font>
+                    <font style=color:red;">*</font> Enter your population prevalence estimate here.
                 </td>
             </tr>
             <tr>
                 <td>
                     Sensitivity (eg. 0.8)
-                </td>
                 <td>
                     <input type="text" name="sens"  size="10" maxlength="10" value=".8" />
+                </td>
+                </td>
+                    <td rowspan="3" style="border:none; text-align:justify; valign: top; width: 400px; padding-left: 12px;">
+                    PPV/NPV is in a way, calculated using the sample prevalence.
+                    The sample prevalence may vary considerably from the true population prevalence.<br/><br/>
+                    The <b>adjusted</b> predictive values is calculated from this random sample
+                    but in an alternative prevalence scenery.
                 </td>
             </tr>
             <tr>
@@ -192,25 +199,21 @@ Contingency Table</b></font>
             </tr>
         </table>
         <p> <input type="button" value="Run diagnostic test with above parameters" id="diagnostics">
-    </div>
-    <div style="style=float:right; padding-top: 50px; text-align:justify;">
-        <font style=color:red;">*</font> Enter your population prevalence estimate here.<br/>
-        &nbsp;PPV/NPV is in a way, calculated using the sample prevalence. The sample prevalence may vary considerably from the true population prevalence.<br/>
-        &nbsp;The <b>adjusted</b> predictive values is calculated from this random sample but in an alternative prevalence scenery.
-    </div>
 </div>
-</span>
 <p><br/><p><p><br/><p>
 
 <!-- Merser 2016 End -->
-<font color="Red"><b>Chi-Square Tests</b></font>
+<div style="width: 60%;">
 <table border="1">
+    <heading>
+        <font color="Red"><b>Chi-Square Tests</b></font><br/>&nbsp;
+    </heading>
     <tbody>
         <tr>
             <th>
                 Type of Test
             </th>
-            <th style="text-align:center;">
+            <th>
                 Chi Square
             </th>
             <th>
@@ -264,77 +267,82 @@ Contingency Table</b></font>
     </tbody>
 </table>
 <p><br/>
-<p> <font color="Red"><b>Fisher Exact Test</b></font>
+<p> 
 <table border="1">
-<tbody>
-    <tr>
-        <th>
-            Type of comparison (Alternate Hypothesis)
-        </th>
-        <th>
-            p-value
-        </th>
-    </tr>
-    <tr>
-        <td>
-            Two-tailed (to test if the Odds Ratio is <i>significantly different</i> from 1):<br/>
-            If you don't know which Fisher Exact p-value to use, <font color="Blue"><b>use this one</b></font>.<br/>
-            This is the p-value produced by SAS, SPSS, R, and other software.
-        </td>
-        <td>
-            <input name="FisherP" size="8" value="" type="text">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Left-tailed (to test if the Odds Ratio is <i>significantly less</i> than 1):
-        </td>
-        <td>
-            <input name="LeftP" size="8" value="" type="text">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Right-tailed (to test if the Odds Ratio is <i>significantly greater</i> than 1):
-        </td>
-        <td>
-            <input name="RightP" size="8" value="" type="text">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Two-tailed p-value calculated as described in Rosner's book:<br>
-            (2 times whichever is smallest: left-tail, right-tail, or 0.5)<br>
-            It tends to agree closely with Yates Chi-Square p-value.
-        </td>
-        <td>
-            <input name="RosnerP" size="8" value="" type="text">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Probability of getting <i>exactly</i> the observed table:<br/>
-            (This is not really a p-value; don't use this as a significance test.)
-        </td>
-        <td>
-            <input name="SingleP" size="8" value="" type="text">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Verification of computational accuracy: <br>
-        (This number should be very close to 1.0; the closer, the better.)
-        </td>
-        <td>
-            <input name="SumCheck" size="8" value="" type="text">
-        </td>
-    </tr>
+    <heading>
+        <font color="Red"><b>Fisher Exact Test</b></font><br/>&nbsp;
+    </heading>
+    <tbody>
+        <tr>
+            <th>
+                Type of comparison (Alternate Hypothesis)
+            </th>
+            <th>
+                p-value
+            </th>
+        </tr>
+        <tr>
+            <td>
+                Two-tailed (to test if the Odds Ratio is <i>significantly different</i> from 1):<br/>
+                If you don't know which Fisher Exact p-value to use, <font color="Blue"><b>use this one</b></font>.<br/>
+                This is the p-value produced by SAS, SPSS, R, and other software.
+            </td>
+            <td>
+                <input name="FisherP" size="8" value="" type="text">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Left-tailed (to test if the Odds Ratio is <i>significantly less</i> than 1):
+            </td>
+            <td>
+                <input name="LeftP" size="8" value="" type="text">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Right-tailed (to test if the Odds Ratio is <i>significantly greater</i> than 1):
+            </td>
+            <td>
+                <input name="RightP" size="8" value="" type="text">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Two-tailed p-value calculated as described in Rosner's book:<br>
+                (2 times whichever is smallest: left-tail, right-tail, or 0.5)<br>
+                It tends to agree closely with Yates Chi-Square p-value.
+            </td>
+            <td>
+                <input name="RosnerP" size="8" value="" type="text">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Probability of getting <i>exactly</i> the observed table:<br/>
+                (This is not really a p-value; don't use this as a significance test.)
+            </td>
+            <td>
+                <input name="SingleP" size="8" value="" type="text">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Verification of computational accuracy: <br>
+            (This number should be very close to 1.0; the closer, the better.)
+            </td>
+            <td>
+                <input name="SumCheck" size="8" value="" type="text">
+            </td>
+        </tr>
     </tbody>
 </table>
-</p><br/>
-<font color="Red"><br>
-<b>Quantities derived from a 2-by-2 table</b></font>
+<p><br/>
+<br/>
 <table border="1">
+    <heading>
+        <font color="Red"><b>Quantities derived from a 2-by-2 table</b></font><br/>&nbsp;
+    </heading>
 <tbody>
     <tr>
         <th>
@@ -396,7 +404,7 @@ Binomial confidence intervals</a> instead of these)</td>
 </tr>
 
 <tr>
-<td>Prevalence (estimated from sample)</td>
+<td>Prevalence (estimated from sample) = c1/t</td>
 <td> <input name="pv" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 <td> <input name="pv_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 <td> <input name="pv_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
@@ -684,7 +692,7 @@ Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com
 </p>
 </form>
 </center>
-
+</div>
 <!-- Merser 2016 START -->
 <script>
     $(document).ready(function(){
