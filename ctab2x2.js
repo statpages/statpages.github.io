@@ -139,17 +139,6 @@ function CalcStats(form) {
     form.ppc_lo.value=Fmt(ciw(ppc*Cell_r1,Cell_r1, pcrit,0))
     form.ppc_hi.value=Fmt(ciw(ppc*Cell_r1,Cell_r1, pcrit,1))
     np=Ex_D/Cell_r2; form.np_lo.value=Fmt(np)
-    if(Math.abs(form.prev.value-pv)<.001){  // if prevalences is alike, use same CI for predictive and adjusted
-        form.ppc_lo.value=form.pp_lo.value
-        form.ppc_hi.value=form.pp_hi.value
-        form.npc_lo.value=form.np_lo.value
-        form.npc_hi.value=form.np_hi.value
-    } else {
-        form.ppc_lo.value=Fmt(ciw(ppc*Cell_r1,Cell_r1, pcrit,0))
-        form.ppc_hi.value=Fmt(ciw(ppc*Cell_r1,Cell_r1, pcrit,1))
-        form.npc_lo.value=Fmt(ciw(npc*Cell_r2,Cell_r2, pcrit,0))
-        form.npc_hi.value=Fmt(ciw(npc*Cell_r2,Cell_r2, pcrit,1))
-    }
     dplo=Ex_A/Cell_r1-Ex_C/Cell_r2; form.dp_lo.value=Fmt(dplo)
     arr=-dplo; form.arr_hi.value=Fmt(arr)
     rrr=arr/(Ex_C/Cell_r2); form.rrr_hi.value=Fmt(rrr)
@@ -223,6 +212,17 @@ function CalcStats(form) {
     if(dplo<0 & dphi>0) { form.nn_lo.value=Fmt(1/Math.max(Math.abs(dplo),Math.abs(dphi))); form.nn_hi.value="Infinite" }
     if(dplo==0 & dphi>0) { form.nn_lo.value=Fmt(1/dphi); form.nn_hi.value="Infinite" }
     if(dplo>0 & dphi>0) { form.nn_lo.value=Fmt(1/dphi); form.nn_hi.value=Fmt(1/dplo) }
+    if(Math.abs(form.prev.value-pv)<.001){  // if prevalences is alike, use same CI for predictive and adjusted
+        form.ppc_lo.value=form.pp_lo.value
+        form.ppc_hi.value=form.pp_hi.value
+        form.npc_lo.value=form.np_lo.value
+        form.npc_hi.value=form.np_hi.value
+    } else {
+        form.ppc_lo.value=Fmt(ciw(ppc*Cell_r1,Cell_r1, pcrit,0))
+        form.ppc_hi.value=Fmt(ciw(ppc*Cell_r1,Cell_r1, pcrit,1))
+        form.npc_lo.value=Fmt(ciw(npc*Cell_r2,Cell_r2, pcrit,0))
+        form.npc_hi.value=Fmt(ciw(npc*Cell_r2,Cell_r2, pcrit,1))
+    }
 }
 
 function saveCSV(form){
