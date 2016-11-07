@@ -14,6 +14,7 @@
 Analysis </font> </h2>
 <p>
 <div style="text-align:left; padding-left:30%;">
+Revised: 11/06/2016 -- added prevalence adjusted predictive values (Merser)<br/>
 Revised: 11/04/2016 -- added Diagnostic Test (suggested by Michael Meier)<br/>
 Revised: 07/23/2013 -- added NNM -- the Number Needed to
 Mis-diagnose (thanks to Farrokh Habibzadeh)<br/>
@@ -174,7 +175,7 @@ this page for the first time, make sure you read the</font>
                     <input type="text" name="sens"  size="10" maxlength="10" value=".8" />
                 </td>
                 </td>
-                    <td rowspan="3" style="border:none; text-align:justify; valign: top; width: 400px; padding-left: 12px;">
+                    <td rowspan="4" style="border:none; text-align:justify; valign: top; width: 400px; padding-left: 12px;">
                     PPV/NPV is in a way, calculated using the sample prevalence.
                     The sample prevalence may vary considerably from the true population prevalence.<br/><br/>
                     The <b>adjusted</b> predictive values is calculated from this random sample
@@ -197,8 +198,10 @@ this page for the first time, make sure you read the</font>
                     <input type="text" name="tssz"  size="10" maxlength="10" value="1000" />
                 </td>
             </tr>
+            <tr>
+            <td colspan="2"><input type="button" value="Run diagnostic test with above parameters" id="diagnostics"></td>
+            </tr>
         </table>
-        <p> <input type="button" value="Run diagnostic test with above parameters" id="diagnostics">
 </div>
 <p><br/><p><p><br/><p>
 
@@ -698,8 +701,8 @@ Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com
     $(document).ready(function(){
     
         function foo(){
-            $("td#ppc").html("Adjusted PPV (prevalence: " +  $("input[name=prev]").val()*100 + "%)");
-            $("td#npc").html("Adjusted NPV (prevalence: " +  $("input[name=prev]").val()*100 + "%)");
+            $("td#ppc").html("<font style='color:red;'>*</font>Adjusted PPV (prevalence: " +  $("input[name=prev]").val()*100 + "%)");
+            $("td#npc").html("<font style='color:red;'>*</font>Adjusted NPV (prevalence: " +  $("input[name=prev]").val()*100 + "%)");
         }
     
         $("input#compute").click(function(){
@@ -721,8 +724,8 @@ Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com
             $(this).hide();
         });
     
-        $("td#ppc").html("Adjusted PPV");
-        $("td#npc").html("Adjusted NPV");
+        $("td#ppc").html("<font style='color:red;'>*</font>Adjusted PPV");
+        $("td#npc").html("<font style='color:red;'>*</font>Adjusted NPV");
     
     });
 </script>
