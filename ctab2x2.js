@@ -223,6 +223,10 @@ function CalcStats(form) {
         form.npc_lo.value=Fmt(ciw(npc*Cell_r2,Cell_r2, pcrit,0))
         form.npc_hi.value=Fmt(ciw(npc*Cell_r2,Cell_r2, pcrit,1))
     }
+    var oic=rioc(Cell_A, Cell_D, Cell_c1, Cell_r1, N, pcrit)
+    form.oic.value=Fmt(oic[0])
+    form.oic_lo.value=Fmt(oic[1])
+    form.oic_hi.value=Fmt(oic[2])
 }
 
 function saveCSV(form){
@@ -290,6 +294,7 @@ function saveCSV(form){
                 ["C = H(r;c) - H(c)",                                                                                   form.EntIC.value,   form.EntIC_lo.value,  form.EntIC_hi.value],
                 ["Similarity of descriptors r and c: S(r;c) = B / (A + B + C)",                                         form.EntSim.value,  form.EntSim_lo.value, form.EntSim_hi.value],
                 ["Distance between r and c: D(r;c) = (A + C) / (A + B + C)",                                            form.EntDif.value,  form.EntDif_lo.value, form.EntDif_hi.value],
+                ["Relative Improvement Over Chance)",                                                                   form.oic.value,     form.oic_lo.value,    form.oic_hi.value],
             [],
             ["Lower limiting table"],
                 [form.Low_A.value, form.Low_B.value],
@@ -368,5 +373,15 @@ function ciw(r,n,p,lv){
     else
         ci=(a+b)/c
     return ci
+}
+function rioc(a, d, c, r, t, p){
+// Relative Improvement Over Chance (RIOC) and Phi as Measures of Predictive Efficiency and Strength of Association in 2 × 2 TablesDavid P. Farrington and Rolf Loeber
+// Journal of Quantitative Criminology, Vol. 5, No. 3 (September 1989), pp. 201-213
+    x=( t*(a+d)-(r*c+(t-r)*(t-c)) )
+    y=( Math.min(t*(c+t-r), t*(r+t-c))-(r*c+(t-r)*(t-c)) )
+    rioc=x/y
+    sd=Math.sqrt((r*(t-c))/(t*c*(t-r)))
+    z=normsInv(1-p/2, 0, 1)
+    return [rioc, rioc-z*sd, rioc+z*sd]
 }
 <!-- done hiding from old browsers -->
