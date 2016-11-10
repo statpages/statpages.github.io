@@ -3,9 +3,12 @@
     <head>
         <meta http-equiv="PICS-Label" content="(PICS-1.0 &quot;http://www.classify.org/safesurf/&quot; l on &quot;1996.08.22T13:37+0000 r (SS~~000 1)">
         <script src="jquery-3.1.1.min.js"></script>
+        <!--<script src="jquery.modal.js" type="text/javascript" charset="utf-8"></script-->
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="ctab2x2.js"></script>
         <script src="norminv.js"></script>
-
+        
         <title>JavaStat -- 2-way Contingency Table Analysis</title>
     </head>
 <body style="background-color: rgb(255, 255, 238);">
@@ -49,17 +52,14 @@ the
 &lt;<font color="Blue"><u>more info</u></font>&gt;
 link for that index.
 </p>
-<p><b>Confidence intervals</b> for the estimated parameters are computed by
-a general method (based on "constant chi-square boundaries") given in:
+<p><b>Confidence intervals</b> for the estimated parameters are computed by a general method (based on "constant chi-square boundaries") given in:
 <i>Statistical Methods for Rates and Proportions</i> (2<sup>nd</sup> Ed.)
-Section 5.6, &nbsp;by Joseph L. Fleiss (Pub: John Wiley &amp;
-Sons, New
-York,
-1981). This method is also described in Numerical Recipes in C (2nd
-Ed.)
-Section 15.6, by William H. Press et al. (Pub: Cambridge University Press, Cambridge UK, 1992).
-Wilson's method is used to find CI for adjusted predictive values. It's described p.46-7 and p.106-8: <i>Statistics with Confidence (2<sup>nd</sup> Ed.)</i>
-by DG Altman et al. (Pub: British Medical Journal Books, UK 2000).
+Section 5.6, &nbsp;by Joseph L. Fleiss (Pub: John Wiley &amp; Sons, New York, 1981).
+This method is also described in Numerical Recipes in C (2nd Ed.) Section 15.6, by William H. Press et al. (Pub: Cambridge University Press, Cambridge UK, 1992).<br/>
+Wilson's method is used to find CI for adjusted predictive values. Ref: <i>Statistics with Confidence (2<sup>nd</sup> Ed.)</i>
+by DG Altman et al. (Pub: British Medical Journal Books, UK 2000) p.46-7.<br/>
+The reference used for CI calculation for RIOC is: Relative Improvement Over Chance (RIOC) and Phi as Measures of Predictive Efficiency and Strength of Association in 2 × 2 TablesDavid P. Farrington and Rolf Loeber.
+Journal of Quantitative Criminology, Vol. 5, No. 3 (September 1989), pp. 201-213.
 </p>
 <p> </p>
 <hr>
@@ -73,15 +73,7 @@ cell counts with a
 leading zero!
 </b>That is, if a cell count is 34, enter it as 34, <b>not
 as 034</b>.
-&nbsp;Some browsers will mis-interpret some numbers entered with
-leading
-zeros, and will produce <b>wrong results</b> (with no
-warning
-message). For
-more information about this, and for other things to be aware of before
-using
-this page for the first time, make sure you read the</font>
-<a href="userint.html">JavaStat user interface guidelines</a>.
+&nbsp;Some browsers will mis-interpret some numbers entered with leading zeros, and will produce <b>wrong results</b> (with no warning message).</font>
 <p>
 <center>
 <p><br/>
@@ -165,7 +157,7 @@ this page for the first time, make sure you read the</font>
                     <input type="text" name="prev" size="10" maxlength="10" value=".1" />
                 </td>
                 <td style="border:none;">
-                    <font style=color:red;">*</font> Enter your population prevalence estimate here.
+                    <font style=color:red;">*</font> Enter your population prevalence estimate here if:
                 </td>
             </tr>
             <tr>
@@ -175,11 +167,10 @@ this page for the first time, make sure you read the</font>
                     <input type="text" name="sens"  size="10" maxlength="10" value=".8" />
                 </td>
                 </td>
-                    <td rowspan="4" style="border:none; text-align:justify; valign: top; width: 400px; padding-left: 12px;">
-                    PPV/NPV is in a way, calculated using the sample prevalence.
-                    The sample prevalence may vary considerably from the true population prevalence.<br/><br/>
-                    The <b>adjusted</b> predictive values is calculated from this random sample
-                    but in an alternative prevalence scenery.
+                    <td rowspan="3" style="border:none; text-align:justify; valign: top; width: 360px; padding-left: 12px;">
+                    A) you want to run a diagnostic test<br/><br/>
+                    B) it turns out that the sample and actual population prevalence differs substantially.<br/>
+                    Consider reporting the <b>adjusted</b> PPV/NPV's.<br/><a href="#" id="help">Explain more</a>
                 </td>
             </tr>
             <tr>
@@ -637,8 +628,8 @@ C)</td>
 <td> <input name="EntDif_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Relative Improvement Over
-Chance</td>
+<td>Relative Improvement Over Chance
+(RIOC)</td>
 <td> <input name="oic" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 <td> <input name="oic_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 <td> <input name="oic_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
@@ -708,8 +699,8 @@ Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com
     $(document).ready(function(){
     
         function foo(){
-            $("td#ppc").html("<font style='color:red;'>*</font>Adjusted PPV (prevalence: " +  $("input[name=prev]").val()*100 + "%)");
-            $("td#npc").html("<font style='color:red;'>*</font>Adjusted NPV (prevalence: " +  $("input[name=prev]").val()*100 + "%)");
+            $("td#ppc").html("<font style='color:red;'>*</font>Adjusted PPV (user set prevalence: " +  $("input[name=prev]").val()*100 + "%)");
+            $("td#npc").html("<font style='color:red;'>*</font>Adjusted NPV (user set prevalence: " +  $("input[name=prev]").val()*100 + "%)");
         }
     
         $("input#compute").click(function(){
@@ -733,8 +724,34 @@ Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com
     
         $("td#ppc").html("<font style='color:red;'>*</font>Adjusted PPV");
         $("td#npc").html("<font style='color:red;'>*</font>Adjusted NPV");
+        
+
+        $("#help").click(function(){
+            $("#dialog").dialog();
+        });
     
     });
 </script>
+ <!-- Modal HTML embedded directly into document -->
+<div id="dialog" title="Basic dialog">
+  <p>
+  The predictive values of a test depend upon the prevalence of the abnormality in the patients being tested,
+  which may not be known. The values calculated assumes that the prevalence of the abnormality among the population likely to be tested is the same as in the sample.
+  In a different clinical setting the prevalence may differ considerably.<br/>
+  Predictive values observed in one study do not apply universally. The rarer the true abnormality is, 
+  the more sure we can be that a negative test indicates no abnormality, and the less sure that a positive
+  result really indicates an abnormal patient.<br/>
+  More general formulae for calculating predictive values for any prevalence is:<br/>
+  PV+ = (sens x prev) / ((sens x prev) + (1-spec) x (1-prev))  and <br/>
+  PV- = (spec x (1-prev)) / ((1-sens) x prev + spec x (1-prev))<br/>
+  where sens and spec is sensitivity and specificity.<br/>
+  The prevalence can be interpreted as the probability <i>before<i> the test is carried out that the subject has the disease,
+  also known as the prior probability of disease.
+  PV+ and PV- are the revised estimates of the probability of disease for those subjects who are positive and negative to the test,
+  and are known as <i>posteriori probabilities</i>. The comparision of the prior and posterior probabilities is one way of accessing
+  the usefulness of the test. The predictive values can change considerably with a different prevalence.<br/>
+  Cite: Statistics with Confidence (2<sup>nd</sup> Ed.), Altman et al. BMJ Books
+ </p>
+</div>
 <!-- Merser 2016 END -->
 </body></html>
