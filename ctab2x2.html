@@ -725,7 +725,7 @@ Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com
         
 
         $("#help").click(function(){
-            $("#dialog").dialog( { width: "460px"  });
+            $("#dialog").dialog({ width: "460px", collision: "flipfit", show: true, hide: true, resizable: false });
         });
     
     });
@@ -735,12 +735,13 @@ Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com
     <div style="text-align: justify; padding: 10px;">
         If the sample prevalence do not reflect the real prevalence of the disease,
         then the predicted values cannot be estimated and you should ignore those values.
-        Alternatively, when the disease prevalence is known, then the predictive values can be calculated using the following formula's based on Bayes' theorem<br/><br/>
+        Alternatively, when the disease prevalence is known, then the predictive values
+        can be calculated using the following formula's based on Bayes' theorem<br/><br/>
         $$PPV={sens×prev}/{(sens×prev)+(1-spec)×(1-prev)}$$<br/><br/>
         and<br/>
         $$NPV={spec×(1-prev)}/{(1-sens)×prev+spec×(1-prev)}$$<br/>
         These are shown as the <b>adjusted</b> predictive values in the Derived Quantities table below.<br/><p>
-        <i>Litt.: Statistics with Confidence (2<sup>nd</sup> Ed.), Altman et al. BMJ Books</i>
+        <i>Litt.: Statistics with Confidence (2<sup>nd</sup> Ed.), Altman et al. BMJ Books 2000</i>
     </div>
 </div>
 <!-- Merser 2016 END -->
