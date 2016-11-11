@@ -19,9 +19,9 @@
 Analysis </font> </h2>
 <p>
 <div style="text-align:left; padding-left:30%;">
-Revised: 11/06/2016 -- added Adjusted predictive values (Merser)<br/>
-Revised: 11/04/2016 -- added Diagnostic Test and RIOC, Relative Improvement Over Chance (suggested by Michael Meier)<br/>
-Revised: 07/23/2013 -- added NNM, the Number Needed to Mis-diagnose (thanks to Farrokh Habibzadeh)<br/>
+    Revised: 11/06/2016 -- added Adjusted predictive values (Merser)<br/>
+    Revised: 11/04/2016 -- added Diagnostic Test and RIOC, Relative Improvement Over Chance (suggested by Michael Meier)<br/>
+    Revised: 07/23/2013 -- added NNM, the Number Needed to Mis-diagnose (thanks to Farrokh Habibzadeh)<br/>
 </div>
 </p>
 </center>
@@ -49,14 +49,15 @@ Many of these concepts are explained in detail in an online
 
 For more information about a particular index, click on the &lt;<font color="Blue"><u>more info</u></font>&gt; link for that index.
 </p>
-<p><b>Confidence intervals</b> for the estimated parameters are computed by a general method (based on "constant chi-square boundaries") given in:
-<i>Statistical Methods for Rates and Proportions</i> (2<sup>nd</sup> Ed.)
-Section 5.6, &nbsp;by Joseph L. Fleiss (Pub: John Wiley &amp; Sons, New York, 1981).
-This method is also described in Numerical Recipes in C (2nd Ed.) Section 15.6, by William H. Press et al. (Pub: Cambridge University Press, Cambridge UK, 1992).<br/>
-Wilson's method is used to find CI for adjusted predictive values. Ref: <i>Statistics with Confidence (2<sup>nd</sup> Ed.)</i>
-by DG Altman et al. (Pub: British Medical Journal Books, UK 2000) p.46-7.<br/>
-The reference used for CI calculation for RIOC is: Relative Improvement Over Chance (RIOC) and Phi as Measures of Predictive Efficiency and Strength of Association in 2 × 2 TablesDavid P. Farrington and Rolf Loeber.
-Journal of Quantitative Criminology, Vol. 5, No. 3 (September 1989), pp. 201-213.
+<p>
+    <b>Confidence intervals</b> for the estimated parameters are computed by a general method (based on "constant chi-square boundaries") given in:
+    <i>Statistical Methods for Rates and Proportions</i> (2<sup>nd</sup> Ed.)
+    Section 5.6, &nbsp;by Joseph L. Fleiss (Pub: John Wiley &amp; Sons, New York, 1981).
+    This method is also described in Numerical Recipes in C (2nd Ed.) Section 15.6, by William H. Press et al. (Pub: Cambridge University Press, Cambridge UK, 1992).<br/>
+    Wilson's method is used to find CI for adjusted predictive values. Ref: <i>Statistics with Confidence (2<sup>nd</sup> Ed.)</i>
+    by DG Altman et al. (Pub: British Medical Journal Books, UK 2000) p.46-7.<br/>
+    The reference used for CI calculation for RIOC is: Relative Improvement Over Chance (RIOC) and Phi as Measures of Predictive Efficiency and Strength of Association in 2 × 2 TablesDavid P. Farrington and Rolf Loeber.
+    Journal of Quantitative Criminology, Vol. 5, No. 3 (September 1989), pp. 201-213.
 </p>
 <p> </p>
 <hr>
@@ -348,167 +349,139 @@ as 034</b>.
         </th>
     </tr>
 <tr>
-<td>Odds Ratio (OR) = (a/b)/(c/d);</td>
-<td> <input name="od" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="od_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="od_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Odds Ratio (OR) = (a/b)/(c/d);</td>
+    <td> <input name="od" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="od_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="od_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+</tr>
+    <td>Relative Risk (RR) = (a/r1)/(c/r2);</td>
+    <td> <input name="rr" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="rr_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="rr_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Relative Risk (RR) = (a/r1)/(c/r2);</td>
-<td> <input name="rr" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="rr_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="rr_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Kappa</td>
+    <td> <input name="kp" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="kp_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="kp_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Kappa</td>
-<td> <input name="kp" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="kp_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="kp_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Overall Fraction Correct = (a+d)/t ; (often referred to simply as "Accuracy")</td>
+    <td> <input name="fc" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="fc_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="fc_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Overall Fraction Correct = (a+d)/t ; (often referred
-to
-simply as "Accuracy")</td>
-<td> <input name="fc" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="fc_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="fc_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Mis-classification Rate, = 1 - Overall Fraction Correct;</td>
+    <td> <input name="mcr" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="mcr_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="mcr_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Mis-classification Rate, = 1 - Overall Fraction
-Correct;</td>
-<td> <input name="mcr" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="mcr_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="mcr_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Sensitivity = a/c1; (use <a href="confint.html">exact Binomial confidence intervals</a> instead of these)</td>
+    <td> <input name="sn" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="sn_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="sn_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Sensitivity = a/c1; (use <a href="confint.html">exact
-Binomial confidence intervals</a> instead of these)</td>
-<td> <input name="sn" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="sn_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="sn_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Specificity = d/c2; (use <a href="confint.html">exact Binomial confidence intervals</a> instead of these)</td>
+    <td> <input name="sp" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="sp_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="sp_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Specificity = d/c2; (use <a href="confint.html">exact
-Binomial confidence intervals</a> instead of these)</td>
-<td> <input name="sp" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="sp_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="sp_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Prevalence (estimated from sample) = c1/t</td>
+    <td> <input name="pv" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="pv_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="pv_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
-
 <tr>
-<td>Prevalence (estimated from sample) = c1/t</td>
-<td> <input name="pv" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="pv_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="pv_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Positive Predictive Value (PPV) = a/r1; (use <a href="confint.html">exact Binomial confidence intervals</a> instead of these)</td>
+    <td> <input name="pp" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="pp_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="pp_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
-
-<tr>
-<td>Positive Predictive Value (PPV) = a/r1; (use <a href="confint.html">exact Binomial confidence intervals</a>
-instead of
-these)</td>
-<td> <input name="pp" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="pp_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="pp_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-</tr>
-
 <tr>
 <td id="ppc"></td>
 <td> <input name="ppc" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 <td> <input name="ppc_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 <td> <input name="ppc_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
-
 <tr>
-<td>Negative Predictive Value (NPV) = d/r2; (use <a href="confint.html">exact Binomial confidence intervals</a>
-instead of
-these)</td>
-<td> <input name="np" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="np_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="np_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Negative Predictive Value (NPV) = d/r2; (use <a href="confint.html">exact Binomial confidence intervals</a> instead of these)</td>
+    <td> <input name="np" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="np_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="np_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
-
 <tr>
 <td id="npc"></td>
 <td> <input name="npc" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 <td> <input name="npc_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 <td> <input name="npc_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
-
 <tr>
-<td>Difference in Proportions (DP) = a/r1 - c/r2;</td>
-<td> <input name="dp" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="dp_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="dp_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Difference in Proportions (DP) = a/r1 - c/r2;</td>
+    <td> <input name="dp" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="dp_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="dp_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Number Needed to Treat (NNT) = 1 / absolute value of
-DP;
-which = 1 / absolute value of ARR;<br>
+<td>Number Needed to Treat (NNT) = 1 / absolute value of DP; which = 1 / absolute value of ARR;<br>
 </td>
 <td> <input name="nn" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 <td> <input name="nn_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 <td> <input name="nn_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Absolute Risk Reduction (ARR) = c/r2 - a/r1; which =
-- DP</td>
-<td> <input name="arr" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="arr_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="arr_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Absolute Risk Reduction (ARR) = c/r2 - a/r1; which = - DP</td>
+    <td> <input name="arr" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="arr_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="arr_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Relative Risk Reduction (RRR) = ARR/(c/r2); &lt;<a href="http://www.shef.ac.uk/uni/projects/wrp/risk.html">more
-info</a>&gt;</td>
-<td> <input name="rrr" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="rrr_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="rrr_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Relative Risk Reduction (RRR) = ARR/(c/r2); &lt;<a href="http://www.shef.ac.uk/uni/projects/wrp/risk.html">more info</a>&gt;</td>
+    <td> <input name="rrr" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="rrr_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="rrr_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Positive Likelihood Ratio (+LR) = Sensitivity / (1 -
-Specificity);</td>
-<td> <input name="plr" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="plr_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="plr_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Positive Likelihood Ratio (+LR) = Sensitivity / (1 - Specificity);</td>
+    <td> <input name="plr" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="plr_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="plr_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Negative Likelihood Ratio (-LR) = (1 - Sensitivity) /
-Specificity;</td>
-<td> <input name="nlr" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="nlr_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="nlr_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Negative Likelihood Ratio (-LR) = (1 - Sensitivity) / Specificity;</td>
+    <td> <input name="nlr" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="nlr_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="nlr_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Diagnostic Odds Ratio =
-(Sensitivity/(1-Sensitivity))/((1-Specificity)/Specificity);</td>
-<td> <input name="dor" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="dor_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="dor_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Diagnostic Odds Ratio = (Sensitivity/(1-Sensitivity))/((1-Specificity)/Specificity);</td>
+    <td> <input name="dor" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="dor_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="dor_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Error Odds Ratio =
-(Sensitivity/(1-Sensitivity))/(Specificity/(1-Specificity));</td>
-<td> <input name="eor" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="eor_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="eor_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Error Odds Ratio = (Sensitivity/(1-Sensitivity))/(Specificity/(1-Specificity));</td>
+    <td> <input name="eor" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="eor_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="eor_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Youden's J = Sensitivity + Specificity - 1;</td>
-<td> <input name="yj" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="yj_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="yj_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Youden's J = Sensitivity + Specificity - 1;</td>
+    <td> <input name="yj" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="yj_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="yj_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Number Needed to Diagnose (NND) = 1 / (Sensitivity -
-(1 -
-Specificity) ) = 1&nbsp;/&nbsp;(Youden's&nbsp;J); &lt;<a href="http://www.jr2.ox.ac.uk/bandolier/band27/b27-2.html">more
-info</a>&gt;</td>
-<td> <input name="nnd" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="nnd_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="nnd_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Number Needed to Diagnose (NND) = 1 / (Sensitivity - (1 - Specificity) ) = 1&nbsp;/&nbsp;(Youden's&nbsp;J); &lt;<a href="http://www.jr2.ox.ac.uk/bandolier/band27/b27-2.html">more info</a>&gt;</td>
+    <td> <input name="nnd" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="nnd_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="nnd_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Number Needed to Mis-diagnose (NNM) = 1 / ( 1 -
-Accuracy ); &lt;<a href="http://journals.lww.com/epidem/Fulltext/2013/01000/Number_Needed_to_Misdiagnose__A_Measure_of.27.aspx">more info</a>&gt;</td>
+<td>Number Needed to Mis-diagnose (NNM) = 1 / ( 1 - Accuracy ); &lt;<a href="http://journals.lww.com/epidem/Fulltext/2013/01000/Number_Needed_to_Misdiagnose__A_Measure_of.27.aspx">more info</a>&gt;</td>
 <td><input name="nnm" size="8" value="" onfocus="Cell_A.focus()" type="text">
 </td>
 <td><input name="nnm_lo" size="8" value="" onfocus="Cell_A.focus()" type="text">
@@ -517,120 +490,100 @@ Accuracy ); &lt;<a href="http://journals.lww.com/epidem/Fulltext/2013/01000/Numb
 </td>
 </tr>
 <tr>
-<td>Forbes' NMI Index; &lt;<a href="http://woldlab.caltech.edu/docs/MLX/user/node64.html">more
-info</a>&gt;</td>
-<td> <input name="nmi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="nmi_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="nmi_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Forbes' NMI Index; &lt;<a href="http://woldlab.caltech.edu/docs/MLX/user/node64.html">more info</a>&gt;</td>
+    <td> <input name="nmi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="nmi_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="nmi_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Contingency Coefficient;</td>
-<td> <input name="cc" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="cc_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="cc_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Contingency Coefficient;</td>
+    <td> <input name="cc" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="cc_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="cc_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Adjusted Contingency Coefficient;</td>
-<td> <input name="ca" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="ca_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="ca_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Adjusted Contingency Coefficient;</td>
+    <td> <input name="ca" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="ca_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="ca_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Tetrachoric (terachoric) Correlation Coefficient =
-Cos( Pi / (1 + Sqrt( OR ) ) );</td>
-<td> <input name="rtet" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="rtet_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="rtet_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Tetrachoric (terachoric) Correlation Coefficient = Cos( Pi / (1 + Sqrt( OR ) ) );</td>
+    <td> <input name="rtet" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="rtet_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="rtet_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Phi Coefficient (= Cramer's Phi, and = Cohen's w
-Index, for
-2x2 table);</td>
-<td> <input name="cp" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="cp_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="cp_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Phi Coefficient (= Cramer's Phi, and = Cohen's w Index, for 2x2 table);</td>
+    <td> <input name="cp" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="cp_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="cp_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Yule's Q = (a*d-b*c)/(a*d+b*c) = (OR - 1) / (OR + 1);
-&lt;<a href="http://www2.chass.ncsu.edu/garson/pa765/assoc2x2.htm">more
-info</a>&gt;</td>
-<td> <input name="yq" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="yq_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="yq_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Yule's Q = (a*d-b*c)/(a*d+b*c) = (OR - 1) / (OR + 1); &lt;<a href="http://www2.chass.ncsu.edu/garson/pa765/assoc2x2.htm">more info</a>&gt;</td>
+    <td> <input name="yq" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="yq_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="yq_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Equitable Threat Score = (a-e)/(a+b+c-e), where e =
-r1*c1/t; &lt;<a href="http://www.cloud-net.org/data/interpretation_cloud-fraction-model-grid-stats.html">more
-info</a>&gt;</td>
-<td> <input name="ets" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="ets_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="ets_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Equitable Threat Score = (a-e)/(a+b+c-e), where e = r1*c1/t; &lt;<a href="http://www.cloud-net.org/data/interpretation_cloud-fraction-model-grid-stats.html">more info</a>&gt;</td>
+    <td> <input name="ets" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="ets_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="ets_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Entropy H(r) = - ( (r1/t)log<sub>2</sub>(r1/t)
-+ (r2/t)log<sub>2</sub>(r2/t)
-)</td>
-<td> <input name="EntR" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="EntR_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="EntR_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Entropy H(r) = - ( (r1/t)log<sub>2</sub>(r1/t) + (r2/t)log<sub>2</sub>(r2/t))</td>
+    <td> <input name="EntR" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="EntR_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="EntR_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Entropy H(c) = - ( (c1/t)log<sub>2</sub>(c1/t)
-+ (c2/t)log<sub>2</sub>(c2/t)
-)</td>
-<td> <input name="EntC" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="EntC_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="EntC_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Entropy H(c) = - ( (c1/t)log<sub>2</sub>(c1/t) + (c2/t)log<sub>2</sub>(c2/t))</td>
+    <td> <input name="EntC" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="EntC_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="EntC_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Entropy H(r,c) = - ( (a/t)log<sub>2</sub>(a/t)
-+ (b/t)log<sub>2</sub>(b/t)
-+ (c/t)log<sub>2</sub>(c/t) + (d/t)log<sub>2</sub>(d/t)
-)</td>
-<td> <input name="EntRC" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="EntRC_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="EntRC_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Entropy H(r,c) = - ( (a/t)log<sub>2</sub>(a/t) + (b/t)log<sub>2</sub>(b/t) + (c/t)log<sub>2</sub>(c/t) + (d/t)log<sub>2</sub>(d/t))</td>
+    <td> <input name="EntRC" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="EntRC_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="EntRC_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Information shared by descriptors r and c: B = H(r) +
-H(c)
-- H(r,c)</td>
-<td> <input name="EntIB" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="EntIB_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="EntIB_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Information shared by descriptors r and c: B = H(r) + H(c) - H(r,c)</td>
+    <td> <input name="EntIB" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="EntIB_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="EntIB_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>A = H(r,c) - H(r)</td>
-<td> <input name="EntIA" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="EntIA_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="EntIA_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>A = H(r,c) - H(r)</td>
+    <td> <input name="EntIA" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="EntIA_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="EntIA_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>C = H(r,c) - H(c)</td>
-<td> <input name="EntIC" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="EntIC_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="EntIC_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>C = H(r,c) - H(c)</td>
+    <td> <input name="EntIC" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="EntIC_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="EntIC_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Similarity of descriptors r and c: S(r,c) = B / (A +
-B + C)</td>
-<td> <input name="EntSim" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="EntSim_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="EntSim_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Similarity of descriptors r and c: S(r,c) = B / (A + B + C)</td>
+    <td> <input name="EntSim" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="EntSim_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="EntSim_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Distance between r and c: D(r,c) = (A + C) / (A + B +
-C)</td>
-<td> <input name="EntDif" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="EntDif_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="EntDif_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Distance between r and c: D(r,c) = (A + C) / (A + B + C)</td>
+    <td> <input name="EntDif" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="EntDif_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="EntDif_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 <tr>
-<td>Relative Improvement Over Chance
-(RIOC)</td>
-<td> <input name="oic" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="oic_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
-<td> <input name="oic_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td>Relative Improvement Over Chance (RIOC)</td>
+    <td> <input name="oic" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="oic_lo" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
+    <td> <input name="oic_hi" size="8" value="" onfocus="Cell_A.focus()" type="text"></td>
 </tr>
 </tbody>
 </table>
@@ -725,7 +678,13 @@ Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com
         
 
         $("#help").click(function(){
-            $("#dialog").dialog({ width: "460px", collision: "flipfit", show: true, hide: true, resizable: false });
+            $("#dialog").dialog({
+                                    width: "460px",
+                                    collision: "flipfit",
+                                    show: true, hide: true,
+                                    resizable: false,
+                                    close: function( event, ui ) { $("#help").blur(); }
+                                });
         });
     
     });
@@ -733,14 +692,14 @@ Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com
  <!-- Modal HTML embedded directly into document -->
 <div id="dialog" title="Adjusted Predictive Values">
     <div style="text-align: justify; padding: 10px;">
-        If the sample prevalence do not reflect the real prevalence of the disease,
+        &nbsp; If the sample prevalence do not reflect the real prevalence of the disease,
         then the predicted values cannot be estimated and you should ignore those values.
         Alternatively, when the disease prevalence is known, then the predictive values
         can be calculated using the following formula's based on Bayes' theorem<br/><br/>
         $$PPV={sens×prev}/{(sens×prev)+(1-spec)×(1-prev)}$$<br/><br/>
         and<br/>
-        $$NPV={spec×(1-prev)}/{(1-sens)×prev+spec×(1-prev)}$$<br/>
-        These are shown as the <b>adjusted</b> predictive values in the Derived Quantities table below.<br/><p>
+        $$NPV={spec×(1-prev)}/{(1-sens)×prev+spec×(1-prev)}.$$<br/>
+        These are shown as the <b>Adjusted</b> predictive values in the Derived Quantities table below.<br/><p>
         <i>Litt.: Statistics with Confidence (2<sup>nd</sup> Ed.), Altman et al. BMJ Books 2000</i>
     </div>
 </div>
