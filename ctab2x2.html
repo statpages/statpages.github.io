@@ -1,10 +1,13 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
-        <meta http-equiv="PICS-Label" content="(PICS-1.0 &quot;http://www.classify.org/safesurf/&quot; l on &quot;1996.08.22T13:37+0000 r (SS~~000 1)">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <script src="jquery-3.1.1.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="mathscribe/jqmath-etc-0.4.5.min.js" charset="utf-8"></script>
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=UnifrakturMaguntia">
+        <link rel="stylesheet" href="mathscribe/jqmath-0.4.3.css">
         <script src="ctab2x2.js"></script>
         <script src="norminv.js"></script>
         
@@ -722,31 +725,23 @@ Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com
         
 
         $("#help").click(function(){
-            $("#dialog").dialog();
+            $("#dialog").dialog( { width: "460px"  });
         });
     
     });
 </script>
  <!-- Modal HTML embedded directly into document -->
 <div id="dialog" title="Adjusted Predictive Values">
-  <p>
-  The predictive values of a test depend upon the prevalence of the abnormality in the patients being tested,
-  which may not be known. The values calculated assumes that the prevalence of the abnormality among the population likely to be tested is the same as in the sample.
-  In a different clinical setting the prevalence may differ considerably.<br/>
-  Predictive values observed in one study do not apply universally. The rarer the true abnormality is, 
-  the more sure we can be that a negative test indicates no abnormality, and the less sure that a positive
-  result really indicates an abnormal patient.<br/>
-  More general formulae for calculating predictive values for any prevalence is:<br/>
-  PV+ = (sens x prev) / ((sens x prev) + (1-spec) x (1-prev))  and <br/>
-  PV- = (spec x (1-prev)) / ((1-sens) x prev + spec x (1-prev))<br/>
-  where sens and spec is sensitivity and specificity.<br/>
-  The prevalence can be interpreted as the probability <i>before<i> the test is carried out that the subject has the disease,
-  also known as the prior probability of disease.
-  PV+ and PV- are the revised estimates of the probability of disease for those subjects who are positive and negative to the test,
-  and are known as <i>posteriori probabilities</i>. The comparision of the prior and posterior probabilities is one way of accessing
-  the usefulness of the test. The predictive values can change considerably with a different prevalence.<br/>
-  Cite: Statistics with Confidence (2<sup>nd</sup> Ed.), Altman et al. BMJ Books
- </p>
+    <div style="text-align: justify; padding: 10px;">
+        If the sample prevalence do not reflect the real prevalence of the disease,
+        then the predicted values cannot be estimated and you should ignore those values.
+        Alternatively, when the disease prevalence is known, then the predictive values can be calculated using the following formula's based on Bayes' theorem<br/><br/>
+        $$PPV={sens×prev}/{(sens×prev)+(1-spec)×(1-prev)}$$<br/><br/>
+        and<br/>
+        $$NPV={spec×(1-prev)}/{(1-sens)×prev+spec×(1-prev)}$$<br/>
+        These are shown as the <b>adjusted</b> predictive values in the Derived Quantities table below.<br/><p>
+        <i>Litt.: Statistics with Confidence (2<sup>nd</sup> Ed.), Altman et al. BMJ Books</i>
+    </div>
 </div>
 <!-- Merser 2016 END -->
 </body></html>

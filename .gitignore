@@ -1,3 +1,4 @@
 /cgi/*
 /stats/*
+*.DS_Store
 .DS_Store
