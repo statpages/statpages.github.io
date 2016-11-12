@@ -191,7 +191,7 @@ as 034</b>.
                 <td colspan="2" style="border:none;">
                     <input type="button" value="Run diagnostic test with above parameters" id="diagnostics">
                 </td>
-                <td id="help" style="border: none; text-align:right;">
+                <td id="showHelpDialog" style="border: none; text-align:right;">
                     <<a style="color: blue;  text-decoration: underline;">more info</a>>
                 </td>
 
@@ -682,7 +682,7 @@ Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com
         $("td#npc").html("<font style='color:red;'>*</font>Adjusted NPV");
         
 
-        $("td#help").click(function(){
+        $("td#showHelpDialog").click(function(){
             $("#dialog").dialog({
                                     width: "460px",
                                     collision: "flipfit",
@@ -691,11 +691,11 @@ Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com
                                     close: function( event, ui ) { $("#help").blur(); }
                                 });
         });
-    
+        
     });
 </script>
  <!-- Modal HTML embedded directly into document -->
-<div id="dialog" title="Adjusted Predictive Values">
+<div id="dialog" title="Adjusted Predictive Values" hidden>
     <div style="text-align: justify; padding: 10px;">
         &nbsp; If the sample prevalence do not reflect the real prevalence of the disease,
         then the predicted values cannot be estimated and you should ignore those values.
@@ -704,6 +704,7 @@ Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com
         $$PPV={sens×prev}/{(sens×prev)+(1-spec)×(1-prev)}$$<br/><br/>
         and<br/>
         $$NPV={spec×(1-prev)}/{(1-sens)×prev+spec×(1-prev)}.$$<br/>
+        where sens=Sensitivity, spec=Specificity and prev=Prevalence.
         These are shown as the <b>Adjusted</b> predictive values in the Derived Quantities table below.<br/><p>
         <i>Litt.: Statistics with Confidence (2<sup>nd</sup> Ed.), Altman et al. BMJ Books 2000</i>
     </div>
