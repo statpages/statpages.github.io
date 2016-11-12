@@ -155,7 +155,7 @@ as 034</b>.
                     <input type="text" name="prev" size="10" maxlength="10" value=".1" />
                 </td>
                 <td style="border:none;">
-                    <font style=color:red;">*</font> Enter your population prevalence estimate here if:
+                    <font style=color:red;">*</font> Enter your population prevalence estimate here
                 </td>
             </tr>
             <tr>
@@ -166,8 +166,8 @@ as 034</b>.
                 </td>
                 </td>
                     <td rowspan="3" style="border:none; text-align:justify; valign: top; width: 360px; padding-left: 12px;">
-                    A) you want to run a diagnostic test<br/>
-                    B) it turns out that the sample and actual population prevalence differs substantially.<br/>
+                    A) if you want to run a diagnostic test<br/>
+                    B) if it turns out that the sample and actual population prevalence differs substantially.<br/>
                     Consider reporting the <b>adjusted</b> PPV/NPV's.
                 </td>
             </tr>
@@ -188,8 +188,13 @@ as 034</b>.
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="border:none;"><input type="button" value="Run diagnostic test with above parameters" id="diagnostics"></td>
-                <td style="text-align:right; border:none;"><a href="#" id="help">Explain in more detail</a></td>
+                <td colspan="2" style="border:none;">
+                    <input type="button" value="Run diagnostic test with above parameters" id="diagnostics">
+                </td>
+                <td id="help" style="color: blue; text-align:right; border: none; text-decoration: underline;">
+                    More info
+                </td>
+
             </tr>
         </table>
 </div>
@@ -677,7 +682,7 @@ Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com
         $("td#npc").html("<font style='color:red;'>*</font>Adjusted NPV");
         
 
-        $("#help").click(function(){
+        $("td#help").click(function(){
             $("#dialog").dialog({
                                     width: "460px",
                                     collision: "flipfit",
