@@ -11,6 +11,23 @@
         <script src="ctab2x2.js"></script>
         <script src="norminv.js"></script>
         
+         <!-- Modal HTML embedded directly into document -->
+        <div id="dialog" title="Adjusted Predictive Values" hidden>
+            <div style="text-align: justify; padding: 10px;">
+                &nbsp; If the sample prevalence do not reflect the real prevalence of the disease,
+                then the predicted values cannot be estimated and you should ignore those values.
+                Alternatively, when the disease prevalence is known, then the predictive values
+                can be calculated using the following formula's based on Bayes' theorem<br/><br/>
+                $$PPV={sens×prev}/{(sens×prev)+(1-spec)×(1-prev)}$$<br/><br/>
+                and<br/>
+                $$NPV={spec×(1-prev)}/{(1-sens)×prev+spec×(1-prev)}$$<br/>
+                <i style="font-size: 12px;">(where sens=Sensitivity, spec=Specificity and prev=Prevalence)</i>.<p/>
+                The <b>Adjusted</b> Predictive Values is in the Derived Quantities table below.<br/><p>
+                <i>Litt.: Statistics with Confidence (2<sup>nd</sup> Ed.), Altman et al. BMJ Books 2000</i>
+            </div>
+        </div>
+        <!-- Modal END -->
+    
         <title>JavaStat -- 2-way Contingency Table Analysis</title>
     </head>
 <body style="background-color: rgb(255, 255, 238);">
@@ -146,7 +163,7 @@ as 034</b>.
         <font color="Green"><b>Diagnostic Test</b></font><br/>
         Specify disease prevalence, test sensivity, test specificity and sample size<br/>&nbsp;
         </heading>
-        <table border="">
+        <table border="1">
             <tr>
                 <td>
                     Prevalence (eg. 0.1)
@@ -650,64 +667,4 @@ Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com
 </form>
 </center>
 </div>
-<!-- Merser 2016 START -->
-<script>
-    $(document).ready(function(){
-    
-        function foo(){
-            $("td#ppc").html("<font style='color:red;'>*</font>Adjusted PPV (user set prevalence: " +  $("input[name=prev]").val()*100 + "%)");
-            $("td#npc").html("<font style='color:red;'>*</font>Adjusted NPV (user set prevalence: " +  $("input[name=prev]").val()*100 + "%)");
-        }
-    
-        $("input#compute").click(function(){
-            CalcStats(this.form);
-            $("input#csv").show();
-            foo();
-        });
-    
-        $("input#diagnostics").click(function(){
-            CalcFromDiagnostics(this.form);
-            $("input#Cell_D").focus().blur();   // Hack: needed to update the changed form
-            CalcStats(this.form);
-            $("input#csv").show();
-            foo();
-        });
-        
-        $("input#csv").click(function(){
-            saveCSV(this.form);
-            $(this).hide();
-        });
-    
-        $("td#ppc").html("<font style='color:red;'>*</font>Adjusted PPV");
-        $("td#npc").html("<font style='color:red;'>*</font>Adjusted NPV");
-        
-
-        $("td#showHelpDialog").click(function(){
-            $("#dialog").dialog({
-                                    width: "460px",
-                                    collision: "flipfit",
-                                    show: true, hide: true,
-                                    resizable: false,
-                                    close: function( event, ui ) { $("#help").blur(); }
-                                });
-        });
-        
-    });
-</script>
- <!-- Modal HTML embedded directly into document -->
-<div id="dialog" title="Adjusted Predictive Values" hidden>
-    <div style="text-align: justify; padding: 10px;">
-        &nbsp; If the sample prevalence do not reflect the real prevalence of the disease,
-        then the predicted values cannot be estimated and you should ignore those values.
-        Alternatively, when the disease prevalence is known, then the predictive values
-        can be calculated using the following formula's based on Bayes' theorem<br/><br/>
-        $$PPV={sens×prev}/{(sens×prev)+(1-spec)×(1-prev)}$$<br/><br/>
-        and<br/>
-        $$NPV={spec×(1-prev)}/{(1-sens)×prev+spec×(1-prev)}.$$<br/>
-        where sens=Sensitivity, spec=Specificity and prev=Prevalence.
-        These are shown as the <b>Adjusted</b> predictive values in the Derived Quantities table below.<br/><p>
-        <i>Litt.: Statistics with Confidence (2<sup>nd</sup> Ed.), Altman et al. BMJ Books 2000</i>
-    </div>
-</div>
-<!-- Merser 2016 END -->
 </body></html>

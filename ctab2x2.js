@@ -385,3 +385,46 @@ function rioc(a, d, c, r, t, p){
     return [rioc, rioc-z*sd, rioc+z*sd]
 }
 <!-- done hiding from old browsers -->
+
+
+$(document).ready(function(){
+
+    function foo(){
+        $("td#ppc").html("<font style='color:red;'>*</font>Adjusted PPV (user set prevalence: " +  $("input[name=prev]").val()*100 + "%)");
+        $("td#npc").html("<font style='color:red;'>*</font>Adjusted NPV (user set prevalence: " +  $("input[name=prev]").val()*100 + "%)");
+    }
+
+    $("input#compute").click(function(){
+        CalcStats(this.form);
+        $("input#csv").show();
+        foo();
+    });
+
+    $("input#diagnostics").click(function(){
+        CalcFromDiagnostics(this.form);
+        $("input#Cell_D").focus().blur();   // Hack: needed to update the changed form
+        CalcStats(this.form);
+        $("input#csv").show();
+        foo();
+    });
+
+    $("input#csv").click(function(){
+        saveCSV(this.form);
+        $(this).hide();
+    });
+
+    $("td#ppc").html("<font style='color:red;'>*</font>Adjusted PPV");
+    $("td#npc").html("<font style='color:red;'>*</font>Adjusted NPV");
+    
+
+    $("td#showHelpDialog").click(function(){
+        $("#dialog").dialog({
+                                width: "400px",
+                                collision: "flipfit",
+                                show: true, hide: true,
+                                resizable: false,
+                                close: function( event, ui ) { $("#help").blur(); }
+                            });
+    });
+
+});
