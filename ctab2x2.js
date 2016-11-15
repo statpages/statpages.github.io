@@ -388,7 +388,7 @@ $(document).ready(function(){
     function foo(){
         $("td#ppc").html("<font style='color:red;'>*</font>Adjusted PPV (user set prevalence: " +  $("input[name=prev]").val()*100 + "%)");
         $("td#npc").html("<font style='color:red;'>*</font>Adjusted NPV (user set prevalence: " +  $("input[name=prev]").val()*100 + "%)");
-        $("th#ConfLevel").html($("input[name=ConfLevel]").val() + "% Conf. Interval");
+        $("th#ConfLevel").html($("input[name=ConfLevel]").val() + "% CI");
     }
 
     foo();
