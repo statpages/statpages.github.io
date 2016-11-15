@@ -1,4 +1,3 @@
-<!-- hide this script tag's contents from old browsers
 function Ln(x) { return Math.log(x) } function Exp(x) { return Math.exp(x)}
 function xlx(x) { return x*Ln(x+1e-20) }
 function Abs(x) { return Math.abs(x) }
@@ -107,7 +106,6 @@ function CalcStats(form) {
     EntSim = EntIB / ( EntIA + EntIB + EntIC ); form.EntSim.value=Fmt(EntSim)
     EntDif = 1 - EntSim; form.EntDif.value=Fmt(EntDif)
     var pcrit = (100-form.ConfLevel.value)/100
-    form.Conf_Int_Caption.value = form.ConfLevel.value+"% Conf. Interval"
     var del=LoSlop
     Ex_B=Cell_B+LoSlop; Ex_A=Cell_A-LoSlop; Ex_D=Cell_D-LoSlop; Ex_C=Cell_C+LoSlop; var pval=0
     while(del>0.000001) {
@@ -223,10 +221,10 @@ function CalcStats(form) {
         form.npc_lo.value=Fmt(ciw(npc*Cell_r2,Cell_r2, pcrit,0))
         form.npc_hi.value=Fmt(ciw(npc*Cell_r2,Cell_r2, pcrit,1))
     }
-    var oic=rioc(Cell_A, Cell_D, Cell_c1, Cell_r1, N, pcrit)
-    form.oic.value=Fmt(oic[0])
-    form.oic_lo.value=Fmt(oic[1])
-    form.oic_hi.value=Fmt(oic[2])
+    var RIOC = rioc(Cell_A, Cell_D, Cell_c1, Cell_r1, N, pcrit)
+    form.RIOC.value=Fmt(RIOC[0])
+    form.RIOC_lo.value=Fmt(RIOC[1])
+    form.RIOC_hi.value=Fmt(RIOC[2])
 }
 
 function saveCSV(form){
@@ -294,7 +292,7 @@ function saveCSV(form){
                 ["C = H(r;c) - H(c)",                                                                                   form.EntIC.value,   form.EntIC_lo.value,  form.EntIC_hi.value],
                 ["Similarity of descriptors r and c: S(r;c) = B / (A + B + C)",                                         form.EntSim.value,  form.EntSim_lo.value, form.EntSim_hi.value],
                 ["Distance between r and c: D(r;c) = (A + C) / (A + B + C)",                                            form.EntDif.value,  form.EntDif_lo.value, form.EntDif_hi.value],
-                ["Relative Improvement Over Chance)",                                                                   form.oic.value,     form.oic_lo.value,    form.oic_hi.value],
+                ["Relative Improvement Over Chance (RIOC)",                                                             form.RIOC.value,    form.RIOC_lo.value,   form.RIOC_hi.value],
             [],
             ["Lower limiting table"],
                 [form.Low_A.value, form.Low_B.value],
@@ -351,10 +349,8 @@ function CalcFromDiagnostics(form) {
     var sens = form.sens.value
     var spec = form.spec.value
     var N    = form.tssz.value
-    
     if(N=="")
         N=1000;
-    
     form.Cell_A.value=N*sens*prev;
     form.Cell_B.value=(N*(1-prev))-(N*(1-prev)*spec)
     form.Cell_C.value=(N*prev)-(N*prev*sens)
@@ -363,11 +359,12 @@ function CalcFromDiagnostics(form) {
 function ciw(r,n,p,lv){
 // Conf. Int. for proportion. Ref: Statistics with Confidence DG Altman et al. 2.ed; Single sampleCI, Wilson method; p. 46
 // r: observed positive, n: sample size, p: alfa, lv: CI level (lower:0, upper:1)
-    z=normsInv(1-p/2, 0, 1)
-    q=1-r/n
-    a=2*r+z*z
-    b=z*Math.sqrt(z*z+4*r*q)
-    c=2*(n+z*z)
+    var z = normsInv(1-p/2, 0, 1)
+    var q = 1-r/n
+    var a = 2*r+z*z
+    var b = z*Math.sqrt(z*z+4*r*q)
+    var c = 2*(n+z*z)
+    var lv; var ci;
     if(lv==0)
         ci=(a-b)/c
     else
@@ -377,14 +374,13 @@ function ciw(r,n,p,lv){
 function rioc(a, d, c, r, t, p){
 // Relative Improvement Over Chance (RIOC) and Phi as Measures of Predictive Efficiency and Strength of Association in 2 × 2 TablesDavid P. Farrington and Rolf Loeber
 // Journal of Quantitative Criminology, Vol. 5, No. 3 (September 1989), pp. 201-213
-    x=( t*(a+d)-(r*c+(t-r)*(t-c)) )
-    y=( Math.min(t*(c+t-r), t*(r+t-c))-(r*c+(t-r)*(t-c)) )
-    rioc=x/y
-    sd=Math.sqrt((r*(t-c))/(t*c*(t-r)))
-    z=normsInv(1-p/2, 0, 1)
+    var x = ( t*(a+d)-(r*c+(t-r)*(t-c)) )
+    var y = ( Math.min(t*(c+t-r), t*(r+t-c))-(r*c+(t-r)*(t-c)) )
+    var rioc = x/y
+    var sd = Math.sqrt((r*(t-c))/(t*c*(t-r)))
+    var z = normsInv(1-p/2, 0, 1)
     return [rioc, rioc-z*sd, rioc+z*sd]
 }
-<!-- done hiding from old browsers -->
 
 
 $(document).ready(function(){
@@ -392,20 +388,24 @@ $(document).ready(function(){
     function foo(){
         $("td#ppc").html("<font style='color:red;'>*</font>Adjusted PPV (user set prevalence: " +  $("input[name=prev]").val()*100 + "%)");
         $("td#npc").html("<font style='color:red;'>*</font>Adjusted NPV (user set prevalence: " +  $("input[name=prev]").val()*100 + "%)");
+        $("th#ConfLevel").html($("input[name=ConfLevel]").val() + "% Conf. Interval");
     }
 
+    foo();
+
     $("input#compute").click(function(){
+        $("input#Cell_D").focus().blur();   // Hack: needed to update the changed form
+        foo();
         CalcStats(this.form);
         $("input#csv").show();
-        foo();
     });
 
     $("input#diagnostics").click(function(){
         CalcFromDiagnostics(this.form);
         $("input#Cell_D").focus().blur();   // Hack: needed to update the changed form
+        foo();
         CalcStats(this.form);
         $("input#csv").show();
-        foo();
     });
 
     $("input#csv").click(function(){
@@ -413,18 +413,14 @@ $(document).ready(function(){
         $(this).hide();
     });
 
-    $("td#ppc").html("<font style='color:red;'>*</font>Adjusted PPV");
-    $("td#npc").html("<font style='color:red;'>*</font>Adjusted NPV");
-    
-
     $("td#showHelpDialog").click(function(){
         $("#dialog").dialog({
-                                width: "400px",
-                                collision: "flipfit",
-                                show: true, hide: true,
-                                resizable: false,
-                                close: function( event, ui ) { $("#help").blur(); }
-                            });
+            width: "400px",
+            collision: "flipfit",
+            show: true, hide: true,
+            resizable: false,
+            close: function( event, ui ) { $("#help").blur(); }
+        });
     });
 
 });
