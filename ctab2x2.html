@@ -11,6 +11,15 @@
         <script src="ctab2x2.js"></script>
         <script src="norminv.js"></script>
         
+        <link rel="stylesheet" href="jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
+        <!--<script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script>-->
+        <script type="text/javascript" src="jqwidgets/jqwidgets/jqxcore.js"></script>
+        <script type="text/javascript" src="jqwidgets/jqwidgets/jqxbuttons.js"></script>
+        <script type="text/javascript" src="jqwidgets/jqwidgets/jqxscrollbar.js"></script>
+        <script type="text/javascript" src="jqwidgets/jqwidgets/jqxlistbox.js"></script>
+        <script type="text/javascript" src="jqwidgets/jqwidgets/jqxcombobox.js"></script>
+        
+        
          <!-- Modal HTML embedded directly into document -->
         <div id="dialog" title="Adjusted Predictive Values" hidden>
             <div style="text-align: justify; padding: 10px;">
@@ -29,6 +38,10 @@
         <!-- Modal END -->
     
         <title>JavaStat -- 2-way Contingency Table Analysis</title>
+        <style>
+            input.tot { border:none; background-color:ffffee; disabled:true }
+            table.observed td input, table.observed td { text-align: center; }
+        </style>
     </head>
 <body style="background-color: rgb(255, 255, 238);">
 <center>
@@ -78,22 +91,15 @@ For more information about a particular index, click on the &lt;<font color="Blu
 </p>
 <p> </p>
 <hr>
-<p>Enter numbers into the four cells below. Make sure that the
-row and
-column
-totals add up correctly. Then click the Compute button.
+<p><center style="text-align: center; font-weight:bold">Enter the observed numbers into the four cells below. Make sure that the row and column totals add up correctly. Then click the Compute button.</center>
 </p>
-<p><font color="Red"><b>Warning: Do not enter
-cell counts with a
-leading zero!
-</b>That is, if a cell count is 34, enter it as 34, <b>not
-as 034</b>.
+<p><font style="color:red; font-style:italic;"><b>Warning: Do not enter cell counts with a leading zero! </b>That is, if a cell count is 34, enter it as 34, <b>not as 034</b>.
 &nbsp;Some browsers will mis-interpret some numbers entered with leading zeros, and will produce <b>wrong results</b> (with no warning message).</font>
 <p>
 <center>
 <p><br/>
 <form id="form">
-<table border="1">
+<table border="1" class="observed">
     <heading>
         <font color="Blue"><b>Observed Contingency Table</b></font><br/>&nbsp;
     </heading>
@@ -121,7 +127,7 @@ as 034</b>.
                 <input name="Cell_B" size="8" value="" onfocus="Cell_B.select()" onblur="CalcTots(this.form)" type="text"> = b
             </td>
             <td>
-                <input name="Cell_r1" size="8" value="" onfocus="Cell_C.focus()" type="text"> = r1
+                <input class="tot" name="Cell_r1" size="8" value="" onfocus="Cell_C.focus()" type="text"> = r1
             </td>
         </tr>
         <tr>
@@ -135,7 +141,7 @@ as 034</b>.
                 <input name="Cell_D" size="8" value="" onfocus="Cell_D.select()" onblur="CalcTots(this.form)" type="text" id="Cell_D"> = d
             </td>
             <td>
-                <input name="Cell_r2" size="8" value="" onfocus="Cell_A.focus()" type="text" >= r2
+                <input class="tot" name="Cell_r2" size="8" value="" onfocus="Cell_A.focus()" type="text" >= r2
             </td>
         </tr>
         <tr>
@@ -143,21 +149,27 @@ as 034</b>.
                 Totals
             </td>
             <td>
-                <input name="Cell_c1" size="8" value="" onfocus="Cell_A.focus()" type="text"> = c1
+                <input class="tot" name="Cell_c1" size="8" value="" onfocus="Cell_A.focus()" type="text"> = c1
             </td>
             <td>
-                <input name="Cell_c2" size="8" value="" onfocus="Cell_A.focus()" type="text"> = c2
+                <input class="tot" name="Cell_c2" size="8" value="" onfocus="Cell_A.focus()" type="text"> = c2
             </td>
             <td>
-                <input name="t" size="8" value="" onfocus="Cell_A.focus()" type="text"> = t
+                <input class="tot" name="t" size="8" value="" onfocus="Cell_A.focus()" type="text"> = t
             </td>
         </tr>
     </tbody>
 </table>
-<p> Confidence Level: <input name="ConfLevel" size="8" value="95" type="text"> % </p>
-<p> <input type="button" value="Compute" id="compute"> <input type="button" value="Download result as CSV" id="csv" hidden> <br>
-<p><br/>
 <!-- Merser 2016 Start-->
+<p/>
+<div>
+    <div style="display: inline-block;">Confidence Level:&nbsp; </div>
+    <div style="display: inline-block;" name="ConfLevel" id="jqxcombobox"></div>
+    <div style="display: inline-block;">&nbsp;%</div>
+    <br/><i>Select from list or enter a more appropriate conf. level</i>
+    <p> <input type="button" value="Compute" id="compute"> <input type="button" value="Download result as CSV" id="csv" hidden>
+</div>
+<p/><br/><br/>
 <div style="width: 60%; ">
         <heading>
         <font color="Green"><b>Diagnostic Test</b></font><br/>

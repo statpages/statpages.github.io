@@ -423,4 +423,22 @@ $(document).ready(function(){
         });
     });
 
+    var source = [
+        "99",
+        "97.5",
+        "95",
+        "90",
+        "75",
+        "50",
+    ];
+    
+    // Create a jqxComboBox
+    $("#jqxcombobox").jqxComboBox({ source: source, selectedIndex: 2, width: '60px', height: '25px' });
+    
+    // bind to 'select' event.
+    $('#jqxcombobox').bind('select', function (event) {
+        var args = event.args;
+        var item = $('#jqxcombobox').jqxComboBox('getItem', args.index);
+    });
+
 });
