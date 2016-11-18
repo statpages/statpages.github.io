@@ -2,17 +2,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <script src="jquery-3.1.1.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <script src="mathscribe/jqmath-etc-0.4.5.min.js" charset="utf-8"></script>
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=UnifrakturMaguntia">
-        <link rel="stylesheet" href="mathscribe/jqmath-0.4.3.css">
-        <script src="ctab2x2.js"></script>
-        <script src="norminv.js"></script>
+        <script type="text/javascript" src="mathscribe/jqmath-etc-0.4.5.min.js" charset="utf-8"></script>
+        <link   type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=UnifrakturMaguntia">
+        <link   type="text/css" rel="stylesheet" href="mathscribe/jqmath-0.4.3.css">
+        <script type="text/javascript" src="ctab2x2.js"></script>
+        <script type="text/javascript" src="norminv.js"></script>
         
-        <link rel="stylesheet" href="jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
-        <!--<script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script>-->
+        <link   type="text/css"rel="stylesheet" href="jqwidgets/jqwidgets/styles/jqx.base.css" />
         <script type="text/javascript" src="jqwidgets/jqwidgets/jqxcore.js"></script>
         <script type="text/javascript" src="jqwidgets/jqwidgets/jqxbuttons.js"></script>
         <script type="text/javascript" src="jqwidgets/jqwidgets/jqxscrollbar.js"></script>
@@ -38,21 +37,17 @@
         <!-- Modal END -->
     
         <title>JavaStat -- 2-way Contingency Table Analysis</title>
+
         <style>
-            input.tot { border:none; background-color:ffffee; disabled:true }
+            // center both <td> and <input> content 
             table.observed td input, table.observed td { text-align: center; }
         </style>
+
     </head>
 <body style="background-color: rgb(255, 255, 238);">
 <center>
 <h2> <font color="Red">2-way Contingency Table
 Analysis </font> </h2>
-<p>
-<div style="text-align:left; padding-left:30%;">
-    Revised: 11/06/2016 -- added Adjusted predictive values (Merser)<br/>
-    Revised: 11/04/2016 -- added Diagnostic Test and RIOC, Relative Improvement Over Chance (suggested by Michael Meier)<br/>
-    Revised: 07/23/2013 -- added NNM, the Number Needed to Mis-diagnose (thanks to Farrokh Habibzadeh)<br/>
-</div>
 </p>
 </center>
 <p>
@@ -85,13 +80,13 @@ For more information about a particular index, click on the &lt;<font color="Blu
     Section 5.6, &nbsp;by Joseph L. Fleiss (Pub: John Wiley &amp; Sons, New York, 1981).
     This method is also described in Numerical Recipes in C (2nd Ed.) Section 15.6, by William H. Press et al. (Pub: Cambridge University Press, Cambridge UK, 1992).<br/>
     Wilson's method is used to find CI for adjusted predictive values. Ref: <i>Statistics with Confidence (2<sup>nd</sup> Ed.)</i>
-    by DG Altman et al. (Pub: British Medical Journal Books, UK 2000) p.46-7.<br/>
+    by DG Altman et al. (Pub: British Medical Journal Books, UK 2000) p .46-7.<br/>
     The reference used for CI calculation for RIOC is: Relative Improvement Over Chance (RIOC) and Phi as Measures of Predictive Efficiency and Strength of Association in 2 × 2 TablesDavid P. Farrington and Rolf Loeber.
-    Journal of Quantitative Criminology, Vol. 5, No. 3 (September 1989), pp. 201-213.
+    Journal of Quantitative Criminology, Vol. 5, No. 3 (September 1989), p. 201-213.
 </p>
 <p> </p>
 <hr>
-<p><center style="text-align: center; font-weight:bold">Enter the observed numbers into the four cells below. Make sure that the row and column totals add up correctly. Then click the Compute button.</center>
+<p><center style="text-align: center; font-weight:bold">Enter the observed numbers into the four cells below. Move between cells using tab-key. Make sure that the row and column totals add up correctly. Then click the Compute button.</center>
 </p>
 <p><font style="color:red; font-style:italic;"><b>Warning: Do not enter cell counts with a leading zero! </b>That is, if a cell count is 34, enter it as 34, <b>not as 034</b>.
 &nbsp;Some browsers will mis-interpret some numbers entered with leading zeros, and will produce <b>wrong results</b> (with no warning message).</font>
@@ -99,13 +94,18 @@ For more information about a particular index, click on the &lt;<font color="Blu
 <center>
 <p><br/>
 <form id="form">
-<table border="1" class="observed">
+<table border="1" frame="void" class="observed">
     <heading>
         <font color="Blue"><b>Observed Contingency Table</b></font><br/>&nbsp;
     </heading>
     <tbody>
         <tr>
-            <td>
+            <td colspan="2" style="border:0;"></td>
+            <td colspan="2">Condition</td>
+            <td style="border:0;"></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="border:0;">
             </td>
             <td>
                 Outcome Occurred
@@ -113,21 +113,23 @@ For more information about a particular index, click on the &lt;<font color="Blu
             <td>
                 Outcome did not Occur
             </td>
-            <td style="text-align:center;">
+            <td>
                 Totals
             </td>
         </tr>
         <tr>
+            <td rowspan="2">
+                T<br/>e<br/>s<br/>t
+            </td>
             <td>
                 Risk Factor Present<br> or Dx Test Positive</td>
             <td>
-                <input name="Cell_A" size="8" value="" onfocus="Cell_A.select()" onblur="CalcTots(this.form)" type="text"> = a
+                <input name="Cell_A" size="8" value="" onfocus="Cell_A.select()" onblur="CalcTots(this.form)" type="text"> = a (TP)
             </td>
             <td>
-                <input name="Cell_B" size="8" value="" onfocus="Cell_B.select()" onblur="CalcTots(this.form)" type="text"> = b
+                <input name="Cell_B" size="8" value="" onfocus="Cell_B.select()" onblur="CalcTots(this.form)" type="text"> = b (FP)
             </td>
-            <td>
-                <input class="tot" name="Cell_r1" size="8" value="" onfocus="Cell_C.focus()" type="text"> = r1
+            <td id="r1">
             </td>
         </tr>
         <tr>
@@ -135,27 +137,25 @@ For more information about a particular index, click on the &lt;<font color="Blu
                 Risk Factor Absent<br>or Dx Test Negative
             </td>
             <td>
-                <input name="Cell_C" size="8" value="" onfocus="Cell_C.select()" onblur="CalcTots(this.form)" type="text"> = c
+                <input name="Cell_C" size="8" value="" onfocus="Cell_C.select()" onblur="CalcTots(this.form)" type="text"> = c (FN)
             </td>
             <td>
-                <input name="Cell_D" size="8" value="" onfocus="Cell_D.select()" onblur="CalcTots(this.form)" type="text" id="Cell_D"> = d
+                <input name="Cell_D" size="8" value="" onfocus="Cell_D.select()" onblur="CalcTots(this.form)" type="text" id="Cell_D"> = d (TN)
             </td>
-            <td>
-                <input class="tot" name="Cell_r2" size="8" value="" onfocus="Cell_A.focus()" type="text" >= r2
+            <td id="r2">
             </td>
         </tr>
-        <tr>
+        <tr >
+            <td style="border:0;">
+            </td>
             <td>
                 Totals
             </td>
-            <td>
-                <input class="tot" name="Cell_c1" size="8" value="" onfocus="Cell_A.focus()" type="text"> = c1
+            <td id="c1">
             </td>
-            <td>
-                <input class="tot" name="Cell_c2" size="8" value="" onfocus="Cell_A.focus()" type="text"> = c2
+            <td id="c2">
             </td>
-            <td>
-                <input class="tot" name="t" size="8" value="" onfocus="Cell_A.focus()" type="text"> = t
+            <td id="t" >
             </td>
         </tr>
     </tbody>
@@ -218,7 +218,7 @@ For more information about a particular index, click on the &lt;<font color="Blu
             </tr>
             <tr>
                 <td colspan="2" style="border:none;">
-                    <input type="button" value="Run diagnostic test with above parameters" id="diagnostics">
+                    <input type="button" value="Run diagnostic test with above parameters" id="diagnostics" style="color:green;">
                 </td>
                 <td id="showHelpDialog" style="border: none; text-align:right;">
                     <<a style="color: blue;  text-decoration: underline;">more info</a>>

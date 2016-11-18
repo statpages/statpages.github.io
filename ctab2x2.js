@@ -5,6 +5,7 @@ function Sqrt(x) { return Math.sqrt(x) }
 function Cos(x) { return Math.cos(x) }
 function Pow(x,n) { return Math.pow(x,n) }
 function fEnt( x ) { return x * Ln(x) / Ln(2) }
+// Global variables
 var Pi=3.141592653589793; Pi2=2*Pi; LnPi2 = Ln(Pi2); PiD2=Pi/2
 var Cell_A; var Cell_B; var Cell_C; var Cell_D; var N
 var Cell_r1; var Cell_r2; var Cell_c1; var Cell_c2; var t
@@ -13,22 +14,27 @@ var cs; var od; var rr; var kp; var fc; var mcr; var sn; var sp; var pp; var np
 var arr; var rrr; var plr; var nlr; var dor; var yj; var nnd
 var dp; var nn; var nmi; var cc; var ca; var cp; var yq; var ets
 function CalcTots(form) {
-Cell_A = eval(form.Cell_A.value)
-Cell_B = eval(form.Cell_B.value)
-Cell_C = eval(form.Cell_C.value)
-Cell_D = eval(form.Cell_D.value)
-N      =Cell_A+Cell_B+Cell_C+Cell_D
-
-Cell_r1 = Cell_A+Cell_B
-Cell_r2 = Cell_C+Cell_D
-Cell_c1 = Cell_A+Cell_C
-Cell_c2 = Cell_B+Cell_D
-t = Cell_A+Cell_B+Cell_C+Cell_D
-form.Cell_r1.value = ''+(Cell_r1)
-form.Cell_r2.value = ''+(Cell_r2)
-form.Cell_c1.value = ''+(Cell_c1)
-form.Cell_c2.value = ''+(Cell_c2)
-form.t.value = ''+(t)
+    Cell_A = eval(form.Cell_A.value)
+    Cell_B = eval(form.Cell_B.value)
+    Cell_C = eval(form.Cell_C.value)
+    Cell_D = eval(form.Cell_D.value)
+    Cell_r1 = Cell_A+Cell_B
+    Cell_r2 = Cell_C+Cell_D
+    Cell_c1 = Cell_A+Cell_C
+    Cell_c2 = Cell_B+Cell_D
+    // Update row and column totals
+    if(typeof Cell_A !== "undefined" & typeof Cell_B !== "undefined")
+        document.getElementById("r1").innerText = Cell_r1 + " = r1"
+    if(typeof Cell_C !== "undefined" & typeof Cell_D !== "undefined")
+        document.getElementById("r2").innerText = Cell_r2 + " = r2"
+    if(typeof Cell_A !== "undefined" & typeof Cell_C !== "undefined")
+        document.getElementById("c1").innerText = Cell_c1 + " = c1"
+    if(typeof Cell_B !== "undefined" & typeof Cell_D !== "undefined")
+        document.getElementById("c2").innerText = Cell_c2 + " = c2"
+    if((typeof Cell_A !== "undefined") & (typeof Cell_B !== "undefined") & (typeof Cell_C !== "undefined") & (typeof Cell_D !== "undefined")) {
+        t = Cell_A + Cell_B + Cell_C + Cell_D
+        document.getElementById("t" ).innerText = t + " = t"
+        }
 }
 function CalcStats(form) {
     var LoSlop = Cell_A; if(Cell_D<Cell_A) { LoSlop = Cell_D }
@@ -68,7 +74,7 @@ function CalcStats(form) {
     fc=(Cell_A+Cell_D)/t; form.fc.value=Fmt(fc); form.mcr.value=Fmt(1-fc)
     sn=Cell_A/Cell_c1; form.sn.value=Fmt(sn)
     sp=Cell_D/Cell_c2; form.sp.value=Fmt(sp)
-    pv=(Cell_A+Cell_C)/N; form.pv.value=Fmt(pv)     // observed (sample) prevalence
+    pv=(Cell_A+Cell_C)/t; form.pv.value=Fmt(pv)     // observed (sample) prevalence
     pp=Cell_A/Cell_r1; form.pp.value=Fmt(pp)
     pf=parseFloat(form.prev.value); // user given prevalence
     ppc=(sn*pf)/( (sn*pf)+(1-sp)*(1-pf) ); form.ppc.value=Fmt(ppc)  // PP corrected for user specified prevalence
@@ -131,8 +137,8 @@ function CalcStats(form) {
     yj=sn+sp-1; form.yj_lo.value=Fmt(yj)
     nnd=1/yj; form.nnd_hi.value=Fmt(nnd)
     nnm=1/(1-fc); form.nnm_lo.value=Fmt(nnm)
-    form.pv_lo.value=Fmt(ciw(Cell_c1,N, pcrit,0))
-    form.pv_hi.value=Fmt(ciw(Cell_c1,N, pcrit,1))
+    form.pv_lo.value=Fmt(ciw(Cell_c1,t, pcrit,0))
+    form.pv_hi.value=Fmt(ciw(Cell_c1,t, pcrit,1))
     pp=Ex_A/Cell_r1; form.pp_lo.value=Fmt(pp)
     form.ppc_lo.value=Fmt(ciw(ppc*Cell_r1,Cell_r1, pcrit,0))
     form.ppc_hi.value=Fmt(ciw(ppc*Cell_r1,Cell_r1, pcrit,1))
@@ -221,7 +227,7 @@ function CalcStats(form) {
         form.npc_lo.value=Fmt(ciw(npc*Cell_r2,Cell_r2, pcrit,0))
         form.npc_hi.value=Fmt(ciw(npc*Cell_r2,Cell_r2, pcrit,1))
     }
-    var RIOC = rioc(Cell_A, Cell_D, Cell_c1, Cell_r1, N, pcrit)
+    var RIOC = rioc(Cell_A, Cell_D, Cell_c1, Cell_r1, t, pcrit)
     form.RIOC.value=Fmt(RIOC[0])
     form.RIOC_lo.value=Fmt(RIOC[1])
     form.RIOC_hi.value=Fmt(RIOC[2])
@@ -231,9 +237,9 @@ function saveCSV(form){
     var data = [
             ["Observed Contingency Table"],
                 ["", "Outcome Occurred","Outcome did not Occur","Totals"],
-                ["Risk Factor Present or Dx Test Positive", form.Cell_A.value, form.Cell_B.value, form.Cell_r1.value],
-                ["Risk Factor Absentor Dx Test Negative",   form.Cell_C.value, form.Cell_D.value, form.Cell_r2.value],
-                ["Totals",                                  form.Cell_c1.value, form.Cell_c2.value, form.Cell_A.value + form.Cell_B.value + form.Cell_C.value + form.Cell_D.value],
+                ["Risk Factor Present or Dx Test Positive", Cell_A, Cell_B, Cell_A + Cell_B],
+                ["Risk Factor Absentor Dx Test Negative",   Cell_C, Cell_D, Cell_C + Cell_D],
+                ["Totals",                                  Cell_A + Cell_C, Cell_B + Cell_D, t],
             [],
             ["Confidence Level", form.ConfLevel.value + "%"],
             [],
@@ -386,26 +392,29 @@ function rioc(a, d, c, r, t, p){
 $(document).ready(function(){
 
     function foo(){
+        // Show prevalence in adjusted predictive values fields
         $("td#ppc").html("<font style='color:red;'>*</font>Adjusted PPV (user set prevalence: " +  $("input[name=prev]").val()*100 + "%)");
         $("td#npc").html("<font style='color:red;'>*</font>Adjusted NPV (user set prevalence: " +  $("input[name=prev]").val()*100 + "%)");
+        // Show conf. level in table head
         $("th#ConfLevel").html($("input[name=ConfLevel]").val() + "% CI");
     }
 
     foo();
+    $("input[name=Cell_A]").focus();
 
     $("input#compute").click(function(){
         $("input#Cell_D").focus().blur();   // Hack: needed to update the changed form
         foo();
-        CalcStats(this.form);
         $("input#csv").show();
+        CalcStats(this.form);
     });
 
     $("input#diagnostics").click(function(){
         CalcFromDiagnostics(this.form);
         $("input#Cell_D").focus().blur();   // Hack: needed to update the changed form
         foo();
-        CalcStats(this.form);
         $("input#csv").show();
+        CalcStats(this.form);
     });
 
     $("input#csv").click(function(){
@@ -434,11 +443,5 @@ $(document).ready(function(){
     
     // Create a jqxComboBox
     $("#jqxcombobox").jqxComboBox({ source: source, selectedIndex: 2, width: '60px', height: '25px' });
-    
-    // bind to 'select' event.
-    $('#jqxcombobox').bind('select', function (event) {
-        var args = event.args;
-        var item = $('#jqxcombobox').jqxComboBox('getItem', args.index);
-    });
 
 });
