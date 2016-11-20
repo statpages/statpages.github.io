@@ -41,6 +41,9 @@
         <!-- center both <td> and <input> content -->
         <style>
             table.observed td input, table.observed td { text-align: center; }
+            #tbl { border-collapse:collapse; text-align: center; width:75%; frame: void;}
+            #tbl td { padding:2px; background-color:white; text-align:center; }
+            caption { color: red; padding-bottom: 6px; font-weight: bold;}
         </style>
         
     </head>
@@ -95,9 +98,9 @@ For more information about a particular index, click on the &lt;<font color="Blu
 <p><br/>
 <form id="form">
 <table border="1" frame="void" class="observed">
-    <heading>
-        <font color="Blue"><b>Observed Contingency Table</b></font><br/>&nbsp;
-    </heading>
+    <caption>
+        <font color="Blue"><b>Observed Contingency Table</b></font>
+    </caption>
     <tbody>
         <tr>
             <td colspan="2" style="border:0;"></td>
@@ -171,10 +174,10 @@ For more information about a particular index, click on the &lt;<font color="Blu
 </div>
 <p/><br/><br/>
 <div style="width: 60%; ">
-        <heading>
+        <caption>
         <font color="Green"><b>Diagnostic Test</b></font><br/>
         Specify disease prevalence, test sensivity, test specificity and sample size<br/>&nbsp;
-        </heading>
+        </caption>
         <table border="1">
             <tr>
                 <td>
@@ -228,13 +231,89 @@ For more information about a particular index, click on the &lt;<font color="Blu
         </table>
 </div>
 <p><br/><p><p><br/><p>
+<div class="hidden-tables" hidden>
+<table align="center" style="text-align: center; border-spacing: 60px; vertical-align: top; width: 160px;">
+    <tr>
+        <td valign="top">
+            <table border="1" id="tbl">
+                <caption>
+                    Expected Frequencies
+                </caption>
+                <tr>
+                    <td id="ex_a"></td>
+                    <td id="ex_b"></td>
+                </tr>
+                <tr>
+                    <td id="ex_c"></td>
+                    <td id="ex_d"></td>
+                </tr>
+            </table>
+        </td>
+        <td valign="top">
+            <table border="1" id="tbl">
+                <caption>
+                    Cell Propotions
+                </caption>
+                <tr>
+                    <td id="pr_a"></td>
+                    <td id="pr_b"></td>
+                    <td id="pr_r1"></td>
+                </tr>
+                <tr>
+                    <td id="pr_c"></td>
+                    <td id="pr_d"></td>
+                    <td id="pr_r2"></td>
+                <tr>
+                    <td id="pr_c1"></td>
+                    <td id="pr_c2"></td>
+                </tr>
+            </table>
+        </td>
+        <td valign="top">
+            <table border="1" id="tbl">
+                <caption>
+                    Row Propotions
+                </caption>
+                <tr>
+                    <td id="row_pr_a"></td>
+                    <td id="row_pr_b"></td>
+                    <td id="row_pr_r1"></td>
+                </tr>
+                <tr>
+                    <td id="row_pr_c"></td>
+                    <td id="row_pr_d"></td>
+                    <td id="row_pr_r2"></td>
+            </table>
+        </td>
+        <td valign="top"> 
+            <table border="1" id="tbl">
+                <caption>
+                    Column Propotions
+                </caption>
+                <tr>
+                    <td id="col_pr_a"></td>
+                    <td id="col_pr_b"></td>
+                </tr>
+                <tr>
+                    <td id="col_pr_c"></td>
+                    <td id="col_pr_d"></td>
+                <tr>
+                    <td id="col_pr_c1"></td>
+                    <td id="col_pr_c2"></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</div>
+<p><br/><p><p>
 
 <!-- Merser 2016 End -->
 <div style="width: 60%;">
 <table border="1">
-    <heading>
-        <font color="Red"><b>Chi-Square Tests</b></font><br/>&nbsp;
-    </heading>
+    <caption>
+        Chi-Square Tests<br/>&nbsp;
+    </caption>
     <tbody>
         <tr>
             <th>
@@ -296,9 +375,9 @@ For more information about a particular index, click on the &lt;<font color="Blu
 <p><br/>
 <p> 
 <table border="1">
-    <heading>
-        <font color="Red"><b>Fisher Exact Test</b></font><br/>&nbsp;
-    </heading>
+    <caption>
+        Fisher Exact Test<br/>&nbsp;
+    </caption>
     <tbody>
         <tr>
             <th>
@@ -367,9 +446,9 @@ For more information about a particular index, click on the &lt;<font color="Blu
 <p><br/>
 <br/>
 <table border="1">
-    <heading>
-        <font color="Red"><b>Quantities derived from a 2-by-2 table</b></font><br/>&nbsp;
-    </heading>
+    <caption>
+        Quantities derived from a 2-by-2 table<br/>&nbsp;
+    </caption>
 <tbody>
     <tr>
         <th>

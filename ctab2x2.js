@@ -65,6 +65,34 @@ function CalcStats(form) {
     Ex_B = Cell_r1*Cell_c2/t; Sav_B = Ex_B
     Ex_C = Cell_r2*Cell_c1/t; Sav_C = Ex_C
     Ex_D = Cell_r2*Cell_c2/t; Sav_D = Ex_D
+    // Insert Expected frequencies
+    document.getElementById("ex_a").innerText = Fmt(Ex_A)
+    document.getElementById("ex_b").innerText = Fmt(Ex_B)
+    document.getElementById("ex_c").innerText = Fmt(Ex_C)
+    document.getElementById("ex_d").innerText = Fmt(Ex_D)
+    // Insert Proportions
+    document.getElementById("pr_a").innerText  = Fmt(Cell_A/t)
+    document.getElementById("pr_b").innerText  = Fmt(Cell_B/t)
+    document.getElementById("pr_c").innerText  = Fmt(Cell_C/t)
+    document.getElementById("pr_d").innerText  = Fmt(Cell_D/t)
+    document.getElementById("pr_r1").innerText = Fmt((Cell_A+Cell_B)/t)
+    document.getElementById("pr_r2").innerText = Fmt((Cell_C+Cell_D)/t)
+    document.getElementById("pr_c1").innerText = Fmt((Cell_A+Cell_C)/t)
+    document.getElementById("pr_c2").innerText = Fmt((Cell_B+Cell_D)/t)
+    // Insert Col Proportions
+    document.getElementById("col_pr_a").innerText  = Fmt(Cell_A/(Cell_A+Cell_C))
+    document.getElementById("col_pr_b").innerText  = Fmt(Cell_B/(Cell_B+Cell_D))
+    document.getElementById("col_pr_c").innerText  = Fmt(Cell_C/(Cell_A+Cell_C))
+    document.getElementById("col_pr_d").innerText  = Fmt(Cell_D/(Cell_B+Cell_D))
+    document.getElementById("col_pr_c1").innerText = Fmt((Cell_A+Cell_C)/t)
+    document.getElementById("col_pr_c2").innerText = Fmt((Cell_B+Cell_D)/t)
+    // Insert Row Proportions
+    document.getElementById("row_pr_a").innerText  = Fmt(Cell_A/(Cell_A+Cell_B))
+    document.getElementById("row_pr_b").innerText  = Fmt(Cell_B/(Cell_A+Cell_B))
+    document.getElementById("row_pr_c").innerText  = Fmt(Cell_C/(Cell_C+Cell_D))
+    document.getElementById("row_pr_d").innerText  = Fmt(Cell_D/(Cell_C+Cell_D))
+    document.getElementById("row_pr_r1").innerText = Fmt((Cell_A+Cell_B)/t)
+    document.getElementById("row_pr_r2").innerText = Fmt((Cell_C+Cell_D)/t)
     cs=csq(Cell_A,Ex_A,.5)+csq(Cell_B,Ex_B,.5)+csq(Cell_C,Ex_C,.5)+csq(Cell_D,Ex_D,.5)
     form.csyc.value = Fmt(cs)
     form.csyc_p.value = Fmt(Csp(cs))
@@ -243,6 +271,24 @@ function saveCSV(form){
             [],
             ["Confidence Level", form.ConfLevel.value + "%"],
             [],
+            ["Expected Frequencies"],
+                [Sav_A, Sav_B],
+                [Sav_C, Sav_D],
+            [],
+            ["Cell Proportions"],
+                [Cell_A/t, Cell_B/t, (Cell_A+Cell_B)/t],
+                [Cell_C/t, Cell_D/t, (Cell_C+Cell_D)/t],
+                [(Cell_A+Cell_C)/t, (Cell_B+Cell_D)/t],
+            [],
+            ["Row Proportions"],
+                [Cell_A/(Cell_A+Cell_B), Cell_B/(Cell_A+Cell_B), (Cell_A+Cell_B)/t],
+                [Cell_C/(Cell_C+Cell_D), Cell_D/(Cell_C+Cell_D), (Cell_C+Cell_D)/t],
+            [],
+            ["Column Proportions"],
+                [Cell_A/(Cell_A+Cell_C), Cell_B/(Cell_B+Cell_D)],
+                [Cell_C/(Cell_A+Cell_C), Cell_D/(Cell_B+Cell_D)],
+                [(Cell_A+Cell_C)/t, (Cell_B+Cell_D)/t],
+            [],
             ["Chi-Square Tests"],
                 ["Type of Test", "Chi Square", "d.f.", "p-value"],
                 ["Pearson Uncorrected", form.csny.value, form.dfny.value, form.csny_p.value],
@@ -406,6 +452,7 @@ $(document).ready(function(){
         $("input#Cell_D").focus().blur();   // Hack: needed to update the changed form
         foo();
         $("input#csv").show();
+        $("div.hidden-tables").show();
         CalcStats(this.form);
     });
 
@@ -414,6 +461,7 @@ $(document).ready(function(){
         $("input#Cell_D").focus().blur();   // Hack: needed to update the changed form
         foo();
         $("input#csv").show();
+        $("table.hidden-tables").show();
         CalcStats(this.form);
     });
 
