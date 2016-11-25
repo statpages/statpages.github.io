@@ -93,7 +93,7 @@ function computeP(chi, df) {
     }
     Chisqcdf=Math.round(Chisqcdf*100000)/100000;
     if(Chisqcdf < .9999) {
-        return(1-Chisqcdf);
+        return(' = ' + (1-Chisqcdf));
         }
     else {
         return(' < .00001');
@@ -115,7 +115,7 @@ function main() {
     }
     
     var mtr = document.getElementById("txt").value;
-    mtr = mtr.trim();                   // remove trailing whitespaces and new lines
+    mtr = mtr.trim();                   // remove trailing white spaces and new lines
     mtr = mtr.replace(/\t/g, ',');      // replace tabs with comma
     mtr = mtr.replace(/\n/g, '],[');    // replace new line with '],['
     mtr = eval("[[" + mtr + "]]");      // add enclosing square brackets
@@ -141,8 +141,8 @@ function main() {
         x = mult(mult(u, transpose(x)), c);
         var chi = x.mat[1];
         var df = (f.m-1)*(f.n-1);
-        writeln('\nChiSquare = ' + parseFloat(chi).toFixed(5));
-        writeln('with ' + df + ' degree of freedom and p-value = ' + computeP(chi, df));    }   // END MATRIX
+        writeln('\nChiSquare = ' + parseFloat(chi).toFixed(5) + ', df = ' + df + ', p-value' + computeP(chi, df));    
+    }   // END MATRIX
 }   // END MAIN
 
 var startTime;
