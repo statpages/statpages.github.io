@@ -92,11 +92,12 @@ function computeP(chi, df) {
         Chisqcdf=Gammacdf(Z/2,DF/2)
     }
     Chisqcdf=Math.round(Chisqcdf*100000)/100000;
+    // formated text output
     if(Chisqcdf < .9999) {
-        return(' = ' + (1-Chisqcdf));
+        return(' = ' + (1-Chisqcdf).toFixed(5));
         }
     else {
-        return(' < .00001');
+        return(' < 10<sup>-5<sup>');
         }
 }
 
@@ -141,7 +142,7 @@ function main() {
         x = mult(mult(u, transpose(x)), c);
         var chi = x.mat[1];
         var df = (f.m-1)*(f.n-1);
-        writeln('\nChiSquare = ' + parseFloat(chi).toFixed(5) + ', df = ' + df + ', p-value' + computeP(chi, df));    
+        writeln('\nChiSquare = ' + parseFloat(chi).toFixed(5) + ', df = ' + df + ', p-value' + computeP(chi, df));
     }   // END MATRIX
 }   // END MAIN
 
