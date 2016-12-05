@@ -1,0 +1,236 @@
+<!--
+    Re-implementation of John Pezzullos 'ordinal.html' allowing more than 5x5 matrices.
+        - Matrix Library
+        - Calculation of concordant, discordant, tied values done i looping functions
+    Soren Merser, December 2016
+-->
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>JavaStat -- Ordinal Contingency Table Analysis</TITLE>
+<META content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<script type="text/javascript" src="jstat/dist/jstat.min.js"></script>
+<SCRIPT language=LiveScript>
+<!-- hide this script tag's contents from old browsers
+
+var con; var dis; var se; var z; var p; var Gam
+var TiedX; var TiedY; var Somers_dxy; var Somers_dyx; var Tau_b; var Tau_c
+var nr; var nc; var MinSize;
+var m; var jx;
+var bx; var xb; var xc; var cx;
+var bxx; var cxx;
+
+
+/*
+function Sum(m, r, c) {
+    // Sum up matrix total
+    var sum = 0;
+    for(var i=0; i<r; i++)
+        for(var j=0; j<c; j++)
+            sum = sum + m[i][j];
+    return sum;
+}
+*/
+
+function constrain(m, r, nr, c, nc) {
+    // Return specified matrix part
+    var mx = []; 
+    for(var i=r; i<nr; i++)
+        for(var j=c; j<nc; j++) {
+            mx.push(m[i][j]);
+    }
+    return mx;
+}
+
+
+function concordant() {
+    var con = 0;
+    var x   = 0;
+    var y   = 0;
+    var t   = 0;
+    var w   = 0;
+    var tmp = [];
+    for(var r=1; r<nr; r++) {
+        for(var c=1; c<nc; c++) {
+            w = m[y][x];
+            // CONSTRAIN
+            tmp = constrain(m, r, nr, c, nc);
+            tmp = jStat(tmp).sum(true);
+            con = con + (tmp*w);
+            if(x == nc-2){
+                x = 0;
+                t = t+1;
+                y = t;
+            } else {
+                x = x+1;
+            }
+        }
+    }
+    return con;
+}
+
+
+function discordant() {
+    var dis = 0;
+    var x   = 1;
+    var y   = 0;
+    var t   = 0;
+    var w   = 0;
+    var tmp = [];
+    for(var r=1; r<nr; r++) {
+        for(var c=1; c<nc; c++) {
+            w = m[y][x];
+            // CONSTRAIN
+            tmp = constrain(m, r, nr, 0, c);
+            tmp = jStat(tmp).sum(true);
+            dis = dis + (w * tmp);
+            if(x==nc-1){
+                x = 1;
+                t = t+1;
+                y = t;
+            } else {
+                x = x+1;
+            }
+        }
+    }
+    return(dis)
+}
+
+
+function tied(m, X=true) {
+    var tmp = 0;
+    var sum = 0;
+    if(X) {
+        for(var i=0; i<nr; i++) {
+            tmp = jx.row(i).sum(true);
+            sum += tmp*(tmp-1);
+        }
+    } else {
+        //var nc = jx.cols();
+        for(var i=0; i<nc; i++) {
+            tmp = jx.col(i).sum(true);
+            sum += tmp*(tmp-1)
+        }
+    }
+    return sum/2;
+}
+
+
+function Norm(z) {
+    z=Math.abs(z)
+    var p=1+ z*(0.04986735+ z*(0.02114101+ z*(0.00327763+ z*(0.0000380036+ z*(0.0000488906+ z*0.000005383)))))
+    p=p*p; p=p*p; p=p*p
+    return 1/(p*p)
+}
+
+
+function Fmt(x) { 
+    var v
+    if(x>=0) { v=''+(x+0.00005) } else { v=''+(x-0.00005) }
+    return v.substring(0,v.indexOf('.')+5)
+}
+
+
+function CalcStats(form) {
+
+    // VARIABLES DECLARED IN GLOBAL SCOPE
+    m = form.txt.value;
+    m = m.trim();                   // remove trailing whitespaces and new lines
+    m = m.replace(/\t/g, ',');      // replace tabs with comma
+    m = m.replace(/\n/g, '],[');    // replace new line with '],['
+    m = eval("[[" + m + "]]");      // add enclosing square brackets
+    jx  = this.jStat(m);            // instantiate and initialize a jstat object
+    nr  = jx.rows();
+    nc  = jx.cols();
+    bx  = jx.transpose().sum();
+    xb  = jx.sum().map(function(x){return x*x*x});
+    xc  = jx.transpose().sum();
+    cx  = bx.map(function(x){return x*x*x;});
+    bxx = jStat(bx).sum(true);
+    cxx = Math.pow(bxx,3);
+
+    con = concordant();
+    dis = discordant();
+    TiedX = tied(m, true);
+    TiedY = tied(m, false);
+
+    form.con.value = con;
+    form.dis.value = dis;
+    form.TiedX.value = TiedX
+    form.TiedY.value = TiedY
+
+    if(nr<nc) { MinSize = nr } else { MinSize = nc }
+    form.nRows.value = nr; form.nCols.value = nc
+
+    Gam = (con-dis)/(con+dis);
+    form.Gam.value = Fmt(Gam)
+
+    se = Math.sqrt((1-jStat(xb).sum()/cxx)*(1-jStat(cx).sum()/cxx)*bxx*bxx*bxx/9);
+
+    z = (con-dis)/se; form.z.value = Fmt(z)
+
+    p = Norm(z); form.p.value = Fmt(p)
+
+
+    Somers_dxy = (con-dis)/(bxx*(bxx-1)/2-TiedX)
+    form.Somers_dxy.value = Fmt(Somers_dxy)
+
+    Somers_dyx = (con-dis)/(bxx*(bxx-1)/2-TiedY)
+    form.Somers_dyx.value = Fmt(Somers_dyx)
+
+    Tau_b = (con-dis)/Math.sqrt((bxx*(bxx-1)/2-TiedX)*(bxx*(bxx-1)/2-TiedY))
+    form.Tau_b.value = Fmt(Tau_b)
+
+    Tau_c = (con-dis)* 2*MinSize / ( bxx*bxx*(MinSize-1) )
+    form.Tau_c.value = Fmt(Tau_c)
+
+}
+
+<!-- done hiding from old browsers -->
+  </SCRIPT>
+
+</HEAD>
+<BODY style="BACKGROUND-COLOR: rgb(255,255,238)">
+    <CENTER>
+    <H2>
+        <FONT color=red>
+            Contingency Table Analysis<BR>for Ordinal (sequenced) Categories
+        </FONT>
+    </H2>
+    <P align=center>&nbsp;</P>
+    <P>This screen computes several statistics from a table whose row and column categories form logically ordered sequences.
+    It differs from John Pezzullos <a href="ordinal.html">original version</a> by accommodating a table with more than five rows and/or five columns.
+    <P>Enter your cell counts into the table below. Use comma or tab to delimit cells and newline between rows.
+    <HR align=center SIZE=1 width="100%" noShade>
+    <BR>
+    <FORM method=post>
+    <textarea rows="6" cols="25" id="txt" name="txt" autofocus onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}"></textarea>
+    <P><INPUT type=reset value=Reset> <INPUT onclick=CalcStats(this.form) type=button value=Compute> <BR></P></CENTER>
+    <HR>
+    <div style="padding-left: 10%;">
+    <BR><INPUT onfocus=a11.focus() size=2 value=0 name="nRows"> Rows, and <INPUT 
+    onfocus=a11.focus() size=2 value=0 name="nCols"> Columns 
+    <P>Concordant Pairs = <INPUT onfocus=a11.focus() size=8 value=0 name="con"> , 
+    Discordant Pairs = <INPUT onfocus=a11.focus() size=8 value=0 name="dis"> , Tied on 
+    X = <INPUT onfocus=a11.focus() size=8 value=0 name="TiedX"> , Tied on Y = <INPUT 
+    onfocus=a11.focus() size=8 value=0 name="TiedY"> </P>
+    <P>Gamma = <INPUT onfocus=a11.focus() size=8 value=0 name="Gam"> , z = <INPUT 
+    onfocus=a11.focus() size=10 value=0 name="z"> , Kendall's test for significant 
+    association: <FONT color=red>p-value&nbsp;= </FONT><INPUT onfocus=a11.focus() 
+    size=10 value=0 name="p"></P>
+    <P><FONT color=red><B>Other Statistics...</B></FONT> </P>
+    <P>Somers d.xy = <INPUT onfocus=a11.focus() size=8 value=0 name="Somers_dxy"> , 
+    Somers d.yx = <INPUT onfocus=a11.focus() size=8 value=0 name="Somers_dyx"> 
+    (Analogous to slopes of fitted lines.)</P>
+    <P>Kendall Tau-b = <INPUT onfocus=a11.focus() size=8 value=0 name="Tau_b"> , 
+    Kendall Tau-c = <INPUT onfocus=a11.focus() size=8 value=0 name="Tau_c"> </P>
+    <P></P>
+    </div>
+    <HR>
+    <div style="text-align:right; font-style:italic; padding-right:20%;">
+    Reference: Alan Agresti, Analysis of Ordinal Categorical Data, Wiley, 1984, Chapters 9 and 10. </FORM>
+    </div>
+    <HR>
+    <BR>Return to the <A href="index.html">Interactive Statistics page</A>
+    </CENTER>
+</BODY>
+</HTML>
