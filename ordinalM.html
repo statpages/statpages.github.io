@@ -105,21 +105,12 @@ function tied(m, X=true) {
             sum += tmp*(tmp-1);
         }
     } else {
-        //var nc = jx.cols();
         for(var i=0; i<nc; i++) {
             tmp = jx.col(i).sum(true);
             sum += tmp*(tmp-1)
         }
     }
     return sum/2;
-}
-
-
-function Norm(z) {
-    z=Math.abs(z)
-    var p=1+ z*(0.04986735+ z*(0.02114101+ z*(0.00327763+ z*(0.0000380036+ z*(0.0000488906+ z*0.000005383)))))
-    p=p*p; p=p*p; p=p*p
-    return 1/(p*p)
 }
 
 
@@ -165,11 +156,9 @@ function CalcStats(form) {
     form.Gam.value = Fmt(Gam)
 
     se = Math.sqrt((1-jStat(xb).sum()/cxx)*(1-jStat(cx).sum()/cxx)*bxx*bxx*bxx/9);
-
     z = (con-dis)/se; form.z.value = Fmt(z)
-
-    p = Norm(z); form.p.value = Fmt(p)
-
+    p = jStat.normal.cdf(z, 0, 1) * 2;
+    form.p.value = Fmt(p);
 
     Somers_dxy = (con-dis)/(bxx*(bxx-1)/2-TiedX)
     form.Somers_dxy.value = Fmt(Somers_dxy)
