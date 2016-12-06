@@ -66,10 +66,14 @@ function CalcStats(form) {
     Ex_C = Cell_r2*Cell_c1/t; Sav_C = Ex_C
     Ex_D = Cell_r2*Cell_c2/t; Sav_D = Ex_D
     // Insert Expected frequencies
-    document.getElementById("ex_a").innerText = Fmt(Ex_A)
-    document.getElementById("ex_b").innerText = Fmt(Ex_B)
-    document.getElementById("ex_c").innerText = Fmt(Ex_C)
-    document.getElementById("ex_d").innerText = Fmt(Ex_D)
+    document.getElementById("ex_a").innerText  = Fmt(Ex_A);
+    document.getElementById("ex_b").innerText  = Fmt(Ex_B);
+    document.getElementById("ex_c").innerText  = Fmt(Ex_C);
+    document.getElementById("ex_d").innerText  = Fmt(Ex_D);
+    document.getElementById("ex_ab").innerText = Fmt(Ex_A+Ex_B);
+    document.getElementById("ex_cd").innerText = Fmt(Ex_C+Ex_D);
+    document.getElementById("ex_ac").innerText = Fmt(Ex_A+Ex_C);
+    document.getElementById("ex_bd").innerText = Fmt(Ex_B+Ex_D);
     // Insert Proportions
     document.getElementById("pr_a").innerText  = Fmt(Cell_A/t)
     document.getElementById("pr_b").innerText  = Fmt(Cell_B/t)
