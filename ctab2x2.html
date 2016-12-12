@@ -41,9 +41,11 @@
         <!-- center both <td> and <input> content -->
         <style>
             table.observed td input, table.observed td { text-align: center; }
-            #tbl { border-collapse:collapse; text-align: center; width:75%; frame: void;}
+            #tbl    { border-collapse:collapse; text-align: center; width:75%; frame: void; }
             #tbl td { padding:2px; background-color:white; text-align:center; }
-            caption { color: red; padding-bottom: 6px; font-weight: bold;}
+            caption { color: red; padding-bottom: 6px; font-weight: bold; }
+            .totals { color: green; border-right: solid 1px; }
+            .butt   { border-bottom: solid 1px; }
         </style>
         
     </head>
@@ -242,16 +244,16 @@ For more information about a particular index, click on the &lt;<font color="Blu
                 <tr>
                     <td id="ex_a"></td>
                     <td id="ex_b"></td>
-                    <td id="ex_ab"></td>
+                    <td id="ex_ab"  class="totals"></td>
                 </tr>
                 <tr>
                     <td id="ex_c"></td>
                     <td id="ex_d"></td>
-                    <td id="ex_cd"></td>
+                    <td id="ex_cd" class="totals butt"></td>
                 </tr>
                 <tr>
-                    <td id="ex_ac"></td>
-                    <td id="ex_bd"></td>
+                    <td id="ex_ac" class="totals"></td>
+                    <td id="ex_bd" class="totals"></td>
                 </tr>
             </table>
         </td>
@@ -263,15 +265,15 @@ For more information about a particular index, click on the &lt;<font color="Blu
                 <tr>
                     <td id="pr_a"></td>
                     <td id="pr_b"></td>
-                    <td id="pr_r1"></td>
+                    <td id="pr_r1" class="totals"></td>
                 </tr>
                 <tr>
                     <td id="pr_c"></td>
                     <td id="pr_d"></td>
-                    <td id="pr_r2"></td>
+                    <td id="pr_r2" class="totals butt"></td>
                 <tr>
-                    <td id="pr_c1"></td>
-                    <td id="pr_c2"></td>
+                    <td id="pr_c1" class="totals"></td>
+                    <td id="pr_c2" class="totals"></td>
                 </tr>
             </table>
         </td>
@@ -283,12 +285,12 @@ For more information about a particular index, click on the &lt;<font color="Blu
                 <tr>
                     <td id="row_pr_a"></td>
                     <td id="row_pr_b"></td>
-                    <td id="row_pr_r1"></td>
+                    <td id="row_pr_r1" class="totals"></td>
                 </tr>
                 <tr>
                     <td id="row_pr_c"></td>
                     <td id="row_pr_d"></td>
-                    <td id="row_pr_r2"></td>
+                    <td id="row_pr_r2" class="totals"></td>
             </table>
         </td>
         <td valign="top"> 
@@ -304,8 +306,8 @@ For more information about a particular index, click on the &lt;<font color="Blu
                     <td id="col_pr_c"></td>
                     <td id="col_pr_d"></td>
                 <tr>
-                    <td id="col_pr_c1"></td>
-                    <td id="col_pr_c2"></td>
+                    <td id="col_pr_c1" class="totals"></td>
+                    <td id="col_pr_c2" class="totals"></td>
                 </tr>
             </table>
         </td>
