@@ -141,7 +141,7 @@ function main() {
         for(var i=0; i<N; i++) {
             tmp = m[i]
             if(m[i] != k)
-                throw "<font style='color:red;'>Number of raters don't match</font>";
+                throw "<font style='color:red;'>Number of raters don't match. Please check row: " + (i+1) + "</font>";
         }
         return(true);
     }
