@@ -1,0 +1,279 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html lang="en" xml:lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"> 
+  <head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <title>Calculate Expected Values and ChiSquare from a n x m Matrix</title>
+    <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/IOUtils.js"></script>
+    <script type="text/javascript" src="jstat/dist/jstat.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="js/jquery-ui-themes-1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="jqwidgets/jqwidgets/styles/jqx.base.css" />
+    <script type="text/javascript" src="jqwidgets/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="jqwidgets/jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="jqwidgets/jqwidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="jqwidgets/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="jqwidgets/jqwidgets/jqxcombobox.js"></script>
+
+         <!-- Modal HTML embedded directly into document -->
+        <div id="dialog" title="Adjusted Predictive Values" hidden>
+            <div style="text-align: justify; padding: 10px;">
+                E.g.<br/>
+                &nbsp- 5 objects/patient/X-rays to evaluate<br/>
+                &nbsp- 3 categories<br/>
+                &nbsp- 4 raters<br/><br/>
+                &nbsp 1,2,1<br/>
+                &nbsp 2,2,0<br/>
+                &nbsp 0,1,3<br/>
+                &nbsp 3,1,0<br/>
+                &nbsp 4,0,0<br/><br/>
+                -----------------------------------------------------------------<br/><br/>
+                The sample data set (from Rowland, WJ. 1984 in Siegel and Castellan) has<br/>29 objects<br/>5 categories and<br/>4 raters.
+            </div>
+        </div>
+        <!-- Modal END -->
+
+<script type="text/javascript">
+    // DEBUG DATA: 5 Categories, 29 objects, 4 raters
+    // Non Parametric Statistics for the Behavioral Science p. 287, S Siegel and NJ Castellan. 2.Ed. McGraw-Jill 1988.
+    var sampleData ="0,0,0,0,4\n2,0,2,0,0\n0,0,0,0,4\n2,0,2,0,0\n0,0,0,1,3\n1,1,2,0,0\n3,0,1,0,0\n3,0,1,0,0\n0,0,2,2,0\n3,0,1,0,0\n0,0,0,0,4\n4,0,0,0,0\n4,0,0,0,0\n4,0,0,0,0\n0,0,3,1,0\n1,0,2,1,0\n0,0,0,2,2\n0,0,0,0,4\n0,0,3,0,1\n0,1,3,0,0\n0,0,1,0,3\n0,0,3,1,0\n4,0,0,0,0\n4,0,0,0,0\n2,0,2,0,0\n1,0,3,0,0\n2,0,2,0,0\n2,0,2,0,0\n0,1,2,0,1";
+
+$(document).ready(function(){
+
+    $("td#showHelpDialog").click(function(){
+        $("#dialog").dialog({
+            width: "400px",
+            collision: "flipfit",
+            show: true, hide: true,
+            resizable: false,
+            close: function( event, ui ) { $("#help").blur(); }
+        });
+    });
+
+    $("input#run").click(function(){
+        run();
+        $("div#kappa").show();
+        return false;
+    });
+
+    $("input#load").click(function(){
+        $("textarea#txt").html(sampleData);
+    });
+
+});
+
+// ==================================== MAIN =====================================
+
+var outputBox;
+function init(inputID, outputID)
+    { outputBox = document.getElementById(outputID);
+}
+
+
+function main() {
+
+    function rowSum(m, nr, nc) {
+        var tmp = 0;
+        var rsum = new Array(nc);
+        for(var r=0; r<nr; r++) {
+            tmp=0;
+            for(var c=0; c<nc; c++)
+                tmp = tmp + m[r][c];
+            rsum[r] = tmp;
+            }
+        return(rsum);
+    }
+
+    function colSum(m, nr, nc) {
+        var tmp = 0;
+        var csum = new Array(nc);
+        for(var c=0; c<nc; c++) {
+            tmp=0;
+            for(var r=0; r<nr; r++)
+                tmp = tmp + m[r][c];
+            csum[c] = tmp;
+            }
+        return(csum);
+    }
+
+    function Pe(m, nc, div) {
+        var tmp;
+        var sum = 0;
+        for(var c=0; c<nc; c++) {
+            tmp = m[c]/div;
+            sum = sum + Math.pow(tmp, 2);
+            }
+        return(sum);
+        }
+
+    function Pa(m, k, N, nc) {
+        var sum = 0;
+        for(var n=0; n<N; n++) {
+            for(var c=0; c<nc; c++) {
+                var x = m[n][c];
+                sum = sum + Math.pow(x, 2);
+            }
+        }
+        sum = (sum/(N*k*(k-1))) - 1/(k-1);
+        return(sum);
+        
+    }
+
+    function p3(m, nc, div) {
+        var tmp;
+        var sum = 0;
+        for(var c=0; c<nc; c++) {
+            tmp = m[c]/div;
+            sum = sum + Math.pow(tmp, 3);
+            }
+        return(sum);
+        
+    }
+
+
+    function rosuCheck(m, N, k) {
+        var tmp = 0;
+        for(var i=0; i<N; i++) {
+            tmp = m[i]
+            if(m[i] != k)
+                throw "<font style='color:red;'>Number of raters don't match</font>";
+        }
+        return(true);
+    }
+
+        var mtr = document.getElementById("txt").value;
+        mtr = mtr.trim();                   // remove trailing white spaces and new lines
+        mtr = mtr.replace(/\t/g, ',');      // replace tabs with comma
+        mtr = mtr.replace(/\n/g, '],[');    // replace new line with '],['
+        mtr = eval("[[" + mtr + "]]");      // add enclosing square brackets
+
+        var digits = 4;
+        var N = mtr.length;     // number of objects
+        var m = mtr[0].length;  // number of categories
+        var rs = rowSum(mtr, N, m);
+        var k = rs[0];  // number of raters
+        rosuCheck(rs, N, k);
+        writeln('The dataset has ' + N + ' objecs, ' + m + ' categories and ' + k + ' raters\n');
+        var cs = colSum(mtr, N, m);
+        var PE = Pe(cs, m, N*k);
+        var PA = Pa(mtr, k, N, m);
+        var Kappa = (PA-PE)/(1-PE);
+        // a-d help variables to ease compute variance
+        var s3 = p3(cs, m, N*k);
+        var a = 2/(N*k*(k-1));
+        var b = PE-((2*k-3)*Math.pow(PE,2));
+        var c = ((2*(k-2))*s3);
+        var d = Math.pow(1-PE,2);
+        var s2 = a*((b+c)/d);
+        var sd =  Math.sqrt(s2);    // standard deviation
+        var z = Kappa/sd;
+        var znorm99 = jStat.normal.inv(0.99, 0, sd);
+        var znorm95 = jStat.normal.inv(0.95, 0, sd);
+        var str = '<b>Kappa = ' + Kappa.toFixed(digits) + '</b>, CI<sub>99%</sub> = [' + (Kappa-znorm99*sd).toFixed(digits) + '-' + (Kappa+znorm99*sd).toFixed(digits) + ']';
+        writeln(str + ', and CI<sub>95%</sub> = [' + (Kappa-znorm95*sd).toFixed(digits) + '-' + (Kappa+znorm95*sd).toFixed(digits) + ']');
+        writeln('Variance = ' + s2.toFixed(digits));
+        writeln('Hypothesis Test:\nH<sub>0</sub>: Kappa = 0 (chance agreement) against H<sub>alternative</sub> Kappa > 0 (better than chance agreement)');
+        writeln('<b>Z = ' + z.toFixed(digits) + '</b>');
+        znorm99 = jStat.normal.inv(0.99, 0, 1);
+        znorm95 = jStat.normal.inv(0.95, 0, 1);
+        writeln('If Z exceeds <b>' +znorm99.toFixed(digits) + '</b> there is 99% probability that Kappa > 0');
+        writeln('If Z exceeds <b>' +znorm95.toFixed(digits) + '</b> there is 95% probability that Kappa > 0');
+
+}   // END MAIN
+
+var startTime;
+function run() {
+    startTime = new Date();
+    startOutput(outputBox,'Running...');
+    setTimeout(run_aux,100);
+}
+
+function run_aux() {
+    try {
+        main();
+    }
+        
+  catch (e) {
+    if (e != null) {
+        writeln('***ERROR: ' + e);
+    }
+    writeln('***Run terminated abnormally.');
+  }
+  endOutput();
+}
+
+// ===============================================================================
+</script>
+
+    <style>
+        table       { border-collapse: collapse; }
+        th          { color: green; }
+        div#output  {text-align: left; width:35%; }
+        div#kappa   {text-align: left; width:35%; color:green; }
+    </style>
+    
+  </head> 
+    <body onload="init('input','output');" style="background-color: rgb(255, 255, 238);">
+        <center>
+            <h2> <font color="Red">Nominally Scaled Data and the Kappa Statistics (&#954;)</font></h2>
+            <hr>
+            <p style="text-align: center; font-weight:bold">
+            For each object (row) enter the number of observers that agree in each category (column). Do separate colunms by tabs or commas, rows with new lines.<br/>
+            The rowsum must equal the number of raters in each row, i.e. <font style="color:red;">no missing observations allowed!</font>
+            <br/>You can copy/paste Excel data<br>
+            <p/>
+            <i>Literature: Non Parametric Statistics for the Behavioral Science section 9.8, S Siegel and NJ Castellan 2.Ed. McGraw-Jill 1998.</i>
+            <hr>
+            </p>
+            <br/>
+            <table>
+                <tr>
+                    <td></td>
+                    <th>
+                        Category
+                    </th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 3px;">
+                        O<br>b<br>j<br>c<br>t
+                    </th>
+                    <td colspan="2">
+                    <!-- Allow using tab in textarea -->
+                    <textarea rows="7" cols="25" id="txt" autofocus onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}"></textarea>
+                    </td>
+                    <td id="showHelpDialog" style="border: none; text-align: right;">
+                        &nbsp; &nbsp;<<a style="color: blue;  text-decoration: underline;">more info</a>>
+                    </td>
+                <tr>
+            </table>
+
+            <p>
+            <input type="button" value="Run" id="run" />
+            <input type="button" value="Load sample data" id="load" />
+            <center>
+                <div id="output"></div>
+                <p/>
+                <div id="kappa" hidden>
+                    <b>Kappa Agreement</b><br/>
+                    < 0  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Less than chance agreement<br/>
+                    0.01–0.20 &nbsp; Slight agreement<br/>
+                    0.21–0.40 &nbsp; Fair agreement<br/>
+                    0.41–0.60 &nbsp; Moderate agreement<br/>
+                    0.61–0.80 &nbsp; Substantial agreement<br/>
+                    0.81–0.99 &nbsp; Almost perfect agreement
+                </div>
+            </center>
+            <hr>
+            <p> Return to the <a href="index.html">Interactive Statistics page</a>
+            <br>
+            Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com</a>
+            </p>
+        </center>
+    </body> 
+</html> 
