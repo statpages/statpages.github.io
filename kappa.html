@@ -21,8 +21,10 @@
     <script type="text/javascript" src="jqwidgets/jqwidgets/jqxcombobox.js"></script>
 
          <!-- Modal HTML embedded directly into document -->
-        <div id="dialog" title="Adjusted Predictive Values" hidden>
+        <div id="dialog" title="Kappa aggrement" hidden>
             <div style="text-align: justify; padding: 10px;">
+                Each represents an object or an individual, whereas the cell entries is the number of raters
+                that evaluates the object to be in the specific category.<br>
                 E.g.<br/>
                 &nbsp- 5 objects/patient/X-rays to evaluate<br/>
                 &nbsp- 3 categories<br/>
@@ -224,7 +226,7 @@ function run_aux() {
             <hr>
             <p style="text-align: center; font-weight:bold">
             For each object (row) enter the number of observers that agree in each category (column). Do separate colunms by tabs or commas, rows with new lines.<br/>
-            The rowsum must equal the number of raters in each row, i.e. <font style="color:red;">no missing observations allowed!</font>
+            The rowsum must equal the number of raters in the <b>first  row</b>, i.e. <font style="color:red;">no missing (or extra) observations allowed!</font>
             <br/>You can copy/paste Excel data<br>
             <p/>
             <i>Literature: Non Parametric Statistics for the Behavioral Science section 9.8, S Siegel and NJ Castellan 2.Ed. McGraw-Jill 1998.</i>
