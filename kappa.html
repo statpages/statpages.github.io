@@ -40,38 +40,50 @@
                 and in category C by 1 rater. Etc ...<br/>
                 All raters agrees the last object to be in category A <p/>
                 -----------------------------------------------------------------<br/><br/>
-                The loadable sample data set (Rowland, WJ. 1984) in Siegel and Castellan has:<br/>29 objects<br/>5 categories and<br/>4 raters.
+                The Siegel data set has 29 objects, 5 categories and 4 raters.<br>
+                The Fleiss data set has 10 objects, 3 categories and 5 raters.
             </div>
         </div>
         <!-- Modal END -->
 
 <script type="text/javascript">
-    // DEBUG DATA: 5 Categories, 29 objects, 4 raters
+
+    // Fleiss data: 3 Categories, 10 objects, 5 Raters
+    // Statistical Method for Rates and Proportions, 2.ed. p. 230. JL Fleiss, Wiley 1981
+    var FleissDat = "1,4,0\n2,0,3\n0,0,5\n4,0,1\n3,0,2\n1,4,0\n5,0,0\n0,4,1\n1,0,4\n3,0,2";
+
+    // Siegel data: 5 Categories, 29 objects, 4 raters
     // Non Parametric Statistics for the Behavioral Science p. 287, S Siegel and NJ Castellan. 2.Ed. McGraw-Jill 1988.
-    var sampleData ="0,0,0,0,4\n2,0,2,0,0\n0,0,0,0,4\n2,0,2,0,0\n0,0,0,1,3\n1,1,2,0,0\n3,0,1,0,0\n3,0,1,0,0\n0,0,2,2,0\n3,0,1,0,0\n0,0,0,0,4\n4,0,0,0,0\n4,0,0,0,0\n4,0,0,0,0\n0,0,3,1,0\n1,0,2,1,0\n0,0,0,2,2\n0,0,0,0,4\n0,0,3,0,1\n0,1,3,0,0\n0,0,1,0,3\n0,0,3,1,0\n4,0,0,0,0\n4,0,0,0,0\n2,0,2,0,0\n1,0,3,0,0\n2,0,2,0,0\n2,0,2,0,0\n0,1,2,0,1";
+    var SiegelDat ="0,0,0,0,4\n2,0,2,0,0\n0,0,0,0,4\n2,0,2,0,0\n0,0,0,1,3\n1,1,2,0,0\n3,0,1,0,0\n3,0,1,0,0\n0,0,2,2,0\n3,0,1,0,0\n0,0,0,0,4\n4,0,0,0,0\n4,0,0,0,0\n4,0,0,0,0\n0,0,3,1,0\n1,0,2,1,0\n0,0,0,2,2\n0,0,0,0,4\n0,0,3,0,1\n0,1,3,0,0\n0,0,1,0,3\n0,0,3,1,0\n4,0,0,0,0\n4,0,0,0,0\n2,0,2,0,0\n1,0,3,0,0\n2,0,2,0,0\n2,0,2,0,0\n0,1,2,0,1";
 
-$(document).ready(function(){
+    $(document).ready(function(){
 
-    $("td#showHelpDialog").click(function(){
-        $("#dialog").dialog({
-            width: "400px",
-            collision: "flipfit",
-            show: true, hide: true,
-            resizable: false,
-            close: function( event, ui ) { $("#help").blur(); }
+        $("td#showHelpDialog").click(function() {
+            $("#dialog").dialog({
+                width: "400px",
+                collision: "flipfit",
+                show: true, hide: true,
+                resizable: false,
+                close: function( event, ui ) { $("#help").blur(); }
+            });
         });
-    });
 
-    $("input#run").click(function(){
-        run();
-        $("div#kappa").show();
-    });
+        $("input#run").click(function() {
+            run();
+            $("div#kappa").show();
+        });
 
-    $("input#load").click(function(){
-        $("textarea#txt").html(sampleData);
-    });
+        $("input.load").click(function() {
+            if(this.id == 'Clear') {
+                $("textarea#txt").val('');
+            }
+            else {
+                var data = eval(this.id + 'Dat');
+                $("textarea#txt").val(data);
+            }
+        });
 
-});
+    });
 
 // ==================================== MAIN =====================================
 
@@ -164,7 +176,7 @@ function main() {
         var rs = rowSum(mtr, N, m);
         var k = rs[0];  // number of raters
         rosuCheck(rs, N, k);
-        writeln('The dataset has ' + N + ' objecs, ' + m + ' categories and ' + k + ' raters\n');
+        writeln('\nThe dataset has ' + N + ' objecs, ' + m + ' categories and ' + k + ' raters\n');
         var cs = colSum(mtr, N, m);
         var PE = Pe(cs, m, N*k);
         var PA = Pa(mtr, k, N, m);
@@ -175,18 +187,18 @@ function main() {
         var b = PE-((2*k-3)*Math.pow(PE,2));
         var c = ((2*(k-2))*s3);
         var d = Math.pow(1-PE,2);
-        var s2 = a*((b+c)/d);
-        var sd =  Math.sqrt(s2);    // standard deviation
-        var z = Kappa/sd;
-        var znorm99 = jStat.normal.inv(0.99, 0, sd);
-        var znorm95 = jStat.normal.inv(0.95, 0, sd);
-        var str = '<b>Kappa = ' + Kappa.toFixed(digits) + '</b>, CI<sub>99%</sub> = [' + (Kappa-znorm99*sd).toFixed(digits) + '-' + (Kappa+znorm99*sd).toFixed(digits) + ']';
-        writeln(str + ', and CI<sub>95%</sub> = [' + (Kappa-znorm95*sd).toFixed(digits) + '-' + (Kappa+znorm95*sd).toFixed(digits) + ']');
-        writeln('Variance = ' + s2.toFixed(digits));
+        var s2 = a*((b+c)/d);       // variance
+        var se =  Math.sqrt(s2);    // standard error
+        var z = Kappa/se;
+        var znorm99 = jStat.normal.inv(0.995, 0, 1);
+        var znorm95 = jStat.normal.inv(0.975, 0, 1);
+        var str = '<b>Kappa = ' + Kappa.toFixed(digits) + '</b>, CI<sub>99%</sub> = [' + (Kappa-znorm99*se).toFixed(digits) + '-' + (Kappa+znorm99*se).toFixed(digits) + ']';
+        writeln(str + ', and CI<sub>95%</sub> = [' + (Kappa-znorm95*se).toFixed(digits) + '-' + (Kappa+znorm95*se).toFixed(digits) + ']');
+        writeln('Variance = ' + s2.toFixed(digits) + ', Standard Error of Mean = ' + se.toFixed(digits));
         writeln('Hypothesis Test:\nH<sub>0</sub>: Kappa = 0 (chance agreement) against H<sub>alternative</sub> Kappa > 0 (better than chance agreement)');
+        var znorm99 = jStat.normal.inv(0.99, 0, 1);
+        var znorm95 = jStat.normal.inv(0.95, 0, 1);
         writeln('<b>Z = ' + z.toFixed(digits) + '</b>');
-        znorm99 = jStat.normal.inv(0.99, 0, 1);
-        znorm95 = jStat.normal.inv(0.95, 0, 1);
         writeln('If Z exceeds <b>' +znorm99.toFixed(digits) + '</b> there is 99% probability that Kappa > 0');
         writeln('If Z exceeds <b>' +znorm95.toFixed(digits) + '</b> there is 95% probability that Kappa > 0');
 
@@ -219,7 +231,7 @@ function run_aux() {
     <style>
         table       { border-collapse: collapse; }
         th          { color: green; }
-        div#output  {text-align: left; width:35%; }
+        div#output  { text-align: left; width:35%; }
         div#kappa   {text-align: left; width:35%; color:green; }
     </style>
     
@@ -233,14 +245,18 @@ function run_aux() {
             The row-sums must equal the number of raters of the <b>first  row</b> and <font style="color:red;">no missing cell entries</font> allowed.
             <br/>You can copy/paste Excel data<br>
             <p/>
-            <i>Literature: Non Parametric Statistics for the Behavioral Science section 9.8, S Siegel and NJ Castellan 2<sup>nd</sup> Ed. McGraw-Jill 1998</i>
+            <div style="width:80%; text-align:left;">
+            Literature:<br/>
+            Non Parametric Statistics for the Behavioral Science section 9.8, S Siegel and NJ Castellan 2<sup>nd</sup> Ed. McGraw-Jill (1998)<br/>
+            Statistical Methods for Rates and Proportions 2<sup>nd</sup>, JL Fleiss, Wiley (1981)
+            </div>
             <hr>
             </p>
             <br/>
             <table>
                 <tr>
                     <td></td>
-                    <th>
+                    <th colspan="2">
                         Category
                     </th>
                     <td></td>
@@ -251,7 +267,7 @@ function run_aux() {
                     </th>
                     <td colspan="3">
                     <!-- Allow using tab in textarea -->
-                    <textarea rows="7" cols="25" id="txt" autofocus onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}"></textarea>
+                    <textarea rows="10" cols="36" id="txt" autofocus onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}"></textarea>
                     </td>
                     <td id="showHelpDialog" style="border: none; text-align: right;">
                         &nbsp; &nbsp;<<a style="color: blue;  text-decoration: underline;">more info</a>>
@@ -259,10 +275,21 @@ function run_aux() {
                 </tr>
                 <tr>
                     <td></td>
-                    <th>
+                    <th colspan="2">
                         <input type="button" value="Run" id="run" />
-                        <input type="button" value="Load sample data" id="load" />
+                    <th>
+                <tr>
+                    <td></td>
+                    <th>
+                        <input type="button" value="Load Siegel dataset" class="load" id="Siegel" />
                     </th>
+                    <th>
+                        <input type="button" value="Load Fleiss dataset" class="load" id="Fleiss" />
+                    </th>
+                    <th colspan="2">
+                        <input type="button" value="Clear" class="load" id="Clear" />
+                    </th>
+                </tr>
             </table>
 
             <center>
