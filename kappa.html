@@ -89,18 +89,17 @@
             }
         });
 
-    $(function() {
-        $("#txt").linedtextarea();
-    });
+        $(function() {
+            $("#txt").linedtextarea();
+        });
 
-    // grant the function global access
-    window.markLine = function(i) {
-        $("div.lineno").removeClass('lineselect');
-        $("div.lineno:eq('" + i + "')").addClass('lineselect');
-    }
+        // grant global access
+        window.markLine = function(i) {
+            $("div.lineno").removeClass('lineselect');
+            $("div.lineno:eq('" + i + "')").addClass('lineselect');
+        }
 
-
-    });
+    }); // End document.ready
 
 // ==================================== MAIN =====================================
 
@@ -285,7 +284,7 @@ function run_aux() {
   </head> 
     <body onload="init('input','output');" style="background-color: rgb(255, 255, 238);">
         <center>
-            <h2> <font color="Red">Nominally Scaled Data and the Kappa Statistics (&#954;)</font></h2>
+            <h2> <font color="Red">Nominally Scaled Data and the Kappa Statistics</font></h2>
             <hr>
             <p style="text-align: center; font-weight:bold">
             For each object (row) enter the number of observers that agree in each category (column). Do separate colunms by tabs or commas, rows with new lines.<br/>
@@ -323,7 +322,7 @@ function run_aux() {
                 <tr>
                     <td></td>
                     <th colspan="2">
-                        <input type="button" value="Run" id="run" style="width: 33%; font-weight:bold; background-color: #5AFE3D"/>
+                        <input type="button" value="Run" id="run" style="width: 50%; font-weight:bold; background-color: #5AFE3D"/>
                     <th>
                 <tr>
                     <td></td>
