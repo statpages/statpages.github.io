@@ -1,11 +1,11 @@
-<!-- S Merser 2016 -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
-<html lang="en" xml:lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"> 
-  <head> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"> 
+  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="Soren Merser">
+    <meta name="COPYRIGHT" content="&copy; December 2016 ">
     <meta http-equiv="cache-control" content="no-cache" />
+    
     <title>Nominally Scaled Data and the Kappa Statistics</title>
     <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
@@ -188,14 +188,12 @@ function main() {
 
     function se(N, m, nj, pq) {
         var s = 0;
-        var tmp1 = 0;
-        var tmp2 = 0;
+        var tmp = 0;
         for(var j=0; j<nj; j++ ) {
-            tmp1 += pq[j][0];//'Math.sqrt(N*m*(m-1));
-            tmp2 += pq[j][1];
+            tmp += pq[j][0];
         }
-        var s1 = Math.sqrt(2)/(tmp1*Math.sqrt(N*m*(m-1)));
-        var s2 = Math.sqrt(Math.pow(tmp1,2)-.2074);
+        var s1 = Math.sqrt(2)/(tmp*Math.sqrt(N*m*(m-1)));
+        var s2 = Math.sqrt(Math.pow(tmp,2)-.2074);
         s = s1*s2;
         return(s);
     }
@@ -217,20 +215,8 @@ function main() {
         mtr = mtr.trim();                   // remove trailing white spaces and new lines
         mtr = mtr.replace(/\t/g, ',');      // replace tabs with comma
         mtr = mtr.replace(/\n/g, '],[');    // replace new line with '],['
-        mtr = eval("[[" + mtr + "]]");      // add enclosing square brackets
-/*        // DEBUG
-        mtr=
-        [[1,4,0],
-         [2,0,3],
-         [0,0,5],
-         [4,0,1],
-         [3,0,2],
-         [1,4,0],
-         [5,0,0],
-         [0,4,1],
-         [1,0,4],
-         [3,0,2]];
-*/
+        mtr = eval("[[" + mtr + "]]");      // add enclosing square brackets and parse expression
+
         var digits = 4;
         var N = mtr.length;     // number of objects
         var m = mtr[0].length;  // number of categories
