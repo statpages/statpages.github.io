@@ -65,4 +65,5 @@
 
 .linedwrap .codelines .lineselect {
     color: red;
+    font-weight: bold;
 }

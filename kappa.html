@@ -81,16 +81,16 @@
             $("div#output").html('');
             $("div#kappa").hide();
             if(this.id == 'Clear') {
-                $("textarea#txt").val('');
+                $("#txt").val('');
             }
             else {
                 var data = eval(this.id + 'Dat');
-                $("textarea#txt").val(data);
+                $("#txt").val(data);
             }
         });
 
     $(function() {
-        $(".lined").linedtextarea();
+        $("#txt").linedtextarea();
     });
 
     // grant the function global access
@@ -318,17 +318,17 @@ function run_aux() {
                 <tr>
                     <td></td>
                     <th colspan="2">
-                        Category
+                        Categories
                     </th>
                     <td></td>
                 </tr>
                 <tr>
                     <th style="padding-right: 3px;">
-                        O<br>b<br>j<br>c<br>t
+                        O<br/>b<br/>j<br/>c<br/>t<br/>s
                     </th>
                     <td colspan="3">
                     <!-- Allow using tab in textarea -->
-                    <textarea rows="10" cols="36" id="txt" class="lined" autofocus onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}"></textarea>
+                    <textarea rows="9" cols="36" id="txt" autofocus onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}"></textarea>
                     </td>
                     <td id="showHelpDialog" style="border: none; text-align: right;">
                         &nbsp; &nbsp;<<a style="color: blue;  text-decoration: underline;">more info</a>>
@@ -337,7 +337,7 @@ function run_aux() {
                 <tr>
                     <td></td>
                     <th colspan="2">
-                        <input type="button" value="Run" id="run" />
+                        <input type="button" value="Run" id="run" style="width: 33%; font-weight:bold; background-color: #5AFE3D"/>
                     <th>
                 <tr>
                     <td></td>
@@ -348,7 +348,7 @@ function run_aux() {
                         <input type="button" value="Load Fleiss dataset" class="load" id="Fleiss" />
                     </th>
                     <th colspan="2">
-                        <input type="button" value="Clear" class="load" id="Clear" />
+                        <input type="button" value="Clear" class="load" id="Clear" style="color: red;" />
                     </th>
                 </tr>
             </table>
