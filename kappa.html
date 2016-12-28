@@ -12,6 +12,7 @@
     <script type="text/javascript" src="js/IOUtils.js"></script>
     <script type="text/javascript" src="jstat/dist/jstat.min.js"></script>
     
+    <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" type="text/css" href="js/jquery-ui-themes-1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="jqwidgets/jqwidgets/styles/jqx.base.css" />
     <script type="text/javascript" src="jqwidgets/jqwidgets/jqxcore.js"></script>
@@ -233,18 +234,16 @@ function main() {
         var znorm95 = jStat.normal.inv(0.975, 0, 1);
         var str = '<b>Kappa = ' + kappa.toFixed(digits) + '</b>, CI<sub>99%</sub> = [' + (kappa-znorm99*se).toFixed(digits) + '-' + (kappa+znorm99*se).toFixed(digits) + ']';
         writeln(str + ', and CI<sub>95%</sub> = [' + (kappa-znorm95*se).toFixed(digits) + '-' + (kappa+znorm95*se).toFixed(digits) + ']');
-        writeln('Standard Error of Mean = ' + se.toFixed(digits));
-        writeln('Hypothesis Test:\nH<sub>0</sub>: Kappa = 0 (chance agreement) against H<sub>alternative</sub> Kappa > 0 (better than chance agreement)');
+        writeln('Standard Error of Mean = ' + se.toFixed(digits) +'\n');
+        writeln('<u>Hypothesis Test:</u><ul><b>H<sub>0</sub></b>: Kappa = 0 (chance agreement)</ul><ul><b>H<sub>alternative</sub></b> Kappa > 0 (better than chance agreement)</ul>');
         var znorm99 = jStat.normal.inv(0.99, 0, 1);
         var znorm95 = jStat.normal.inv(0.95, 0, 1);
-        writeln('<b>Z = ' + z.toFixed(digits) + '</b>');
-        writeln('If Z exceeds <b>' +znorm99.toFixed(digits) + '</b> there is 99% probability that Kappa > 0');
-        writeln('If Z exceeds <b>' +znorm95.toFixed(digits) + '</b> there is 95% probability that Kappa > 0');
-        writeln('<table id="kappa"><caption>Categorial Kappa</caption><tr><th></th><th>Kappa</th><th>Z</th></tr>');
+        writeln('<ul><b>Z = ' + z.toFixed(digits) + '</b></ul><ul>If Z exceeds <b>' + znorm99.toFixed(digits) + '</b> there is 99% probability that Kappa > 0</ul><ul>If Z exceeds <b>' + znorm95.toFixed(digits) + '</b> there is 95% probability that Kappa > 0</ul>');
+        var str = '<table id="kappa"><caption>Categorial Kappa</caption><tr><th></th><th>Kappa</th><th>Z</th></tr>';
         for(var i=0; i<m; i++) {
-            writeln('<tr><td>Cat<sub>' + (i+1) + '</sub></td><td>' + kappaj[i].toFixed(digits) + '</td><td>' + (kappaj[i]/sej).toFixed(digits) + '</td></tr>');
+            str = str + '<tr><td>Cat<sub>' + (i+1) + '</sub></td><td>' + kappaj[i].toFixed(digits) + '</td><td>' + (kappaj[i]/sej).toFixed(digits) + '</td></tr>';
         }
-        writeln('</table>');
+        writeln(str + '</table>');
 
 }   // END MAIN
 
@@ -286,15 +285,15 @@ function run_aux() {
         <center>
             <h2> <font color="Red">Nominally Scaled Data and the Kappa Statistics</font></h2>
             <hr>
-            <p style="text-align: center; font-weight:bold">
+            <div style="text-align: justify; font-weight:bold; padding: 5%; width: 68%">
             For each object (row) enter the number of observers that agree in each category (column). Do separate colunms by tabs or commas, rows with new lines.<br/>
             The row-sums must equal the number of raters of the <b>first  row</b> and <font style="color:red;">no missing cell entries</font> allowed.
-            <br/>You can copy/paste Excel data<br>
-            <p/>
-            <div style="width:80%; text-align:left;">
-            Literature:<br/>
-            Statistical Methods for Rates and Proportions 2<sup>nd</sup> Ed. JL Fleiss, Wiley (1981)<br/>
-            Non Parametric Statistics for the Behavioral Science 2<sup>nd</sup> Ed. S Siegel and NJ Castellan, McGraw-Jill (1998)
+            <br/>You can copy/paste Excel data<p/>
+                <div style="font-weight: normal; padding 8%;">
+                    Literature:
+                    <ul>Statistical Methods for Rates and Proportions 2<sup>nd</sup> Ed. JL Fleiss, Wiley (1981)</ul>
+                    <ul>Non Parametric Statistics for the Behavioral Science 2<sup>nd</sup> Ed. S Siegel and NJ Castellan, McGraw-Jill (1998)</ul>
+                </div>
             </div>
             <hr>
             </p>
@@ -321,18 +320,18 @@ function run_aux() {
                 </tr>
                 <tr>
                     <td></td>
-                    <th colspan="2">
+                    <th colspan="2" style="padding-top:10px;">
                         <input type="button" value="Run" id="run" style="width: 50%; font-weight:bold; background-color: #5AFE3D"/>
                     <th>
                 <tr>
                     <td></td>
-                    <th>
+                    <th style="padding-top:10px;">
                         <input type="button" value="Load Siegel dataset" class="load" id="Siegel" />
                     </th>
-                    <th>
+                    <th style="padding-top:10px;">
                         <input type="button" value="Load Fleiss dataset" class="load" id="Fleiss" />
                     </th>
-                    <th colspan="2">
+                    <th colspan="2" style="padding-top:10px;">
                         <input type="button" value="Clear" class="load" id="Clear" style="color: red;" />
                     </th>
                 </tr>
