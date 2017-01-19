@@ -156,7 +156,8 @@ function CalcStats(form) {
         Ex_A=Cell_r1-Ex_B; Ex_D=Cell_c2-Ex_B; Ex_C=Cell_r2-Ex_D
         pval=Csp(csq(Cell_B,Ex_B,0.5)+csq(Cell_A,Ex_A,0.5)+csq(Cell_D,Ex_D,0.5)+csq(Cell_C,Ex_C,0.5))
     }
-    form.Low_A.value=Fmt(Ex_A); form.Low_B.value=Fmt(Ex_B); form.Low_C.value=Fmt(Ex_C); form.Low_D.value=Fmt(Ex_D); od=(Ex_A/Ex_B)/(Ex_C/Ex_D); form.od_lo.value=Fmt(od)
+    form.Low_A.value=Fmt(Ex_A); form.Low_B.value=Fmt(Ex_B); form.Low_C.value=Fmt(Ex_C); form.Low_D.value=Fmt(Ex_D);
+    od=(Ex_A/Ex_B)/(Ex_C/Ex_D); form.od_lo.value=Fmt(od)
     rr=(Ex_A/Cell_r1)/(Ex_C/Cell_r2); form.rr_lo.value=Fmt(rr)
     kp=2*(Ex_A*Ex_D-Ex_B*Ex_C)/((Ex_B+Ex_A)*(Ex_B+Ex_D)+(Ex_A+Ex_C)*(Ex_D+Ex_C)); form.kp_lo.value=Fmt(kp)
     fc=(Ex_A+Ex_D)/(Ex_B+Ex_A+Ex_D+Ex_C); form.fc_lo.value=Fmt(fc); form.mcr_hi.value=Fmt(1-fc)
