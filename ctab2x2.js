@@ -359,7 +359,7 @@ function saveCSV(form){
                 [form.High_A.value, form.High_B.value],
                 [form.High_C.value, form.High_D.value]
             ];
-    var csvContent = "data:text/csv;charset=utf-8";
+    var csvContent = "data:text/csv;charset=utf-8,";
     data.forEach(function(infoArray, index){
        dataString = infoArray.join(",");
        csvContent += index < data.length ? dataString+ "\n" : dataString;
@@ -370,7 +370,7 @@ function saveCSV(form){
     link.setAttribute("href", encodedUri);
     link.setAttribute("download", "ctab2x2.csv");
     document.body.appendChild(link); // Required for FF
-    link.click(); // This will download the data file named "my_data.csv".
+    link.click(); // This will download the data file named "ctab2x2.csv".
 }
 function csq(o,e,y) {
     if(e==0) { return 0 }
