@@ -156,9 +156,10 @@ function CalcStats(form) {
     form.Gam.value = Fmt(Gam)
 
     se = Math.sqrt((1-jStat(xb).sum()/cxx)*(1-jStat(cx).sum()/cxx)*bxx*bxx*bxx/9);
-    z = (con-dis)/se; form.z.value = Fmt(z)
-    if(z>0) z= -1*z;
-    p = jStat.normal.cdf(z, 0, 1) * 2;
+    z = (con-dis)/se;
+    form.z.value = Fmt(z);
+
+    p = (1-jStat.normal.cdf(Math.abs(z),0,1))*2;
     form.p.value = Fmt(p);
 
     Somers_dxy = (con-dis)/(bxx*(bxx-1)/2-TiedX)
