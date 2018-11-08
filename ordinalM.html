@@ -114,7 +114,7 @@ function tied(m, X=true) {
 }
 
 
-function Fmt(x) { 
+function Fmt(x) {
     var v
     if(x>=0) { v=''+(x+0.00005) } else { v=''+(x-0.00005) }
     return v.substring(0,v.indexOf('.')+5)
@@ -157,6 +157,7 @@ function CalcStats(form) {
 
     se = Math.sqrt((1-jStat(xb).sum()/cxx)*(1-jStat(cx).sum()/cxx)*bxx*bxx*bxx/9);
     z = (con-dis)/se; form.z.value = Fmt(z)
+    if(z>0) z= -1*z;
     p = jStat.normal.cdf(z, 0, 1) * 2;
     form.p.value = Fmt(p);
 
@@ -196,21 +197,21 @@ function CalcStats(form) {
     <P><INPUT type=reset value=Reset> <INPUT onclick=CalcStats(this.form) type=button value=Compute> <BR></P></CENTER>
     <HR>
     <div style="padding-left: 10%;">
-    <BR><INPUT onfocus=a11.focus() size=2 value=0 name="nRows"> Rows, and <INPUT 
-    onfocus=a11.focus() size=2 value=0 name="nCols"> Columns 
-    <P>Concordant Pairs = <INPUT onfocus=a11.focus() size=8 value=0 name="con"> , 
-    Discordant Pairs = <INPUT onfocus=a11.focus() size=8 value=0 name="dis"> , Tied on 
-    X = <INPUT onfocus=a11.focus() size=8 value=0 name="TiedX"> , Tied on Y = <INPUT 
+    <BR><INPUT onfocus=a11.focus() size=2 value=0 name="nRows"> Rows, and <INPUT
+    onfocus=a11.focus() size=2 value=0 name="nCols"> Columns
+    <P>Concordant Pairs = <INPUT onfocus=a11.focus() size=8 value=0 name="con"> ,
+    Discordant Pairs = <INPUT onfocus=a11.focus() size=8 value=0 name="dis"> , Tied on
+    X = <INPUT onfocus=a11.focus() size=8 value=0 name="TiedX"> , Tied on Y = <INPUT
     onfocus=a11.focus() size=8 value=0 name="TiedY"> </P>
-    <P>Gamma = <INPUT onfocus=a11.focus() size=8 value=0 name="Gam"> , z = <INPUT 
-    onfocus=a11.focus() size=10 value=0 name="z"> , Kendall's test for significant 
-    association: <FONT color=red>p-value&nbsp;= </FONT><INPUT onfocus=a11.focus() 
+    <P>Gamma = <INPUT onfocus=a11.focus() size=8 value=0 name="Gam"> , z = <INPUT
+    onfocus=a11.focus() size=10 value=0 name="z"> , Kendall's test for significant
+    association: <FONT color=red>p-value&nbsp;= </FONT><INPUT onfocus=a11.focus()
     size=10 value=0 name="p"></P>
     <P><FONT color=red><B>Other Statistics...</B></FONT> </P>
-    <P>Somers d.xy = <INPUT onfocus=a11.focus() size=8 value=0 name="Somers_dxy"> , 
-    Somers d.yx = <INPUT onfocus=a11.focus() size=8 value=0 name="Somers_dyx"> 
+    <P>Somers d.xy = <INPUT onfocus=a11.focus() size=8 value=0 name="Somers_dxy"> ,
+    Somers d.yx = <INPUT onfocus=a11.focus() size=8 value=0 name="Somers_dyx">
     (Analogous to slopes of fitted lines.)</P>
-    <P>Kendall Tau-b = <INPUT onfocus=a11.focus() size=8 value=0 name="Tau_b"> , 
+    <P>Kendall Tau-b = <INPUT onfocus=a11.focus() size=8 value=0 name="Tau_b"> ,
     Kendall Tau-c = <INPUT onfocus=a11.focus() size=8 value=0 name="Tau_c"> </P>
     <P></P>
     </div>
