@@ -1,4 +1,5 @@
-function Ln(x) { return Math.log(x) } function Exp(x) { return Math.exp(x)}
+function Ln(x) { return Math.log(x) }
+function Exp(x) { return Math.exp(x) }
 function xlx(x) { return x*Ln(x+1e-20) }
 function Abs(x) { return Math.abs(x) }
 function Sqrt(x) { return Math.sqrt(x) }
@@ -157,7 +158,10 @@ function CalcStats(form) {
         pval=Csp(csq(Cell_B,Ex_B,0.5)+csq(Cell_A,Ex_A,0.5)+csq(Cell_D,Ex_D,0.5)+csq(Cell_C,Ex_C,0.5))
     }
     form.Low_A.value=Fmt(Ex_A); form.Low_B.value=Fmt(Ex_B); form.Low_C.value=Fmt(Ex_C); form.Low_D.value=Fmt(Ex_D);
-    od=(Ex_A/Ex_B)/(Ex_C/Ex_D); form.od_lo.value=Fmt(od)
+// Merser Dec. 2019
+var Z = normsInv(pcrit/2,0,1) * Sqrt(1/Cell_A + 1/Cell_B + 1/Cell_C + 1/Cell_D)
+cilo = Exp(Ln(od)+Z); form.od_lo.value=Fmt(cilo)
+//    od=(Ex_A/Ex_B)/(Ex_C/Ex_D); form.od_lo.value=Fmt(od)
     rr=(Ex_A/Cell_r1)/(Ex_C/Cell_r2); form.rr_lo.value=Fmt(rr)
     kp=2*(Ex_A*Ex_D-Ex_B*Ex_C)/((Ex_B+Ex_A)*(Ex_B+Ex_D)+(Ex_A+Ex_C)*(Ex_D+Ex_C)); form.kp_lo.value=Fmt(kp)
     fc=(Ex_A+Ex_D)/(Ex_B+Ex_A+Ex_D+Ex_C); form.fc_lo.value=Fmt(fc); form.mcr_hi.value=Fmt(1-fc)
@@ -208,7 +212,9 @@ function CalcStats(form) {
         pval=Csp(csq(Cell_B,Ex_B,0.5)+csq(Cell_A,Ex_A,0.5)+csq(Cell_D,Ex_D,0.5)+csq(Cell_C,Ex_C,0.5))
     }
     form.High_A.value=Fmt(Ex_A); form.High_B.value=Fmt(Ex_B); form.High_C.value=Fmt(Ex_C); form.High_D.value=Fmt(Ex_D);
-    od=(Ex_A/Ex_B)/(Ex_C/Ex_D); form.od_hi.value=Fmt(od)
+//
+cihi = Exp(Ln(od)-Z); form.od_hi.value=Fmt(cihi)
+//    od=(Ex_A/Ex_B)/(Ex_C/Ex_D); form.od_hi.value=Fmt(od)
     rr=(Ex_A/Cell_r1)/(Ex_C/Cell_r2); form.rr_hi.value=Fmt(rr)
     kp=2*(Ex_A*Ex_D-Ex_B*Ex_C)/((Ex_B+Ex_A)*(Ex_B+Ex_D)+(Ex_A+Ex_C)*(Ex_D+Ex_C)); form.kp_hi.value=Fmt(kp)
     fc=(Ex_A+Ex_D)/(Ex_B+Ex_A+Ex_D+Ex_C); form.fc_hi.value=Fmt(fc); form.mcr_lo.value=Fmt(1-fc)
@@ -363,7 +369,7 @@ function saveCSV(form){
     data.forEach(function(infoArray, index){
        dataString = infoArray.join(",");
        csvContent += index < data.length ? dataString+ "\n" : dataString;
-    }); 
+    });
 
     var encodedUri = encodeURI(csvContent);
     var link = document.createElement("a");
@@ -493,7 +499,7 @@ $(document).ready(function(){
         "75",
         "50",
     ];
-    
+
     // Create a jqxComboBox
     $("#jqxcombobox").jqxComboBox({ source: source, selectedIndex: 2, width: '60px', height: '25px' });
 
