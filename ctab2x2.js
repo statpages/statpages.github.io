@@ -159,8 +159,8 @@ function CalcStats(form) {
     }
     form.Low_A.value=Fmt(Ex_A); form.Low_B.value=Fmt(Ex_B); form.Low_C.value=Fmt(Ex_C); form.Low_D.value=Fmt(Ex_D);
 // Merser Dec. 2019
-var Z = normsInv(pcrit/2,0,1) * Sqrt(1/Cell_A + 1/Cell_B + 1/Cell_C + 1/Cell_D)
-cilo = Exp(Ln(od)+Z); form.od_lo.value=Fmt(cilo)
+var Z = normsInv(1-pcrit/2,0,1) * Sqrt(1/Cell_A + 1/Cell_B + 1/Cell_C + 1/Cell_D)
+cilo = Exp(Ln(od)-Z); form.od_lo.value=Fmt(cilo)
 //    od=(Ex_A/Ex_B)/(Ex_C/Ex_D); form.od_lo.value=Fmt(od)
     rr=(Ex_A/Cell_r1)/(Ex_C/Cell_r2); form.rr_lo.value=Fmt(rr)
     kp=2*(Ex_A*Ex_D-Ex_B*Ex_C)/((Ex_B+Ex_A)*(Ex_B+Ex_D)+(Ex_A+Ex_C)*(Ex_D+Ex_C)); form.kp_lo.value=Fmt(kp)
@@ -213,7 +213,7 @@ cilo = Exp(Ln(od)+Z); form.od_lo.value=Fmt(cilo)
     }
     form.High_A.value=Fmt(Ex_A); form.High_B.value=Fmt(Ex_B); form.High_C.value=Fmt(Ex_C); form.High_D.value=Fmt(Ex_D);
 //
-cihi = Exp(Ln(od)-Z); form.od_hi.value=Fmt(cihi)
+cihi = Exp(Ln(od)+Z); form.od_hi.value=Fmt(cihi)
 //    od=(Ex_A/Ex_B)/(Ex_C/Ex_D); form.od_hi.value=Fmt(od)
     rr=(Ex_A/Cell_r1)/(Ex_C/Cell_r2); form.rr_hi.value=Fmt(rr)
     kp=2*(Ex_A*Ex_D-Ex_B*Ex_C)/((Ex_B+Ex_A)*(Ex_B+Ex_D)+(Ex_A+Ex_C)*(Ex_D+Ex_C)); form.kp_hi.value=Fmt(kp)

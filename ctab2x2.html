@@ -11,17 +11,17 @@
         <link   type="text/css" rel="stylesheet" href="mathscribe/jqmath-0.4.3.css">
         <script type="text/javascript" src="ctab2x2.js"></script>
         <script type="text/javascript" src="norminv.js"></script>
-        
+
         <link   type="text/css"rel="stylesheet" href="jqwidgets/jqwidgets/styles/jqx.base.css" />
         <script type="text/javascript" src="jqwidgets/jqwidgets/jqxcore.js"></script>
         <script type="text/javascript" src="jqwidgets/jqwidgets/jqxbuttons.js"></script>
         <script type="text/javascript" src="jqwidgets/jqwidgets/jqxscrollbar.js"></script>
         <script type="text/javascript" src="jqwidgets/jqwidgets/jqxlistbox.js"></script>
         <script type="text/javascript" src="jqwidgets/jqwidgets/jqxcombobox.js"></script>
-        
+
         <script src="js/jquery-linedtextarea.js"></script>
         <link href="js/jquery-linedtextarea.css" type="text/css" rel="stylesheet" />
-        
+
          <!-- Modal HTML embedded directly into document -->
         <div id="dialog" title="Adjusted Predictive Values" hidden>
             <div style="text-align: justify; padding: 10px;">
@@ -38,9 +38,9 @@
             </div>
         </div>
         <!-- Modal END -->
-        
+
         <title>JavaStat -- 2-way Contingency Table Analysis</title>
-        
+
         <!-- center both <td> and <input> content -->
         <style>
             table.observed td input, table.observed td { text-align: center; }
@@ -50,7 +50,7 @@
             .totals { color: green; border-right: solid 1px; }
             .butt   { border-bottom: solid 1px; }
         </style>
-        
+
     </head>
 <body style="background-color: rgb(255, 255, 238);">
 <center>
@@ -88,7 +88,7 @@ For more information about a particular index, click on the &lt;<font color="Blu
     Section 5.6, &nbsp;by Joseph L. Fleiss (Pub: John Wiley &amp; Sons, New York, 1981).
     This method is also described in Numerical Recipes in C (2nd Ed.) Section 15.6, by William H. Press et al. (Pub: Cambridge University Press, Cambridge UK, 1992).<br/>
     Wilson's method is used to find CI for adjusted predictive values. Ref: <i>Statistics with Confidence (2<sup>nd</sup> Ed.)</i>
-    by DG Altman et al. (Pub: British Medical Journal Books, UK 2000) p .46-7.<br/>
+    by DG Altman et al. (Pub: British Medical Journal Books, UK 2000) p. 46-7.<br/>
     The reference used for CI calculation for RIOC is: Relative Improvement Over Chance (RIOC) and Phi as Measures of Predictive Efficiency and Strength of Association in 2 × 2 TablesDavid P. Farrington and Rolf Loeber.
     Journal of Quantitative Criminology, Vol. 5, No. 3 (September 1989), p. 201-213.
 </p>
@@ -219,7 +219,7 @@ For more information about a particular index, click on the &lt;<font color="Blu
             <tr>
                 <td>
                     Total sample size
-                </td> 
+                </td>
                 <td>
                     <input type="text" name="tssz"  size="10" maxlength="10" value="1000" />
                 </td>
@@ -296,7 +296,7 @@ For more information about a particular index, click on the &lt;<font color="Blu
                     <td id="row_pr_r2" class="totals"></td>
             </table>
         </td>
-        <td valign="top"> 
+        <td valign="top">
             <table border="1" id="tbl">
                 <caption>
                     Column<br/>Propotions
@@ -384,7 +384,7 @@ For more information about a particular index, click on the &lt;<font color="Blu
     </tbody>
 </table>
 <p><br/>
-<p> 
+<p>
 <table border="1">
     <caption>
         Fisher Exact Test<br/>&nbsp;
