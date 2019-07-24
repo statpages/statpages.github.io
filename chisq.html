@@ -1,9 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html lang="en" xml:lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"> 
-  <head> 
+      xmlns="http://www.w3.org/1999/xhtml">
+  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="cache-control" content="no-cache" />
     <title>Calculate Expected Values and ChiSquare from a n x m Matrix</title>
@@ -13,21 +13,21 @@
     <script type="text/javascript" src="js/Utils.js"></script>
     <script src="js/jquery-linedtextarea.js"></script>
     <link href="js/jquery-linedtextarea.css" type="text/css" rel="stylesheet" />
-    
+
     <script type="text/javascript" src="js/Matrix.js"></script>
 
-        
-    
+
+
 <script type="text/javascript">
 
     $(document).ready(function(){
-    
+
         $(function() {
                 $("#txt").linedtextarea();
             });
-    
+
     });
-    
+
 /*
     Venables & Riply, MASS, p. 103
 */
@@ -118,11 +118,11 @@ function computeP(chi, df) {
 }
 
 function main() {
-    
+
     function madd(m) {
         return(m/sum);
     }
-    
+
     function mpwr(m) {
         return(m*m);
     }
@@ -130,13 +130,14 @@ function main() {
     function div(m1, m2) {
         return(m1/m2);
     }
-    
+
     var mtr = document.getElementById("txt").value;
     mtr = mtr.trim();                   // remove trailing white spaces and new lines
-    mtr = mtr.replace(/\t/g, ',');      // replace tabs with comma
-    mtr = mtr.replace(/\n/g, '],[');    // replace new line with '],['
+    mtr = mtr.replace(/ +/g, ',')
+    mtr = mtr.replace(/\t+/g, ',');      // replace tabs with comma
+    mtr = mtr.replace(/\n+/g, '],[');    // replace new line with '],['
     mtr = eval("[[" + mtr + "]]");      // add enclosing square brackets
-    
+
     with (Matrix) {
         var sum;
         var f = create(mtr);
@@ -173,7 +174,7 @@ function run_aux() {
     try {
         main();
     }
-        
+
   catch (e) {
     if (e != null) {
         writeln('***ERROR: ' + e);
@@ -189,14 +190,18 @@ function run_aux() {
     <style>
         table { border-collapse: collapse; }
     </style>
-    
-  </head> 
+
+  </head>
     <body onload="init('input','output');" style="background-color: rgb(255, 255, 238);">
         <center>
             <h2> <font color="Red">Expected Values and ChiSquare of any 2D Contingency Table</font></h2>
             <hr>
-            <p style="text-align: center; font-weight:bold">
-            Enter the observed numbers, separated by tabs or commas, rows with new lines. You can copy/paste Excel data<br>
+            <p style="text-align: center;">
+            Enter the observed figures (You may copy/paste Excel data)
+                <ul style="text-align:left;">
+                    <li>columns separated by space, tab or comma</li>
+                    <li>rows with new line</li>
+                </ul>
             </p>
             <table style="color: grey;">
             <tr>
@@ -230,5 +235,5 @@ function run_aux() {
             Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com</a>
             </p>
         </center>
-    </body> 
-</html> 
+    </body>
+</html>
