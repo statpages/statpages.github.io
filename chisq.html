@@ -133,9 +133,8 @@ function main() {
 
     var mtr = document.getElementById("txt").value;
     mtr = mtr.trim();                   // remove trailing white spaces and new lines
-    mtr = mtr.replace(/ +/g, ',')
-    mtr = mtr.replace(/\t+/g, ',');      // replace tabs with comma
-    mtr = mtr.replace(/\n+/g, '],[');    // replace new line with '],['
+    mtr = mtr.replace(/[ \t,]+/g, ',')  // replace space, tab and double comma with comma
+    mtr = mtr.replace(/\n+/g, '],[');   // replace new line with '],['
     mtr = eval("[[" + mtr + "]]");      // add enclosing square brackets
 
     with (Matrix) {
