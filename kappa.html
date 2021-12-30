@@ -1,19 +1,19 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
-<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="author" content="Soren Merser">
     <meta name="COPYRIGHT" content="&copy; December 2016 ">
     <meta http-equiv="cache-control" content="no-cache" />
-    
+
     <title>Nominally Scaled Data and the Kappa Statistics</title>
     <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="js/jquery-ui-1.13.0/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
     <script type="text/javascript" src="js/IOUtils.js"></script>
     <script type="text/javascript" src="jstat/dist/jstat.min.js"></script>
-    
+
     <link rel="icon" href="favicon.ico">
-    <link rel="stylesheet" type="text/css" href="js/jquery-ui-themes-1.13.0/themes/base/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="jqwidgets/jqwidgets/styles/jqx.base.css" />
     <script type="text/javascript" src="jqwidgets/jqwidgets/jqxcore.js"></script>
     <script type="text/javascript" src="jqwidgets/jqwidgets/jqxbuttons.js"></script>
@@ -162,7 +162,7 @@ function main() {
         for(var r=0; r<nr; r++) {
             for(var c=0; c<nc; c++) {
                 x = m[r][c];
-                tmp += x; 
+                tmp += x;
                 y = Math.pow(x, 2);
                 r2tot += y;
             }
@@ -170,9 +170,9 @@ function main() {
                 markLine(r);
                 throw "<font style='color:red;'>Unequal number of raters. " +  k + " expected, " + tmp + " found. Please check row: " + (r+1) + "</font>";
             }
-            tmp = 0; 
+            tmp = 0;
             }
-        return([k, r2tot]); // n raters, total squared row sums  
+        return([k, r2tot]); // n raters, total squared row sums
     }
 
 
@@ -183,7 +183,7 @@ function main() {
             denom += pq[c][0];
         denom = N*k*(k-1)*denom;
         return(1-(nom/denom));
-    } 
+    }
 
 
     function se(N, m, nj, pq) {
@@ -258,7 +258,7 @@ function run_aux() {
     try {
         main();
     }
-        
+
   catch (e) {
     if (e != null) {
         writeln('***ERROR: ' + e);
@@ -279,8 +279,8 @@ function run_aux() {
         div#output  { text-align: left; width:35%; }
         div#kappa   { text-align: left; width:35%; color:green; }
     </style>
-    
-  </head> 
+
+  </head>
     <body onload="init('input','output');" style="background-color: rgb(255, 255, 238);">
         <center>
             <h2> <font color="Red">Nominally Scaled Data and the Kappa Statistics</font></h2>
@@ -355,5 +355,5 @@ function run_aux() {
             Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com</a>
             </p>
         </center>
-    </body> 
-</html> 
+    </body>
+</html>

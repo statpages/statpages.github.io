@@ -1,18 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html lang="en" xml:lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"> 
-  <head> 
+      xmlns="http://www.w3.org/1999/xhtml">
+  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="cache-control" content="no-cache" />
     <title>Calculate Expected Values and ChiSquare from a n x m Matrix</title>
     <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="js/jquery-ui-1.13.0/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
     <script type="text/javascript" src="js/IOUtils.js"></script>
     <script type="text/javascript" src="jstat/dist/jstat.min.js"></script>
-    
-    <link rel="stylesheet" type="text/css" href="js/jquery-ui-themes-1.13.0/themes/base/jquery-ui.css">
+
+
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="jqwidgets/jqwidgets/styles/jqx.base.css" />
     <script type="text/javascript" src="jqwidgets/jqwidgets/jqxcore.js"></script>
     <script type="text/javascript" src="jqwidgets/jqwidgets/jqxbuttons.js"></script>
@@ -139,7 +140,7 @@ function main() {
         }
         sum = (sum/(N*k*(k-1))) - 1/(k-1);
         return(sum);
-        
+
     }
 
     function p3(m, nc, div) {
@@ -150,7 +151,7 @@ function main() {
             sum = sum + Math.pow(tmp, 3);
             }
         return(sum);
-        
+
     }
 
 
@@ -215,7 +216,7 @@ function run_aux() {
     try {
         main();
     }
-        
+
   catch (e) {
     if (e != null) {
         writeln('***ERROR: ' + e);
@@ -234,8 +235,8 @@ function run_aux() {
         div#output  { text-align: left; width:35%; }
         div#kappa   {text-align: left; width:35%; color:green; }
     </style>
-    
-  </head> 
+
+  </head>
     <body onload="init('input','output');" style="background-color: rgb(255, 255, 238);">
         <center>
             <h2> <font color="Red">Nominally Scaled Data and the Kappa Statistics (&#954;)</font></h2>
@@ -311,5 +312,5 @@ function run_aux() {
             Send e-mail to  <a href="mailto:statpages.org@gmail.com">statpages.org@gmail.com</a>
             </p>
         </center>
-    </body> 
-</html> 
+    </body>
+</html>
