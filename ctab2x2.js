@@ -14,11 +14,18 @@ var Ex_A; var Ex_B; var Ex_C; var Ex_D; var Sav_A; var Sav_B; var Sav_C; var Sav
 var cs; var od; var rr; var kp; var fc; var mcr; var sn; var sp; var pp; var np
 var arr; var rrr; var plr; var nlr; var dor; var yj; var nnd
 var dp; var nn; var nmi; var cc; var ca; var cp; var yq; var ets
+
+function checkNumber(event) {
+    var aCode = event.which ? event.which : event.keyCode;
+    if (aCode > 31 && (aCode < 48 || aCode > 57)) return false;
+return true;
+}
+
 function CalcTots(form) {
-    Cell_A = eval(form.Cell_A.value)
-    Cell_B = eval(form.Cell_B.value)
-    Cell_C = eval(form.Cell_C.value)
-    Cell_D = eval(form.Cell_D.value)
+    Cell_A = parseInt(eval(form.Cell_A.value))
+    Cell_B = parseInt(eval(form.Cell_B.value))
+    Cell_C = parseInt(eval(form.Cell_C.value))
+    Cell_D = parseInt(eval(form.Cell_D.value))
     Cell_r1 = Cell_A+Cell_B
     Cell_r2 = Cell_C+Cell_D
     Cell_c1 = Cell_A+Cell_C
