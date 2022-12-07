@@ -44,6 +44,7 @@
         <!-- center both <td> and <input> content -->
         <style>
             table.observed td input, table.observed td { text-align: center; height: 32px; }
+            table.observed tr { height: 38x; }
             #tbl    { border-collapse:collapse; text-align: center; width:75%; frame: void; }
             #tbl td { padding:2px; background-color:white; text-align:center; }
             caption { color: red; padding-bottom: 6px; font-weight: bold; }
@@ -142,10 +143,10 @@ For more information about a particular index, click on the &lt;<font color="Blu
                 Negative
             </td>
             <td>
-                <input type="text" name="Cell_C" size="8" value="" onkeypress="return checkNumber(event)" onblur="CalcTots(this.form)" type="text"> = c <font style="color:green;">(FN)</font>
+                <input type="text" name="Cell_C" size="8" value="" onkeypress="return checkNumber(event)" onblur="CalcTots(this.form)"> = c <font style="color:green;">(FN)</font>
             </td>
             <td>
-                <input type="text" name="Cell_D" size="8" value="" onkeypress="return checkNumber(event)" onblur="CalcTots(this.form)" id="Cell_D"> = d <font style="color:green;">(TN)</font>
+                <input type="text" name="Cell_D" size="8" value="" onkeypress="return checkNumber(event)" onblur="CalcTots(this.form)"> = d <font style="color:green;">(TN)</font>
             </td>
             <td id="r2">
             </td>
@@ -171,7 +172,7 @@ For more information about a particular index, click on the &lt;<font color="Blu
     <div style="display: inline-block;">Confidence Level:&nbsp; </div>
     <div style="display: inline-block;" name="ConfLevel" id="jqxcombobox"></div>
     <div style="display: inline-block;">&nbsp;%</div>
-    <br/><i>Select from list or enter a more appropriate conf. level</i>
+    <br/><i>Select from list or enter the appropriate conf. level manually</i>
     <p> <input type="button" value="Compute" id="compute" class="butt"> <input type="button" value="Download result as CSV" id="csv" class="butt" hidden>
 </div>
 <p/><br/><br/>
